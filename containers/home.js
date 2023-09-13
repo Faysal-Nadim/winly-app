@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartItems } from "../redux/actions";
 
 /**
  * @author
@@ -7,6 +9,15 @@ import { View, Text, StyleSheet } from "react-native";
  **/
 export const Home = (props) => {
   const { container } = styles;
+  const dispatch = useDispatch();
+
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (auth.authenticate) {
+      dispatch(getCartItems());
+    }
+  }, [auth.authenticate]);
   return (
     <View style={container}>
       <Text>Home</Text>

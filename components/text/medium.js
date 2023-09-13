@@ -21,7 +21,7 @@ export const MediumView = (props) => {
   }, []);
 
   return (
-    <Text style={{ fontFamily: loaded ? "Sora" : null, fontWeight: 600 }}>
+    <Text style={{ fontFamily: loaded ? "Sora" : null, fontWeight: 500 }}>
       {props.children}
     </Text>
   );

@@ -11,6 +11,7 @@ import { Home } from "../containers/home";
 import { Login } from "../containers/login";
 import { Cart } from "../containers/cart";
 import { Profile } from "../containers/profile";
+import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 // import { Login } from "./login";
 // import { Verify } from "./verify";
@@ -43,14 +44,13 @@ const CompanyTab = ({ children, onPress }) => (
 export const MyTabs = () => {
   const [loaded, setLoaded] = useState(false);
 
-  //   const auth = useSelector((state) => state.auth);
-  //   const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart.cart);
 
-  const totalItem = 3;
-  // cart.cartItems &&
-  // Object.keys(cart.cartItems).reduce(function (qty, key) {
-  //   return qty + cart.cartItems[key].qty;
-  // }, 0);
+  const totalItem =
+    cart.cartItems &&
+    Object.keys(cart.cartItems).reduce(function (qty, key) {
+      return qty + cart.cartItems[key].qty;
+    }, 0);
 
   useEffect(() => {
     Font.loadAsync({

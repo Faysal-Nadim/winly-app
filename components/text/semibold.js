@@ -21,7 +21,7 @@ export const SemiBoldView = (props) => {
   }, []);
 
   return (
-    <Text style={{ fontFamily: loaded ? "Sora" : null, fontWeight: 700 }}>
+    <Text style={{ fontFamily: loaded ? "Sora" : null, fontWeight: 600 }}>
       {props.children}
     </Text>
   );
