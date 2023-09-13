@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axiosInstance from "../helpers/axios";
 import { isUserLoggedIn } from "./auth.action";
 import { orderConstant } from "./constants";
@@ -10,7 +11,7 @@ export const orderPlace = (order) => {
       const res = await axiosInstance.post(`/user/order/place`, order);
       if (res.status === 201) {
         const { order, user } = res.data;
-        window.localStorage.setItem("user", JSON.stringify(user));
+        await AsyncStorage.setItem("user", JSON.stringify(user));
         dispatch(isUserLoggedIn());
         dispatch({
           type: orderConstant.ORDER_PLACE_SUCCESS,

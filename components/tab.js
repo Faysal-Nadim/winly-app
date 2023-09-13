@@ -9,6 +9,8 @@ import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 import { Home } from "../containers/home";
 import { Login } from "../containers/login";
+import { Cart } from "../containers/cart";
+import { Profile } from "../containers/profile";
 // import { useSelector } from "react-redux";
 // import { Login } from "./login";
 // import { Verify } from "./verify";
@@ -169,7 +171,7 @@ export const MyTabs = () => {
       <Tab.Screen
         name="Cart"
         // component={auth.authenticate ? Cart : Login}
-        component={Home}
+        component={Cart}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -225,9 +227,10 @@ export const MyTabs = () => {
           ),
         }}
       />
+
       <Tab.Screen
-        name="Profile"
-        component={Login}
+        name="Account"
+        component={Profile}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -252,7 +255,7 @@ export const MyTabs = () => {
                   fontFamily: loaded ? "Sora" : null,
                 }}
               >
-                PROFILE
+                ACCOUNT
               </Text>
             </View>
           ),

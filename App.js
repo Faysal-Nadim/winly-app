@@ -1,12 +1,10 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import { MyTabs } from "./components/tabs";
 // import { Login } from "./components/login";
-// import { Provider, useDispatch, useSelector } from "react-redux";
-// import store from "./store";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import store from "./redux/store";
 import { useEffect, useState } from "react";
-// import { isUserLoggedIn } from "./actions";
 // import { Product } from "./components/product";
 // import { ProductHeader } from "./components/product.header";
 // import { Signup } from "./components/signup";
@@ -20,21 +18,25 @@ import Toast from "react-native-toast-message";
 import * as Font from "expo-font";
 import { Home } from "./containers/home";
 import { MyTabs } from "./components/tab";
+import { isUserLoggedIn } from "./redux/actions";
+import { Login } from "./containers/login";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { Address } from "./components/address";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  // const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
+  // const auth = { authenticate: true };
   const [loaded, setLoaded] = useState(false);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (!auth.authenticate) {
-  //     dispatch(isUserLoggedIn());
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!auth.authenticate) {
+      dispatch(isUserLoggedIn());
+    }
+  }, []);
 
   useEffect(() => {
     Font.loadAsync({
@@ -49,17 +51,18 @@ export default function App() {
   }, []);
 
   return (
-    // <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="MyTab"
-          component={MyTabs}
-          options={{
-            headerShown: false,
-          }}
-        />
-        {/* <Stack.Screen
+    <Provider store={store}>
+      <NavigationContainer>
+        {auth.authenticate ? (
+          <Stack.Navigator>
+            <Stack.Screen
+              name="MyTab"
+              component={MyTabs}
+              options={{
+                headerShown: false,
+              }}
+            />
+            {/* <Stack.Screen
             name="Product"
             options={{
               headerTitle: ProductHeader,
@@ -153,10 +156,21 @@ export default function App() {
               },
             }}
           /> */}
-      </Stack.Navigator>
-    </NavigationContainer>
-    // <Toast />
-    // </Provider>
+          </Stack.Navigator>
+        ) : (
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        )}
+      </NavigationContainer>
+      <Toast />
+    </Provider>
   );
 }
 

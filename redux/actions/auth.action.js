@@ -54,18 +54,18 @@ export const signUp = (user) => {
           type: authConstant.SIGNUP_SUCCESS,
           payload: res.data.user,
         });
-        Swal.fire({
-          icon: "success",
-          title: "Registration Success",
-          text: `${res.data.msg}`,
-          showConfirmButton: false,
-          timer: 1500,
-          iconColor: "#000",
-        }).then(() => {
-          window.location.replace(
-            `/login/verify-email?email=${res.data.user.email}`
-          );
-        });
+        // Swal.fire({
+        //   icon: "success",
+        //   title: "Registration Success",
+        //   text: `${res.data.msg}`,
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        //   iconColor: "#000",
+        // }).then(() => {
+        //   window.location.replace(
+        //     `/login/verify-email?email=${res.data.user.email}`
+        //   );
+        // });
       } else {
         dispatch({
           type: authConstant.SIGNUP_FAILURE,
@@ -78,14 +78,14 @@ export const signUp = (user) => {
         type: authConstant.SIGNUP_FAILURE,
         payload: { error: data.error },
       });
-      Swal.fire({
-        icon: "error",
-        title: "Registration Failed",
-        text: `${data.msg}`,
-        showConfirmButton: false,
-        timer: 1500,
-        iconColor: "#000",
-      });
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Registration Failed",
+      //   text: `${data.msg}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   iconColor: "#000",
+      // });
     }
   };
 };
@@ -120,15 +120,15 @@ export const signout = () => {
     if (res.status === 200) {
       await AsyncStorage.multiRemove(["token", "user"]);
       dispatch({ type: authConstant.LOGOUT_SUCCESS });
-      Swal.fire({
-        icon: "info",
-        title: "Logout Success",
-        showConfirmButton: false,
-        timer: 1000,
-        iconColor: "#000",
-      }).then(() => {
-        window.location.replace("/login");
-      });
+      // Swal.fire({
+      //   icon: "info",
+      //   title: "Logout Success",
+      //   showConfirmButton: false,
+      //   timer: 1000,
+      //   iconColor: "#000",
+      // }).then(() => {
+      //   window.location.replace("/login");
+      // });
     } else {
       dispatch({
         type: authConstant.LOGOUT_FAILURE,
@@ -155,13 +155,13 @@ export const requestCode = (data) => {
         type: authConstant.CODE_FAILURE,
         payload: { msg: data.msg, status: error.response.status },
       });
-      Swal.fire({
-        icon: "info",
-        title: "Something went wrong. Please click Resend button.",
-        showConfirmButton: false,
-        timer: 1500,
-        iconColor: "#000",
-      });
+      // Swal.fire({
+      //   icon: "info",
+      //   title: "Something went wrong. Please click Resend button.",
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   iconColor: "#000",
+      // });
     }
   };
 };
@@ -176,16 +176,16 @@ export const verifyCode = (data) => {
           type: authConstant.VERIFY_SUCCESS,
           payload: res.data,
         });
-        Swal.fire({
-          icon: "success",
-          title: "Congratulations!",
-          text: `${res.data.msg}`,
-          showConfirmButton: false,
-          timer: 1500,
-          iconColor: "#000",
-        }).then(() => {
-          window.location.replace("/login");
-        });
+        // Swal.fire({
+        //   icon: "success",
+        //   title: "Congratulations!",
+        //   text: `${res.data.msg}`,
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        //   iconColor: "#000",
+        // }).then(() => {
+        //   window.location.replace("/login");
+        // });
       }
     } catch (error) {
       const { data } = error.response;
@@ -193,13 +193,13 @@ export const verifyCode = (data) => {
         type: authConstant.VERIFY_FAILURE,
         payload: { msg: data.msg, status: error.response.status },
       });
-      Swal.fire({
-        icon: "error",
-        title: `${data.msg}`,
-        showConfirmButton: false,
-        timer: 1500,
-        iconColor: "#000",
-      });
+      // Swal.fire({
+      //   icon: "error",
+      //   title: `${data.msg}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   iconColor: "#000",
+      // });
     }
   };
 };
@@ -217,14 +217,14 @@ export const verifyCodeForPassword = (data) => {
           type: authConstant.VERIFY_SUCCESS,
           payload: res.data,
         });
-        Swal.fire({
-          icon: "success",
-          title: "Congratulations!",
-          text: `${res.data.msg}`,
-          showConfirmButton: false,
-          timer: 1000,
-          iconColor: "#000",
-        });
+        // Swal.fire({
+        //   icon: "success",
+        //   title: "Congratulations!",
+        //   text: `${res.data.msg}`,
+        //   showConfirmButton: false,
+        //   timer: 1000,
+        //   iconColor: "#000",
+        // });
       }
     } catch (error) {
       const { data } = error.response;
@@ -232,13 +232,13 @@ export const verifyCodeForPassword = (data) => {
         type: authConstant.VERIFY_FAILURE,
         payload: { msg: data.msg, status: error.response.status },
       });
-      Swal.fire({
-        icon: "error",
-        title: `${data.msg}`,
-        showConfirmButton: false,
-        timer: 1500,
-        iconColor: "#000",
-      });
+      // Swal.fire({
+      //   icon: "error",
+      //   title: `${data.msg}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   iconColor: "#000",
+      // });
     }
   };
 };
@@ -260,20 +260,20 @@ export const updateImage = (form) => {
 
           if (res.status === 200) {
             const { user, msg } = res.data;
-            window.localStorage.setItem("user", JSON.stringify(user));
+            await AsyncStorage.setItem("user", JSON.stringify(user));
             dispatch({
               type: authConstant.PICTURE_SUCCESS,
               payload: user,
             });
-            Swal.fire({
-              icon: "success",
-              title: `${msg}`,
-              showConfirmButton: false,
-              timer: 1000,
-              iconColor: "#000",
-            }).then(() => {
-              window.location.reload();
-            });
+            // Swal.fire({
+            //   icon: "success",
+            //   title: `${msg}`,
+            //   showConfirmButton: false,
+            //   timer: 1000,
+            //   iconColor: "#000",
+            // }).then(() => {
+            //   window.location.reload();
+            // });
           }
         } catch (err) {
           const { data } = err.response;
@@ -281,13 +281,13 @@ export const updateImage = (form) => {
             type: authConstant.PICTURE_FAILURE,
             payload: { msg: data.msg, status: err.response.status },
           });
-          Swal.fire({
-            icon: "error",
-            title: `${data.msg}`,
-            showConfirmButton: false,
-            timer: 1500,
-            iconColor: "#000",
-          });
+          // Swal.fire({
+          //   icon: "error",
+          //   title: `${data.msg}`,
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          //   iconColor: "#000",
+          // });
         }
       })
       .catch((error) => {
@@ -307,18 +307,18 @@ export const updateProfile = (data) => {
 
       if (res.status === 200) {
         const { user, msg } = res.data;
-        window.localStorage.setItem("user", JSON.stringify(user));
+        await AsyncStorage.setItem("user", JSON.stringify(user));
         dispatch({
           type: authConstant.PICTURE_SUCCESS,
           payload: user,
         });
-        Swal.fire({
-          icon: "success",
-          title: `${msg}`,
-          showConfirmButton: false,
-          timer: 1000,
-          iconColor: "#000",
-        });
+        // Swal.fire({
+        //   icon: "success",
+        //   title: `${msg}`,
+        //   showConfirmButton: false,
+        //   timer: 1000,
+        //   iconColor: "#000",
+        // });
       }
     } catch (err) {
       const { data } = err.response;
@@ -326,13 +326,13 @@ export const updateProfile = (data) => {
         type: authConstant.PICTURE_FAILURE,
         payload: { msg: data.msg, status: err.response.status },
       });
-      Swal.fire({
-        icon: "error",
-        title: `${data.msg}`,
-        showConfirmButton: false,
-        timer: 1500,
-        iconColor: "#000",
-      });
+      // Swal.fire({
+      //   icon: "error",
+      //   title: `${data.msg}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   iconColor: "#000",
+      // });
     }
   };
 };
@@ -348,13 +348,13 @@ export const updatePassword = (data) => {
           type: authConstant.PASS_UPDATE_SUCCESS,
           payload: res.data,
         });
-        Swal.fire({
-          icon: "success",
-          title: `${res.data.msg}`,
-          showConfirmButton: false,
-          timer: 1000,
-          iconColor: "#000",
-        });
+        // Swal.fire({
+        //   icon: "success",
+        //   title: `${res.data.msg}`,
+        //   showConfirmButton: false,
+        //   timer: 1000,
+        //   iconColor: "#000",
+        // });
       }
     } catch (err) {
       const { data } = err.response;
@@ -362,13 +362,13 @@ export const updatePassword = (data) => {
         type: authConstant.PICTURE_FAILURE,
         payload: { msg: data.msg, status: err.response.status },
       });
-      Swal.fire({
-        icon: "error",
-        title: `${data.msg}`,
-        showConfirmButton: false,
-        timer: 1500,
-        iconColor: "#000",
-      });
+      // Swal.fire({
+      //   icon: "error",
+      //   title: `${data.msg}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   iconColor: "#000",
+      // });
     }
   };
 };
@@ -384,15 +384,15 @@ export const resetPassword = (data) => {
           type: authConstant.PASS_UPDATE_SUCCESS,
           payload: res.data,
         });
-        Swal.fire({
-          icon: "success",
-          title: `${res.data.msg}`,
-          showConfirmButton: false,
-          timer: 1000,
-          iconColor: "#000",
-        }).then(() => {
-          window.location.replace("/login");
-        });
+        // Swal.fire({
+        //   icon: "success",
+        //   title: `${res.data.msg}`,
+        //   showConfirmButton: false,
+        //   timer: 1000,
+        //   iconColor: "#000",
+        // }).then(() => {
+        //   window.location.replace("/login");
+        // });
       }
     } catch (err) {
       const { data } = err.response;
@@ -400,13 +400,13 @@ export const resetPassword = (data) => {
         type: authConstant.PICTURE_FAILURE,
         payload: { msg: data.msg, status: err.response.status },
       });
-      Swal.fire({
-        icon: "error",
-        title: `${data.msg}`,
-        showConfirmButton: false,
-        timer: 1500,
-        iconColor: "#000",
-      });
+      // Swal.fire({
+      //   icon: "error",
+      //   title: `${data.msg}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   iconColor: "#000",
+      // });
     }
   };
 };

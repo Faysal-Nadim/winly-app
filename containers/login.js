@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/actions/auth.action";
+import { login } from "../redux/actions";
 import { useNavigation } from "@react-navigation/native";
 
 // import * as Google from "expo-google-app-auth";
@@ -77,15 +77,15 @@ export const Login = (props) => {
     });
   }, []);
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  //   const userlogin = () => {
-  //     const user = {
-  //       email: email,
-  //       password: password,
-  //     };
-  //     dispatch(login(user));
-  //   };
+  const userlogin = () => {
+    const user = {
+      email: email,
+      password: password,
+    };
+    dispatch(login(user));
+  };
 
   const { container } = styles;
   return (
@@ -150,7 +150,7 @@ export const Login = (props) => {
         />
       </View>
 
-      <TouchableOpacity style={{ margin: 20 }}>
+      <TouchableOpacity style={{ margin: 20 }} onPress={userlogin}>
         <View
           style={{
             width: 100,
