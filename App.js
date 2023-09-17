@@ -21,6 +21,7 @@ import { MyTabs } from "./components/tab";
 import { isUserLoggedIn } from "./redux/actions";
 import { Login } from "./containers/login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Profile } from "./containers/profile";
 // import { Address } from "./components/address";
 
 const Stack = createNativeStackNavigator();
@@ -62,6 +63,19 @@ export default function App() {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                // headerShown: false,
+                headerTitle: "Profile Information",
+                headerStyle: { backgroundColor: "#FFFFFF" },
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontFamily: loaded ? "Sora" : null,
+                },
+              }}
+            />
             {/* <Stack.Screen
             name="Product"
             options={{
@@ -94,18 +108,7 @@ export default function App() {
               headerStyle: { backgroundColor: "#FFFFFF" },
             }}
           />
-          <Stack.Screen
-            name="Checkout"
-            component={Checkout}
-            options={{
-              // headerShown: false,
-              headerStyle: { backgroundColor: "#FFFFFF" },
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                fontFamily: loaded ? "Montserrat-Medium" : null,
-              },
-            }}
-          />
+          
           <Stack.Screen
             name="Payment"
             component={Payment}

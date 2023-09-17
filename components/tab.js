@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { Home } from "../containers/home";
 import { Login } from "../containers/login";
 import { Cart } from "../containers/cart";
-import { Profile } from "../containers/profile";
+import { Account } from "../containers/account";
 import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 // import { Login } from "./login";
@@ -230,7 +230,7 @@ export const MyTabs = () => {
 
       <Tab.Screen
         name="Account"
-        component={Profile}
+        component={Account}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
