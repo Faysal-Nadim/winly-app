@@ -152,7 +152,12 @@ export const Account = (props) => {
                 </View>
                 <MediumView>Offer</MediumView>
               </TouchableOpacity>
-              <TouchableOpacity style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() =>
+                  navigation.navigate("Wallet", { user: auth?.user })
+                }
+              >
                 <View
                   style={{
                     height: 50,
@@ -271,6 +276,9 @@ export const Account = (props) => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("PaymentMethod", { user: auth?.user })
+              }
               style={{
                 backgroundColor: "#fff",
                 marginTop: 10,

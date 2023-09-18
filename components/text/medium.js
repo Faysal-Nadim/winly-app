@@ -15,13 +15,17 @@ export const MediumView = (props) => {
         uri: require("../../assets/fonts/Sora-Regular.ttf"),
         display: Font.FontDisplay.FALLBACK,
       },
+      "Sora-Medium": {
+        uri: require("../../assets/fonts/Sora-Medium.ttf"),
+        display: Font.FontDisplay.FALLBACK,
+      },
     }).then(() => {
       setLoaded(true);
     });
   }, []);
 
   return (
-    <Text style={{ fontFamily: loaded ? "Sora" : null, fontWeight: 500 }}>
+    <Text style={{ fontFamily: loaded ? "Sora-Medium" : null }}>
       {props.children}
     </Text>
   );

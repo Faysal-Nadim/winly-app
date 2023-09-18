@@ -22,6 +22,8 @@ import { isUserLoggedIn } from "./redux/actions";
 import { Login } from "./containers/login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Profile } from "./containers/profile";
+import { PaymentMethod } from "./containers/paymentMethod";
+import { Wallet } from "./containers/wallet";
 // import { Address } from "./components/address";
 
 const Stack = createNativeStackNavigator();
@@ -69,6 +71,32 @@ export default function App() {
               options={{
                 // headerShown: false,
                 headerTitle: "Profile Information",
+                headerStyle: { backgroundColor: "#FFFFFF" },
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontFamily: loaded ? "Sora" : null,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="PaymentMethod"
+              component={PaymentMethod}
+              options={{
+                // headerShown: false,
+                headerTitle: "Payment Methods",
+                headerStyle: { backgroundColor: "#FFFFFF" },
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontFamily: loaded ? "Sora" : null,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Wallet"
+              component={Wallet}
+              options={{
+                // headerShown: false,
+                headerTitle: "Wallet",
                 headerStyle: { backgroundColor: "#FFFFFF" },
                 headerTitleAlign: "center",
                 headerTitleStyle: {

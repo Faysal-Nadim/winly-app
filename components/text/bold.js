@@ -15,13 +15,17 @@ export const BoldView = (props) => {
         uri: require("../../assets/fonts/Sora-Regular.ttf"),
         display: Font.FontDisplay.FALLBACK,
       },
+      "Sora-Bold": {
+        uri: require("../../assets/fonts/Sora-Bold.ttf"),
+        display: Font.FontDisplay.FALLBACK,
+      },
     }).then(() => {
       setLoaded(true);
     });
   }, []);
 
   return (
-    <Text style={{ fontFamily: loaded ? "Sora" : null, fontWeight: 900 }}>
+    <Text style={{ fontFamily: loaded ? "Sora-Bold" : null }}>
       {props.children}
     </Text>
   );
