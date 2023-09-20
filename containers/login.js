@@ -87,9 +87,9 @@ export const Login = (props) => {
     dispatch(login(user));
   };
 
-  const { container } = styles;
+  const { container, container_center } = styles;
   return (
-    <View style={container}>
+    <View style={container_center}>
       <View style={{ height: 200, justifyContent: "center" }}>
         <Image
           resizeMode="contain"
@@ -259,6 +259,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // justifyContent: "center",
+    alignItems: "center",
+  },
+  container_center: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
 });
