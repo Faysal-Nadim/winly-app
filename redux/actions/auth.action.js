@@ -337,6 +337,38 @@ export const updateProfile = (data) => {
   };
 };
 
+export const updateNotification = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: authConstant.NOTIFICATION_REQUEST });
+      const res = await axiosInstance.post(
+        `/user/auth/update/notification`,
+        data
+      );
+
+      if (res.status === 200) {
+        const { user, msg } = res.data;
+        await AsyncStorage.setItem("user", JSON.stringify(user));
+        dispatch({
+          type: authConstant.NOTIFICATION_SUCCESS,
+          payload: user,
+        });
+        Toast.show({
+          type: "success",
+          text1: `Hello ${user.fullName}`,
+          text2: "Your Notification Settings Updated.",
+        });
+      }
+    } catch (err) {
+      const { data } = err.response;
+      dispatch({
+        type: authConstant.NOTIFICATION_FAILURE,
+        payload: { msg: data.msg, status: err.response.status },
+      });
+    }
+  };
+};
+
 export const updatePassword = (data) => {
   return async (dispatch) => {
     try {

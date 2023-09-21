@@ -25,6 +25,7 @@ import { Profile } from "./containers/profile";
 import { PaymentMethod } from "./containers/paymentMethod";
 import { Wallet } from "./containers/wallet";
 import { Tickets } from "./containers/tickets";
+import { Notification } from "./containers/notification";
 // import { Address } from "./components/address";
 
 const Stack = createNativeStackNavigator();
@@ -111,6 +112,19 @@ export default function App() {
               options={{
                 // headerShown: false,
                 headerTitle: "Active Tickets",
+                headerStyle: { backgroundColor: "#FFFFFF" },
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontFamily: loaded ? "Sora" : null,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Notification"
+              component={Notification}
+              options={{
+                // headerShown: false,
+                headerTitle: "Notification",
                 headerStyle: { backgroundColor: "#FFFFFF" },
                 headerTitleAlign: "center",
                 headerTitleStyle: {

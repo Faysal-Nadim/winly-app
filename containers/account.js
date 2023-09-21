@@ -189,6 +189,9 @@ export const Account = (props) => {
             }}
           >
             <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Notification", { user: auth?.user })
+              }
               style={{
                 backgroundColor: "#fff",
                 marginTop: 10,

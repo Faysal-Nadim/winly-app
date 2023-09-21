@@ -47,10 +47,11 @@ export const MyTabs = () => {
   const cart = useSelector((state) => state.cart.cart);
 
   const totalItem =
-    cart.cartItems &&
-    Object.keys(cart.cartItems).reduce(function (qty, key) {
-      return qty + cart.cartItems[key].qty;
-    }, 0);
+    cart?.cartItems?.length > 0
+      ? Object.keys(cart.cartItems).reduce(function (qty, key) {
+          return qty + cart.cartItems[key].qty;
+        }, 0)
+      : 0;
 
   useEffect(() => {
     Font.loadAsync({

@@ -121,6 +121,27 @@ export default (state = initState, action) => {
         loading: false,
       };
       break;
+    case authConstant.NOTIFICATION_REQUEST:
+      state = {
+        ...state,
+        loading: true,
+        error: null,
+      };
+      break;
+    case authConstant.NOTIFICATION_SUCCESS:
+      state = {
+        ...state,
+        loading: false,
+        error: null,
+        user: action.payload,
+      };
+    case authConstant.NOTIFICATION_FAILURE:
+      state = {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+      break;
     case authConstant.PICTURE_REQUEST:
       state = {
         ...state,
