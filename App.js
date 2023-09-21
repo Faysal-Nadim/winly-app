@@ -24,6 +24,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Profile } from "./containers/profile";
 import { PaymentMethod } from "./containers/paymentMethod";
 import { Wallet } from "./containers/wallet";
+import { Tickets } from "./containers/tickets";
 // import { Address } from "./components/address";
 
 const Stack = createNativeStackNavigator();
@@ -97,6 +98,19 @@ export default function App() {
               options={{
                 // headerShown: false,
                 headerTitle: "Wallet",
+                headerStyle: { backgroundColor: "#FFFFFF" },
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontFamily: loaded ? "Sora" : null,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Ticket"
+              component={Tickets}
+              options={{
+                // headerShown: false,
+                headerTitle: "Active Tickets",
                 headerStyle: { backgroundColor: "#FFFFFF" },
                 headerTitleAlign: "center",
                 headerTitleStyle: {
