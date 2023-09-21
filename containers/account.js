@@ -57,7 +57,7 @@ export const Account = (props) => {
             >
               <View>
                 <Image
-                  source={require("../assets/pp.jpeg")}
+                  source={{ uri: auth?.user?.img?.url }}
                   style={{
                     height: 100,
                     width: 100,
@@ -115,7 +115,10 @@ export const Account = (props) => {
                 </View>
                 <MediumView>Profile</MediumView>
               </TouchableOpacity>
-              <TouchableOpacity style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("Ticket")}
+              >
                 <View
                   style={{
                     height: 50,
