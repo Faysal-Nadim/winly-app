@@ -18,6 +18,7 @@ export const Home = (props) => {
       dispatch(getCartItems());
     }
   }, [auth.authenticate]);
+
   return (
     <View style={container}>
       <Text>Home</Text>
