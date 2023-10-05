@@ -6,6 +6,7 @@ import {
   Switch,
   SafeAreaView,
   StatusBar,
+  Image,
 } from "react-native";
 import { MediumView } from "../components/text/medium";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +21,7 @@ export const Notification = (props) => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  const auth = useSelector((state) => state.auth);
 
   const [email, setEmail] = useState(user?.notification?.email);
   const [sms, setSms] = useState(user?.notification?.sms);
@@ -136,6 +138,26 @@ export const Notification = (props) => {
           />
         </View>
       </View>
+      {auth.loading && (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "#f3f3f3",
+            opacity: 0.5,
+          }}
+        >
+          <Image
+            source={require("../assets/loading.gif")}
+            style={{ height: 40, width: 40 }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
