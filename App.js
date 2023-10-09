@@ -26,6 +26,7 @@ import { PaymentMethod } from "./containers/paymentMethod";
 import { Wallet } from "./containers/wallet";
 import { Tickets } from "./containers/tickets";
 import { Notification } from "./containers/notification";
+import { Verify } from "./containers/verify";
 // import { Address } from "./components/address";
 
 const Stack = createNativeStackNavigator();
@@ -223,6 +224,14 @@ export default function App() {
               component={Login}
               options={{
                 headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Verify"
+              component={Verify}
+              options={{
+                headerShown: false,
+                headerStyle: { backgroundColor: "#FFFFFF" },
               }}
             />
           </Stack.Navigator>

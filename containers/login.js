@@ -9,6 +9,8 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -60,11 +62,11 @@ export const Login = (props) => {
   //   }
   // };
 
-  //   useEffect(() => {
-  //     if (auth.error !== null && auth.error.status === 403) {
-  //       navigation.navigate("Verify", { email: email });
-  //     }
-  //   }, [auth.error]);
+  useEffect(() => {
+    if (auth.error !== null && auth.error.status === 403) {
+      navigation.navigate("Verify", { email: email });
+    }
+  }, [auth.error]);
 
   useEffect(() => {
     Font.loadAsync({
@@ -90,18 +92,18 @@ export const Login = (props) => {
 
   const { container, container_center } = styles;
   return (
-    <View style={container_center}>
-      <View style={{ height: 200, justifyContent: "center" }}>
+    <SafeAreaView style={container}>
+      <View>
         <Image
           resizeMode="contain"
           source={require("../assets/winly-big.png")}
           style={{
             height: 100,
             width: 160,
-            marginBottom: -50,
           }}
         />
       </View>
+
       <View>
         <Text
           style={{
@@ -112,6 +114,7 @@ export const Login = (props) => {
           Welcome To Winly LLC.
         </Text>
       </View>
+      <View style={{ marginVertical: 16 }} />
       <View>
         <TextInput
           value={email}
@@ -172,7 +175,7 @@ export const Login = (props) => {
           </Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={{ marginBottom: 20 }}>
+      {/* <TouchableOpacity style={{ marginBottom: 20 }}>
         <Image
           resizeMode="contain"
           source={require("../assets/login.png")}
@@ -184,7 +187,7 @@ export const Login = (props) => {
             borderWidth: 1,
           }}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View
         style={{
           flexDirection: "row",
@@ -218,32 +221,43 @@ export const Login = (props) => {
           }}
         />
       </View>
-      <TouchableOpacity
+      <View
         style={{ flexDirection: "row", marginTop: 15 }}
-        onPress={() => navigation.navigate("Signup")}
+        // onPress={() => navigation.navigate("Signup")}
       >
-        <Text style={{ fontFamily: loaded ? "Sora" : null, fontSize: 15 }}>
+        <Text style={{ fontFamily: loaded ? "Sora" : null, fontSize: 17 }}>
           New User?
         </Text>
-        <Text
+      </View>
+      <TouchableOpacity style={{ margin: 20 }} onPress={userlogin}>
+        <View
           style={{
-            fontFamily: loaded ? "Sora" : null,
-            color: "#1461AC",
-            fontSize: 15,
+            width: 150,
+            backgroundColor: "#FF3624",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 8,
+            borderRadius: 5,
           }}
         >
-          {" "}
-          Create One
-        </Text>
+          <Text
+            style={{
+              color: "#fff",
+              fontFamily: loaded ? "Sora" : null,
+            }}
+          >
+            Register Now
+          </Text>
+        </View>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Image
-          resizeMode="contain"
-          source={require("../assets/signup.png")}
-          style={{ height: 100 }}
-        />
-      </TouchableOpacity>
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          position: "absolute",
+          bottom: 20,
+        }}
+      >
         <Text
           style={{
             fontFamily: loaded ? "Sora" : null,
@@ -272,15 +286,16 @@ export const Login = (props) => {
           />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
+    justifyContent: "center",
     alignItems: "center",
+    marginTop: StatusBar.currentHeight,
   },
   container_center: {
     flex: 1,

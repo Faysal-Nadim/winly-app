@@ -176,16 +176,12 @@ export const verifyCode = (data) => {
           type: authConstant.VERIFY_SUCCESS,
           payload: res.data,
         });
-        // Swal.fire({
-        //   icon: "success",
-        //   title: "Congratulations!",
-        //   text: `${res.data.msg}`,
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        //   iconColor: "#000",
-        // }).then(() => {
-        //   window.location.replace("/login");
-        // });
+        Toast.show({
+          type: "success",
+          text1: `Congratulations!`,
+          text2: `${res.data.msg}`,
+          visibilityTime: 1500,
+        });
       }
     } catch (error) {
       const { data } = error.response;
@@ -193,13 +189,12 @@ export const verifyCode = (data) => {
         type: authConstant.VERIFY_FAILURE,
         payload: { msg: data.msg, status: error.response.status },
       });
-      // Swal.fire({
-      //   icon: "error",
-      //   title: `${data.msg}`,
-      //   showConfirmButton: false,
-      //   timer: 1500,
-      //   iconColor: "#000",
-      // });
+      Toast.show({
+        type: "error",
+        text1: `Error!`,
+        text2: `${data.msg}`,
+        visibilityTime: 1500,
+      });
     }
   };
 };
