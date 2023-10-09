@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
+import { RegularView } from "../text/regular";
 
 /**
  * @author
@@ -39,10 +40,14 @@ export const UpcomingCampaignCard = ({ item, index, dataLength }) => {
             //   borderBottomEndRadius: 12,
           }}
         >
-          <Text style={{ fontSize: 12, fontWeight: 400, marginBottom: 2 }}>
-            {productTitle}
-          </Text>
-          <Text style={{ fontSize: 14, fontWeight: 800 }}>{title}</Text>
+          <RegularView>
+            <Text style={{ fontSize: 12, fontWeight: 400, marginBottom: 2 }}>
+              {productTitle}
+            </Text>
+          </RegularView>
+          <RegularView>
+            <Text style={{ fontSize: 14, fontWeight: 800 }}>{title}</Text>
+          </RegularView>
         </View>
       </TouchableOpacity>
     </View>

@@ -1,16 +1,6 @@
-import React, { useEffect } from "react";
-import { View, SafeAreaView, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  Dimensions,
-  Image,
-  StatusBar,
-} from "react-native";
+import { View, SafeAreaView, Dimensions, Image, StatusBar } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
 import { useDispatch, useSelector } from "react-redux";
 import { getCampaign, getCartItems } from "../redux/actions";
 import HeroSldierEx from "../components/Home/HeroSliderEx";
@@ -39,8 +29,6 @@ export const Home = (props) => {
     dispatch(getCampaign());
   }, []);
 
-  const [activeImg, setActiveImg] = useState(0);
-
   const auth = useSelector((state) => state.auth);
   const campaign = useSelector((state) => state.campaign);
   const explore = useSelector((state) => state.campaign.campaigns?.explore);
@@ -51,28 +39,49 @@ export const Home = (props) => {
     }
   }, [auth.authenticate]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (activeImg === 2) {
-        setActiveImg(0);
-      } else {
-        setActiveImg(activeImg + 1);
-      }
-    }, 3000);
-  }, [activeImg]);
-
   return (
-    <SafeAreaView style={{ marginTop: 42, flex: 1 }}>
-      <ScrollView>
-        <HeroSldierEx />
-        <View style={{ marginVertical: 8 }} />
-        <Banner />
-        <View style={{ marginVertical: 16 }} />
-        <UpcomingCampaigns />
-        <View style={{ marginVertical: 16 }} />
-        <ExploreCampaigns />
-        <View style={{ marginVertical: 36 }} />
-      </ScrollView>
+    <SafeAreaView style={{ marginTop: StatusBar.currentHeight, flex: 1 }}>
+      {campaign?.loading ? (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "#f3f3f3",
+            opacity: 0.5,
+          }}
+        >
+          <Image
+            source={require("../assets/loading.gif")}
+            style={{ height: 40, width: 40 }}
+          />
+        </View>
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View>
+            <HeroSldierEx data={campaign?.campaigns?.explore} />
+
+            <View style={{ marginVertical: 8 }} />
+
+            <Banner />
+
+            <View style={{ marginVertical: 16 }} />
+
+            <UpcomingCampaigns data={campaign?.campaigns?.explore} />
+
+            <View style={{ marginVertical: 16 }} />
+
+            <ExploreCampaigns
+              data={campaign?.campaigns?.allCampaigns?.reverse().slice()}
+            />
+            <View style={{ marginVertical: 36 }} />
+          </View>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };

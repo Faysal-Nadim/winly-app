@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
 import { Rect, Svg } from "react-native-svg";
+import { RegularView } from "../text/regular";
 
 const CustomProgressBar = ({ sold, stock, status }) => {
   // sold = 100;
@@ -82,21 +83,25 @@ const CustomProgressBar = ({ sold, stock, status }) => {
             alignItems: "center",
           }}
         >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: 800,
-            }}
-          >
-            {sold}
-          </Text>
-          <Text
-            style={{
-              fontSize: 7,
-            }}
-          >
-            SOLD
-          </Text>
+          <RegularView>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: 800,
+              }}
+            >
+              {sold}
+            </Text>
+          </RegularView>
+          <RegularView>
+            <Text
+              style={{
+                fontSize: 7,
+              }}
+            >
+              SOLD
+            </Text>
+          </RegularView>
         </View>
 
         <View
@@ -108,21 +113,25 @@ const CustomProgressBar = ({ sold, stock, status }) => {
         />
 
         <View style={{ flexDirection: "column", alignItems: "center" }}>
-          <Text
-            style={{
-              fontSize: 7,
-            }}
-          >
-            OUT OF
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: 800,
-            }}
-          >
-            {status == true ? 0 : stock}
-          </Text>
+          <RegularView>
+            <Text
+              style={{
+                fontSize: 7,
+              }}
+            >
+              OUT OF
+            </Text>
+          </RegularView>
+          <RegularView>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: 800,
+              }}
+            >
+              {status == true ? 0 : stock}
+            </Text>
+          </RegularView>
         </View>
       </View>
     </View>

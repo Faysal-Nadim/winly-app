@@ -472,6 +472,26 @@ export const Account = (props) => {
           <RegularView>Version 1.0.1 (Beta)</RegularView>
         </View>
       </ScrollView>
+      {auth?.loading && (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "#f3f3f3",
+            opacity: 0.5,
+          }}
+        >
+          <Image
+            source={require("../assets/loading.gif")}
+            style={{ height: 40, width: 40 }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

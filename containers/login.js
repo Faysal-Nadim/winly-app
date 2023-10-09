@@ -28,6 +28,7 @@ export const Login = (props) => {
   const [loaded, setLoaded] = useState(false);
 
   const navigation = useNavigation();
+  const auth = useSelector((state) => state.auth);
 
   //   const auth = useSelector((state) => state.auth);
   //   const verify = useSelector((state) => state.verify);
@@ -251,6 +252,26 @@ export const Login = (props) => {
           Version 1.0.1 (Beta)
         </Text>
       </View>
+      {auth?.loading && (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "#f3f3f3",
+            opacity: 0.5,
+          }}
+        >
+          <Image
+            source={require("../assets/loading.gif")}
+            style={{ height: 40, width: 40 }}
+          />
+        </View>
+      )}
     </View>
   );
 };

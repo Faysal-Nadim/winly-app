@@ -128,7 +128,7 @@ export const MyTabs = () => {
               }}
             >
               <Image
-                source={require("../assets/cat4.png")}
+                source={require("../assets/win.png")}
                 style={{
                   width: 25,
                   height: 25,
@@ -143,7 +143,7 @@ export const MyTabs = () => {
                   fontFamily: loaded ? "Sora" : null,
                 }}
               >
-                CAMPAIGN
+                WINNERS
               </Text>
             </View>
           ),

@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
 import { shareIcon } from "../../assets/images";
 import CustomProgressBar from "./CustomProgressBar";
+import { RegularView } from "../text/regular";
 
 /**
  * @author
@@ -47,17 +48,25 @@ export const ExploreCampaignCard = ({ item, index }) => {
         }}
       >
         <View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: 800,
-              color: WinlyColors.primaryRed,
-            }}
-          >
-            Win
-          </Text>
-          <Text style={{ fontSize: 16, fontWeight: 800 }}>{title}</Text>
-          <Text style={{ fontSize: 14, fontWeight: 400 }}>{productTitle}</Text>
+          <RegularView>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 800,
+                color: WinlyColors.primaryRed,
+              }}
+            >
+              Win
+            </Text>
+          </RegularView>
+          <RegularView>
+            <Text style={{ fontSize: 16, fontWeight: 800 }}>{title}</Text>
+          </RegularView>
+          <RegularView>
+            <Text style={{ fontSize: 14, fontWeight: 400 }}>
+              {productTitle}
+            </Text>
+          </RegularView>
         </View>
 
         <Image
@@ -119,9 +128,11 @@ export const ExploreCampaignCard = ({ item, index }) => {
                 justifyContent: "center",
               }}
             >
-              <Text style={{ color: "#fff", fontSize: 10, fontWeight: 600 }}>
-                Add to Cart
-              </Text>
+              <RegularView>
+                <Text style={{ color: "#fff", fontSize: 10, fontWeight: 600 }}>
+                  Add to Cart
+                </Text>
+              </RegularView>
             </View>
           </TouchableOpacity>
           <TouchableOpacity

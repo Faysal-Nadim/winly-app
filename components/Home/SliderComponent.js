@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
+import { RegularView } from "../text/regular";
 
 /**
  * @author
@@ -42,9 +43,15 @@ export const SliderComponent = ({ item, index }) => {
           borderRadius: 12,
         }}
       >
-        <Text style={{ fontSize: 26, fontWeight: 800 }}>Win</Text>
-        <Text style={{ fontSize: 20, fontWeight: 800 }}>{title}</Text>
-        <Text style={{ fontSize: 12, fontWeight: 600 }}>{productTitle}</Text>
+        <RegularView>
+          <Text style={{ fontSize: 26, fontWeight: 800 }}>Win</Text>
+        </RegularView>
+        <RegularView>
+          <Text style={{ fontSize: 20, fontWeight: 800 }}>{title}</Text>
+        </RegularView>
+        <RegularView>
+          <Text style={{ fontSize: 12, fontWeight: 600 }}>{productTitle}</Text>
+        </RegularView>
 
         <View
           style={{
@@ -74,9 +81,11 @@ export const SliderComponent = ({ item, index }) => {
                 borderRadius: 8,
               }}
             >
-              <Text style={{ color: "#fff", fontSize: 16, fontWeight: 600 }}>
-                Prize Details
-              </Text>
+              <RegularView>
+                <Text style={{ color: "#fff", fontSize: 16, fontWeight: 600 }}>
+                  Prize Details
+                </Text>
+              </RegularView>
             </View>
           </TouchableOpacity>
           <Image
