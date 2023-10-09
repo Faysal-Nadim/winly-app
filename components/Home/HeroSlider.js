@@ -10,6 +10,21 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { SliderComponent } from "./SliderComponent";
 
+const carouselData = [
+  {
+    id: "01",
+    image: require("./test-image/slider_1.jpg"),
+  },
+  {
+    id: "02",
+    image: require("./test-image/slider_2.jpg"),
+  },
+  {
+    id: "03",
+    image: require("./test-image/slider_3.jpg"),
+  },
+];
+
 const HeroSldier = () => {
   const flatlistRef = useRef();
   // Get Dimesnions
@@ -19,7 +34,7 @@ const HeroSldier = () => {
   // Auto Scroll
 
   useEffect(() => {
-    let interval = setInterval(() => {
+    setInterval(() => {
       if (activeIndex === carouselData.length - 1) {
         flatlistRef.current.scrollToIndex({
           index: 0,
@@ -32,9 +47,7 @@ const HeroSldier = () => {
         });
       }
     }, 2000);
-
-    return () => clearInterval(interval);
-  });
+  }, [activeIndex]);
 
   const getItemLayout = (data, index) => ({
     length: screenWidth,
@@ -42,20 +55,6 @@ const HeroSldier = () => {
     index: index,
   });
   // Data for carousel
-  const carouselData = [
-    {
-      id: "01",
-      image: require("./test-image/slider_1.jpg"),
-    },
-    {
-      id: "02",
-      image: require("./test-image/slider_2.jpg"),
-    },
-    {
-      id: "03",
-      image: require("./test-image/slider_3.jpg"),
-    },
-  ];
 
   // Handle Scroll
   const handleScroll = (event) => {
@@ -97,5 +96,3 @@ const HeroSldier = () => {
 };
 
 export default HeroSldier;
-
-const styles = StyleSheet.create({});
