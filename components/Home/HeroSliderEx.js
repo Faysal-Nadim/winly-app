@@ -1,12 +1,4 @@
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  LogBox,
-} from "react-native";
+import { FlatList, StyleSheet, View, Dimensions } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SliderComponent } from "./SliderComponent";
 
