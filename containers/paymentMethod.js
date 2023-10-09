@@ -123,10 +123,8 @@ export const PaymentMethod = ({ route }) => {
             justifyContent: "center",
             alignItems: "center",
             padding: 3,
-            // width: Width / 2.3,
             height: 40,
           }}
-          //   onPress={() => navigation.navigate("Address")}
         >
           <SemiBoldView>
             <Text style={{ fontSize: 16, color: "#fff" }}>Add New</Text>

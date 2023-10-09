@@ -35,7 +35,7 @@ const HeroSldier = () => {
 
   useEffect(() => {
     setInterval(() => {
-      if (activeIndex === carouselData.length - 1) {
+      if (activeIndex === carouselData?.length - 1) {
         flatlistRef.current.scrollToIndex({
           index: 0,
           animation: true,
@@ -60,12 +60,11 @@ const HeroSldier = () => {
   const handleScroll = (event) => {
     // Get the scroll position
     const scrollPosition = event.nativeEvent.contentOffset.x;
-    console.log({ scrollPosition });
+
     // Get the index of current active item
 
     const index = scrollPosition / screenWidth;
 
-    console.log({ index });
     // Update the index
 
     setActiveIndex(index);

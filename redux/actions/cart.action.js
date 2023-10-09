@@ -42,13 +42,6 @@ export const addToCart = (item, qty) => {
           payload: res.data,
         });
         dispatch(getCartItems());
-        // Swal.fire({
-        //   icon: "success",
-        //   title: "Item Added To Cart!",
-        //   showConfirmButton: false,
-        //   timer: 1000,
-        //   iconColor: "#000",
-        // });
       }
     } catch (error) {
       // Swal.close();
@@ -57,13 +50,6 @@ export const addToCart = (item, qty) => {
         type: cartConstants.ADD_TO_CART_FAILURE,
         payload: data,
       });
-      // Swal.fire({
-      //   icon: "error",
-      //   title: data.msg,
-      //   showConfirmButton: false,
-      //   timer: 1000,
-      //   iconColor: "#000",
-      // });
     }
   };
 };

@@ -1,20 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import { Cart } from "./cart";
-// import { Home } from "./home";
-// import { Profile } from "./profile";
-// import { Category } from "./category";
-// import { Company } from "./company";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 import { Home } from "../containers/home";
-import { Login } from "../containers/login";
 import { Cart } from "../containers/cart";
 import { Account } from "../containers/account";
 import { useSelector } from "react-redux";
-// import { useSelector } from "react-redux";
-// import { Login } from "./login";
-// import { Verify } from "./verify";
 
 const Tab = createBottomTabNavigator();
 
@@ -72,12 +63,6 @@ export const MyTabs = () => {
         headerShown: false,
         tabBarStyle: {
           position: "absolute",
-          // bottom: 15,
-          // left: 15,
-          // right: 15,
-          // elevation: 0,
-          // backgroundColor: "#f2f2f2",
-          // borderRadius: 10,
           height: 60,
           ...styles.shadow,
         },
@@ -133,7 +118,6 @@ export const MyTabs = () => {
                   width: 25,
                   height: 25,
                   tintColor: focused ? "#FF3624" : "#748c94",
-                  //   transform: [{ rotate: "45deg" }],
                 }}
               />
               <Text
@@ -171,7 +155,6 @@ export const MyTabs = () => {
       />
       <Tab.Screen
         name="Cart"
-        // component={auth.authenticate ? Cart : Login}
         component={Cart}
         options={{
           tabBarIcon: ({ focused }) => (

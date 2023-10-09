@@ -220,9 +220,6 @@ export const Account = (props) => {
                 style={{
                   marginLeft: 15,
                   marginRight: 15,
-                  //   flexDirection: "row",
-                  //   alignItems: "center",
-                  //   justifyContent: "space-between",
                 }}
               >
                 <MediumView>
@@ -265,9 +262,6 @@ export const Account = (props) => {
                 style={{
                   marginLeft: 15,
                   marginRight: 15,
-                  //   flexDirection: "row",
-                  //   alignItems: "center",
-                  //   justifyContent: "space-between",
                 }}
               >
                 <MediumView>
@@ -313,9 +307,6 @@ export const Account = (props) => {
                 style={{
                   marginLeft: 15,
                   marginRight: 15,
-                  //   flexDirection: "row",
-                  //   alignItems: "center",
-                  //   justifyContent: "space-between",
                 }}
               >
                 <MediumView>
@@ -329,51 +320,7 @@ export const Account = (props) => {
                 />
               </View>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-              style={{
-                backgroundColor: "#fff",
-                marginTop: 10,
-                padding: 10,
-                borderRadius: 10,
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: "#EBEBEB",
-                  height: 40,
-                  width: 40,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: 20,
-                }}
-              >
-                <Image
-                  source={require("../assets/coupon.png")}
-                  style={{ height: 25, width: 25 }}
-                />
-              </View>
-              <View
-                style={{
-                  marginLeft: 15,
-                  marginRight: 15,
-                  //   flexDirection: "row",
-                  //   alignItems: "center",
-                  //   justifyContent: "space-between",
-                }}
-              >
-                <MediumView>
-                  <Text style={{ fontSize: 16 }}>Vouchers</Text>
-                </MediumView>
-              </View>
-              <View style={{ position: "absolute", right: 15 }}>
-                <Image
-                  source={require("../assets/right-arrow.png")}
-                  style={{ height: 20, width: 20 }}
-                />
-              </View>
-            </TouchableOpacity> */}
+
             <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
@@ -445,9 +392,6 @@ export const Account = (props) => {
                 style={{
                   marginLeft: 15,
                   marginRight: 15,
-                  //   flexDirection: "row",
-                  //   alignItems: "center",
-                  //   justifyContent: "space-between",
                 }}
               >
                 <MediumView>

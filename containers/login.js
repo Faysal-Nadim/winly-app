@@ -17,9 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/actions";
 import { useNavigation } from "@react-navigation/native";
 
-// import * as Google from "expo-google-app-auth";
-// import { GoogleSignin, GoogleSigninButton } from "react-native-login-google";
-
 /**
  * @author
  * @function Login
@@ -31,36 +28,6 @@ export const Login = (props) => {
 
   const navigation = useNavigation();
   const auth = useSelector((state) => state.auth);
-
-  //   const auth = useSelector((state) => state.auth);
-  //   const verify = useSelector((state) => state.verify);
-
-  // GoogleSignin.configure({
-  //   webClientId:
-  //     "665178446094-ci8tq3phvuv23bju5gij3q3imjuujopk.apps.googleusercontent.com",
-  //   iosClientId:
-  //     "665178446094-0t32o2ahfm396oss96jrs1391dnmrvb5.apps.googleusercontent.com",
-  //   scopes: ["profile", "email"],
-  // });
-
-  // const googleLogin = async () => {
-  //   try {
-  //     await GoogleSignin.hasPlayServices();
-  //     // const userInfo = await GoogleSignin.signIn();
-  //     // console.log(userInfo);
-  //   } catch (error) {
-  //     console.log(error);
-  //     // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-  //     //   // user cancelled the login flow
-  //     // } else if (error.code === statusCodes.IN_PROGRESS) {
-  //     //   // operation (e.g. sign in) is in progress already
-  //     // } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-  //     //   // play services not available or outdated
-  //     // } else {
-  //     //   // some other error happened
-  //     // }
-  //   }
-  // };
 
   useEffect(() => {
     if (auth.error !== null && auth.error.status === 403) {
@@ -126,8 +93,6 @@ export const Login = (props) => {
             width: 300,
             borderRadius: 5,
             margin: 12,
-            // borderColor: "#1461AC",
-            // borderWidth: 1,
             padding: 10,
             backgroundColor: "#fff",
           }}
@@ -144,9 +109,6 @@ export const Login = (props) => {
             height: 40,
             width: 300,
             borderRadius: 5,
-            // margin: 12,
-            // borderColor: "#1461AC",
-            // borderWidth: 1,
             padding: 10,
             backgroundColor: "#fff",
           }}
@@ -175,19 +137,7 @@ export const Login = (props) => {
           </Text>
         </View>
       </TouchableOpacity>
-      {/* <TouchableOpacity style={{ marginBottom: 20 }}>
-        <Image
-          resizeMode="contain"
-          source={require("../assets/login.png")}
-          style={{
-            height: 45,
-            width: 200,
-            borderRadius: 5,
-            borderColor: "#1461AC",
-            borderWidth: 1,
-          }}
-        />
-      </TouchableOpacity> */}
+
       <View
         style={{
           flexDirection: "row",
@@ -221,15 +171,15 @@ export const Login = (props) => {
           }}
         />
       </View>
-      <View
-        style={{ flexDirection: "row", marginTop: 15 }}
-        // onPress={() => navigation.navigate("Signup")}
-      >
+      <View style={{ flexDirection: "row", marginTop: 15 }}>
         <Text style={{ fontFamily: loaded ? "Sora" : null, fontSize: 17 }}>
           New User?
         </Text>
       </View>
-      <TouchableOpacity style={{ margin: 20 }} onPress={userlogin}>
+      <TouchableOpacity
+        style={{ margin: 20 }}
+        onPress={() => navigation.navigate("Register")}
+      >
         <View
           style={{
             width: 150,

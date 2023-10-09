@@ -65,12 +65,10 @@ export const Verify = ({ route }) => {
           }}
         >
           <Image
-            //   resizeMode="contain"
             source={require("../assets/splash.png")}
             style={{
               height: 100,
               width: 200,
-              // marginBottom: -50,
             }}
           />
         </View>
@@ -181,7 +179,6 @@ export const Verify = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
     alignItems: "center",
   },
 });

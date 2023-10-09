@@ -14,7 +14,6 @@ export const getProducts = () => {
         });
       }
     } catch (error) {
-      // const { data } = error?.response;
       const { data } = error;
       dispatch({
         type: productConst.PRODUCT_FAILURE,

@@ -82,7 +82,6 @@ export const Cart = (props) => {
       <View
         style={{
           marginTop: 40,
-          //   justifyContent: "space-between",
           alignItems: "center",
           flexDirection: "row",
         }}
@@ -170,7 +169,6 @@ export const Cart = (props) => {
                   <View
                     style={{
                       justifyContent: "center",
-                      //   alignItems: "center",
                       flexDirection: "row",
                     }}
                   >
@@ -254,63 +252,7 @@ export const Cart = (props) => {
             </View>
           ))}
       </View>
-      {/* <View
-        style={{
-          position: "absolute",
-          bottom: 60,
-          flexDirection: "row",
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: "#000",
-            height: 50,
-            width: Width / 2,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <SemiBoldView>
-            <Text
-              style={{
-                fontFamily: loaded ? "Montserrat-SemiBold" : null,
-                fontSize: 15,
-                color: "#fff",
-              }}
-            >
-              AED {totalPrice === 0 ? "00" : totalPrice}
-            </Text>
-          </SemiBoldView>
-        </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#FF3624",
-            height: 50,
-            width: Width / 2,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          onPress={() =>
-            navigation.navigate("Checkout", {
-              cart: cart,
-              totalItem: totalItem,
-              totalPrice: totalPrice,
-            })
-          }
-        >
-          <SemiBoldView>
-            <Text
-              style={{
-                fontFamily: loaded ? "Montserrat-SemiBold" : null,
-                fontSize: 15,
-                color: "#fff",
-              }}
-            >
-              Checkout
-            </Text>
-          </SemiBoldView>
-        </TouchableOpacity>
-      </View> */}
+
       {cartState.loading && (
         <View
           style={{
@@ -338,7 +280,6 @@ export const Cart = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: "center",
     padding: 10,
   },
   dot: {
