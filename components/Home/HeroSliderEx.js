@@ -1,12 +1,14 @@
-import React, { useRef, useState } from "react";
-import { View, Text, Dimensions, FlatList } from "react-native";
-import WinlyColors from "../../assets/WinlyColors";
-import { ExploreCampaignCard } from "./ExploreCampaignCard";
-
-/**
- * @author
- * @function ExploreCampaigns
- **/
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  LogBox,
+} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { SliderComponent } from "./SliderComponent";
 
 let data = [
   {
@@ -296,65 +298,60 @@ let data = [
   },
 ];
 
-let fullText =
-  "Winly is a cutting-edge online store that provides customers with a one-of-a-kind shopping experience. What sets Winly apart is its remarkable offering: with each purchase, customers receive a complimentary Prize Draw ticket, granting them the chance to win extravagant prizes. This unique feature adds an exciting element to the shopping journey, making Winly a captivating destination for those seeking not only quality products but also the possibility of winning luxurious rewards. All draws are regulated by the Dubai Economy & Tourism..";
-let shortText =
-  "Winly is a cutting-edge online store that provides customers with a one-of-a-kind shopping experience..";
-
-export const ExploreCampaigns = (props) => {
+const HeroSldierEx = () => {
   const flatlistRef = useRef();
   const screenWidth = Dimensions.get("window").width;
-  const [toggle, setToggle] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleToggleText = () => {
-    setToggle((current) => !current);
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setActiveIndex((prevIndex) => {
+        // Calculate the next index to scroll to, ensuring it wraps around
+        const nextIndex = (prevIndex + 1) % data.length;
+
+        flatlistRef.current.scrollToIndex({
+          index: nextIndex,
+          animated: true,
+        });
+
+        return nextIndex;
+      });
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getItemLayout = (data, index) => ({
+    length: screenWidth,
+    offset: screenWidth * index,
+    index: index,
+  });
+
+  const handleScroll = (event) => {
+    const scrollPosition = event.nativeEvent.contentOffset.x;
+    const index = Math.floor(scrollPosition / screenWidth);
+
+    setActiveIndex(index);
   };
+
   return (
-    <View style={{ width: screenWidth }}>
-      <View
-        style={{
-          marginBottom: 24,
-          paddingHorizontal: 10,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: 600,
-            marginBottom: 6,
-          }}
-        >
-          Explore Campaigns
-        </Text>
-
-        <Text
-          style={{
-            fontSize: 10,
-            fontWeight: 400,
-          }}
-        >
-          {toggle ? fullText : shortText}
-
-          <Text
-            onPress={handleToggleText}
-            style={{
-              color: WinlyColors.primaryRed,
-            }}
-          >
-            {toggle ? " See less" : " See more"}
-          </Text>
-        </Text>
-      </View>
-
+    <View style={{}}>
       <FlatList
         data={data}
         ref={flatlistRef}
-        renderItem={ExploreCampaignCard}
+        getItemLayout={getItemLayout}
+        renderItem={SliderComponent}
         keyExtractor={(item) => item._id}
-        horizontal={false}
+        horizontal={true}
         pagingEnabled={true}
+        onScroll={handleScroll}
         showsHorizontalScrollIndicator={false}
+        initialScrollIndex={activeIndex}
       />
     </View>
   );
 };
+
+export default HeroSldierEx;
+
+const styles = StyleSheet.create({});

@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, SafeAreaView, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../redux/actions";
+import HeroSldierEx from "../components/Home/HeroSliderEx";
+import { Banner } from "../components/Home/Banner";
+import { UpcomingCampaigns } from "../components/Home/UpcomingCampaigns";
+import { ExploreCampaigns } from "../components/Home/ExploreCampaigns";
 
 /**
  * @author
  * @function Home
  **/
 export const Home = (props) => {
-  const { container } = styles;
   const dispatch = useDispatch();
 
   const auth = useSelector((state) => state.auth);
@@ -20,16 +23,17 @@ export const Home = (props) => {
   }, [auth.authenticate]);
 
   return (
-    <View style={container}>
-      <Text>Home</Text>
-    </View>
+    <SafeAreaView style={{ marginTop: 42, flex: 1 }}>
+      <ScrollView>
+        <HeroSldierEx />
+        <View style={{ marginVertical: 8 }} />
+        <Banner />
+        <View style={{ marginVertical: 16 }} />
+        <UpcomingCampaigns />
+        <View style={{ marginVertical: 16 }} />
+        <ExploreCampaigns />
+        <View style={{ marginVertical: 36 }} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
