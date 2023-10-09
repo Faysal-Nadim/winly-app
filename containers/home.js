@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+import { View, SafeAreaView, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -11,7 +13,10 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getCampaign, getCartItems } from "../redux/actions";
-import HeroSldier from "../components/Home/HeroSlider";
+import HeroSldierEx from "../components/Home/HeroSliderEx";
+import { Banner } from "../components/Home/Banner";
+import { UpcomingCampaigns } from "../components/Home/UpcomingCampaigns";
+import { ExploreCampaigns } from "../components/Home/ExploreCampaigns";
 
 /**
  * @author
@@ -28,7 +33,6 @@ const Width = Dimensions.get("window").width;
 const Height = Dimensions.get("window").height;
 
 export const Home = (props) => {
-  const { container } = styles;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,107 +62,17 @@ export const Home = (props) => {
   }, [activeImg]);
 
   return (
-    <SafeAreaView style={container}>
-      {campaign?.loading ? (
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            backgroundColor: "#f3f3f3",
-            opacity: 0.5,
-          }}
-        >
-          <Image
-            source={require("../assets/loading.gif")}
-            style={{ height: 40, width: 40 }}
-          />
-        </View>
-      ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.slider}>
-            {campaign?.campaigns.explore !== undefined && (
-              <ScrollView
-                // onScroll={({ nativeEvent }) => onchange(nativeEvent)}
-                showsHorizontalScrollIndicator={false}
-                pagingEnabled
-                horizontal
-                style={styles.wrap}
-              >
-                <Image
-                  resizeMode="stretch"
-                  source={{
-                    uri: campaign?.campaigns?.explore[activeImg]?.img?.prize,
-                  }}
-                  style={styles.wrapIamge}
-                />
-              </ScrollView>
-            )}
-          </View>
-          <View style={styles.wrapDot}>
-            {images.map((e, index) => (
-              <Text
-                key={e}
-                style={activeImg == index ? styles.activeDot : styles.dot}
-              >
-                -
-              </Text>
-            ))}
-          </View>
-        </ScrollView>
-      )}
+    <SafeAreaView style={{ marginTop: 42, flex: 1 }}>
+      <ScrollView>
+        <HeroSldierEx />
+        <View style={{ marginVertical: 8 }} />
+        <Banner />
+        <View style={{ marginVertical: 16 }} />
+        <UpcomingCampaigns />
+        <View style={{ marginVertical: 16 }} />
+        <ExploreCampaigns />
+        <View style={{ marginVertical: 36 }} />
+      </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-    // justifyContent: "center",
-    // alignItems: "center",
-  },
-  slider: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  searchBar: {
-    paddingBottom: 5,
-  },
-  wrap: {
-    height: Height * 0.3,
-    width: Width - 20,
-  },
-  wrapIamge: {
-    flex: 1,
-    alignItems: "center",
-    height: Height * 0.3,
-    width: Width - 20,
-    borderRadius: 15,
-    alignSelf: "flex-end",
-  },
-  wrapDot: {
-    marginTop: 5,
-    bottom: 0,
-    flexDirection: "row",
-    alignSelf: "center",
-  },
-  activeDot: {
-    margin: 3,
-    height: 3,
-    width: 10,
-    borderRadius: 5,
-    backgroundColor: "black",
-  },
-  dot: {
-    margin: 3,
-    height: 3,
-    width: 5,
-    borderRadius: 2,
-    backgroundColor: "black",
-  },
-});
