@@ -1,11 +1,14 @@
-import React, { useRef } from "react";
-import { View, Text, Dimensions, FlatList } from "react-native";
-import { UpcomingCampaignCard } from "./UpcomingCampaignCards";
-
-/**
- * @author Md. Shefat Zeon
- * @function UpcomingCampaigns
- **/
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  LogBox,
+} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { SliderComponent } from "../Home/SliderComponent";
 
 let data = [
   {
@@ -139,45 +142,92 @@ let data = [
   },
 ];
 
-export const UpcomingCampaigns = (props) => {
+const HeroSldier = () => {
   const flatlistRef = useRef();
+  // Get Dimesnions
   const screenWidth = Dimensions.get("window").width;
-  return (
-    <View style={{ width: screenWidth }}>
-      <View
-        style={{
-          marginBottom: 24,
-          paddingHorizontal: 10,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: 600,
-          }}
-        >
-          Running Campaigns
-        </Text>
-      </View>
+  const [activeIndex, setActiveIndex] = useState(0);
 
+  // Auto Scroll
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (activeIndex === data.length - 1) {
+        flatlistRef.current.scrollToIndex({
+          index: 0,
+          animation: true,
+        });
+      } else {
+        flatlistRef.current.scrollToIndex({
+          index: activeIndex + 1,
+          animation: true,
+        });
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  });
+
+  const getItemLayout = (data, index) => ({
+    length: screenWidth,
+    offset: screenWidth * index, // for first image - 300 * 0 = 0pixels, 300 * 1 = 300, 300*2 = 600
+    index: index,
+  });
+  // Data for carousel
+  const carouselData = [
+    {
+      id: "01",
+      image: require("./test-image/slider_1.jpg"),
+    },
+    {
+      id: "02",
+      image: require("./test-image/slider_2.jpg"),
+    },
+    {
+      id: "03",
+      image: require("./test-image/slider_3.jpg"),
+    },
+  ];
+
+  // Handle Scroll
+  const handleScroll = (event) => {
+    // Get the scroll position
+    const scrollPosition = event.nativeEvent.contentOffset.x;
+    console.log({ scrollPosition });
+    // Get the index of current active item
+
+    const index = scrollPosition / screenWidth;
+
+    console.log({ index });
+    // Update the index
+
+    setActiveIndex(index);
+  };
+
+  return (
+    <View>
       <FlatList
         data={data}
         ref={flatlistRef}
-        // getItemLayout={getItemLayout}
-        renderItem={({ item, index }) => (
-          <UpcomingCampaignCard
-            item={item}
-            index={index}
-            dataLength={data.length}
-          />
-        )}
+        getItemLayout={getItemLayout}
+        renderItem={SliderComponent}
         keyExtractor={(item) => item._id}
         horizontal={true}
         pagingEnabled={true}
-        // onScroll={handleScroll}
-        showsHorizontalScrollIndicator={false}
-        // initialScrollIndex={activeIndex}
+        onScroll={handleScroll}
       />
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          marginTop: 30,
+        }}
+      ></View>
     </View>
   );
 };
+
+export default HeroSldier;
+
+const styles = StyleSheet.create({});
