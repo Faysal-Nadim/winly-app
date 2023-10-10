@@ -17,6 +17,7 @@ import { Notification } from "./containers/notification";
 import { Verify } from "./containers/verify";
 import { Register } from "./containers/register";
 import { Loading } from "./components/loading";
+import { Checkout } from "./containers/checkout";
 
 const Stack = createNativeStackNavigator();
 
@@ -74,6 +75,18 @@ export default function App() {
               component={PaymentMethod}
               options={{
                 headerTitle: "Payment Methods",
+                headerStyle: { backgroundColor: "#FFFFFF" },
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontFamily: loaded ? "Sora" : null,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Checkout"
+              component={Checkout}
+              options={{
+                headerTitle: "Checkout",
                 headerStyle: { backgroundColor: "#FFFFFF" },
                 headerTitleAlign: "center",
                 headerTitleStyle: {

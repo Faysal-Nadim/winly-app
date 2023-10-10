@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   StatusBar,
   Image,
+  Platform,
 } from "react-native";
 import { MediumView } from "../components/text/medium";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,6 +51,7 @@ export const Notification = (props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom: Platform.OS === "android" ? 0 : 10,
           }}
         >
           <View>
@@ -73,6 +75,7 @@ export const Notification = (props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom: Platform.OS === "android" ? 0 : 10,
           }}
         >
           <View>
@@ -96,6 +99,7 @@ export const Notification = (props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom: Platform.OS === "android" ? 0 : 10,
           }}
         >
           <View>
@@ -165,6 +169,6 @@ export const Notification = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: StatusBar.currentHeight - 20,
+    margin: 10,
   },
 });

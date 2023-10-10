@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  StatusBar,
 } from "react-native";
 import { SemiBoldView } from "../components/text/semibold";
 import { useDispatch, useSelector } from "react-redux";
@@ -79,179 +80,246 @@ export const Cart = (props) => {
 
   return (
     <SafeAreaView style={container}>
-      <View
-        style={{
-          marginTop: 40,
-          alignItems: "center",
-          flexDirection: "row",
-        }}
-      >
-        <SemiBoldView>
-          <Text style={{ fontSize: 20 }}>
-            Cart ({totalItem} {totalItem <= 1 ? "Item" : "Items"})
-          </Text>
-        </SemiBoldView>
-      </View>
-      <View>
-        {cart.cartItems &&
-          cart.cartItems.map((item) => (
-            <View
-              key={item._id}
-              style={{
-                backgroundColor: "#fff",
-                borderRadius: 10,
-                flexDirection: "row",
-                marginTop: 10,
-              }}
-            >
-              <View
-                style={{
-                  padding: 10,
-                }}
-              >
-                <Image
-                  resizeMode="contain"
-                  source={{ uri: item?.campaign?.img?.product }}
+      {cart?.cartItems?.length > 0 ? (
+        <>
+          <View
+            style={{
+              marginTop: 40,
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <SemiBoldView>
+              <Text style={{ fontSize: 20 }}>
+                Cart ({totalItem} {totalItem <= 1 ? "Item" : "Items"})
+              </Text>
+            </SemiBoldView>
+          </View>
+          <View>
+            {cart?.cartItems &&
+              cart?.cartItems?.map((item) => (
+                <View
+                  key={item._id}
                   style={{
-                    height: 80,
-                    width: 80,
+                    backgroundColor: "#fff",
                     borderRadius: 10,
-                  }}
-                />
-              </View>
-              <View style={{ justifyContent: "center" }}>
-                <View>
-                  <MediumView>
-                    <Text
-                      style={{
-                        fontFamily: loaded ? "Montserrat-Medium" : null,
-                        fontSize: 14,
-                      }}
-                    >
-                      {item?.campaign?.productTitle.slice(0, 28)}
-                    </Text>
-                  </MediumView>
-                </View>
-                <View
-                  style={{
-                    marginTop: 5,
-                  }}
-                >
-                  <RegularView>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                      }}
-                    >
-                      Win {item?.campaign?.title}
-                    </Text>
-                  </RegularView>
-                </View>
-                <View
-                  style={{
-                    marginTop: 5,
-                    justifyContent: "space-between",
                     flexDirection: "row",
+                    marginTop: 10,
+                    // width: Width - StatusBar.currentHeight,
                   }}
                 >
-                  <View>
-                    <MediumView>
-                      <Text
-                        style={{
-                          fontSize: 15,
-                          color: "#FF3624",
-                        }}
-                      >
-                        AED {item?.price}
-                      </Text>
-                    </MediumView>
-                  </View>
                   <View
                     style={{
-                      justifyContent: "center",
-                      flexDirection: "row",
+                      padding: 10,
                     }}
                   >
-                    <TouchableOpacity
-                      disabled={item.qty <= 1 ? true : false}
+                    <Image
+                      resizeMode="contain"
+                      source={{ uri: item?.campaign?.img?.product }}
                       style={{
-                        backgroundColor: "#E9E9E9",
-                        width: 25,
-                        height: 25,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 3,
-                        marginRight: 5,
+                        height: 80,
+                        width: 80,
+                        borderRadius: 10,
                       }}
-                      onPress={() => handleCart({ productData: item, qty: -1 })}
+                    />
+                  </View>
+                  <View style={{ justifyContent: "center" }}>
+                    <View>
+                      <MediumView>
+                        <Text
+                          style={{
+                            fontSize: 14,
+                          }}
+                        >
+                          {item?.campaign?.productTitle.slice(0, 28)}
+                        </Text>
+                      </MediumView>
+                    </View>
+                    <View
+                      style={{
+                        marginTop: 5,
+                      }}
                     >
                       <RegularView>
                         <Text
                           style={{
-                            fontSize: 15,
+                            fontSize: 12,
                           }}
                         >
-                          -
+                          Win {item?.campaign?.title}
                         </Text>
                       </RegularView>
-                    </TouchableOpacity>
+                    </View>
                     <View
                       style={{
-                        backgroundColor: "#E9E9E9",
-                        width: 25,
-                        height: 25,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 3,
-                        marginRight: 5,
+                        marginTop: 5,
+                        justifyContent: "space-between",
+                        flexDirection: "row",
                       }}
                     >
-                      <RegularView>{item?.qty}</RegularView>
-                    </View>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: "#E9E9E9",
-                        width: 25,
-                        height: 25,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 3,
-                      }}
-                      onPress={() => handleCart({ productData: item, qty: 1 })}
-                    >
-                      <Text
+                      <View>
+                        <MediumView>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              color: "#FF3624",
+                            }}
+                          >
+                            AED {item?.price}
+                          </Text>
+                        </MediumView>
+                      </View>
+                      <View
                         style={{
-                          fontFamily: loaded ? "Montserrat-SemiBold" : null,
+                          justifyContent: "center",
+                          flexDirection: "row",
                         }}
                       >
-                        +
-                      </Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity
+                          disabled={item.qty <= 1 ? true : false}
+                          style={{
+                            backgroundColor: "#E9E9E9",
+                            width: 25,
+                            height: 25,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: 3,
+                            marginRight: 5,
+                          }}
+                          onPress={() =>
+                            handleCart({ productData: item, qty: -1 })
+                          }
+                        >
+                          <RegularView>
+                            <Text
+                              style={{
+                                fontSize: 15,
+                              }}
+                            >
+                              -
+                            </Text>
+                          </RegularView>
+                        </TouchableOpacity>
+                        <View
+                          style={{
+                            backgroundColor: "#E9E9E9",
+                            width: 25,
+                            height: 25,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: 3,
+                            marginRight: 5,
+                          }}
+                        >
+                          <RegularView>{item?.qty}</RegularView>
+                        </View>
+                        <TouchableOpacity
+                          style={{
+                            backgroundColor: "#E9E9E9",
+                            width: 25,
+                            height: 25,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: 3,
+                          }}
+                          onPress={() =>
+                            handleCart({ productData: item, qty: 1 })
+                          }
+                        >
+                          <Text
+                            style={{
+                              fontFamily: loaded ? "Montserrat-SemiBold" : null,
+                            }}
+                          >
+                            +
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
                   </View>
-                </View>
-              </View>
-              <TouchableOpacity
-                style={{
-                  justifyContent: "center",
+                  <TouchableOpacity
+                    style={{
+                      justifyContent: "center",
 
-                  alignItems: "center",
-                  marginLeft: 20,
-                }}
-                onPress={() => handleCartRemove(item)}
-              >
-                <Image
-                  resizeMode="contain"
-                  source={require("../assets/trash.png")}
+                      alignItems: "center",
+                      marginLeft: 20,
+                    }}
+                    onPress={() => handleCartRemove(item)}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={require("../assets/trash.png")}
+                      style={{
+                        height: 18,
+                        width: 18,
+                        tintColor: "#FF3624",
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
+          </View>
+
+          <TouchableOpacity
+            style={{
+              backgroundColor: "black",
+              height: 40,
+              width: "100%",
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",
+              bottom: 80,
+            }}
+            onPress={() =>
+              navigation.navigate("Checkout", {
+                cart: cart,
+                cartTotal: productTotal,
+                totalItem: totalItem,
+              })
+            }
+          >
+            <MediumView>
+              <Text style={{ color: "white", fontSize: 16 }}>
+                Proceed to Checkout
+              </Text>
+            </MediumView>
+          </TouchableOpacity>
+        </>
+      ) : (
+        <View
+          style={{ justifyContent: "center", flex: 1, alignItems: "center" }}
+        >
+          <SemiBoldView>
+            <Text style={{ fontSize: 17 }}>Your Cart Is Empty!</Text>
+          </SemiBoldView>
+          <TouchableOpacity
+            style={{ margin: 20 }}
+            onPress={() => navigation.navigate("Home")}
+          >
+            <View
+              style={{
+                width: 160,
+                height: 50,
+                backgroundColor: "#FF3624",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 10,
+              }}
+            >
+              <RegularView>
+                <Text
                   style={{
-                    height: 18,
-                    width: 18,
-                    tintColor: "#FF3624",
+                    color: "#fff",
                   }}
-                />
-              </TouchableOpacity>
+                >
+                  Start Shopping
+                </Text>
+              </RegularView>
             </View>
-          ))}
-      </View>
+          </TouchableOpacity>
+        </View>
+      )}
 
       {cartState.loading && (
         <View
@@ -280,7 +348,7 @@ export const Cart = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    margin: 10,
   },
   dot: {
     margin: 5,

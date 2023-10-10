@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
@@ -63,7 +70,7 @@ export const MyTabs = () => {
         headerShown: false,
         tabBarStyle: {
           position: "absolute",
-          height: 60,
+          height: Platform.OS === "android" ? 60 : 90,
           ...styles.shadow,
         },
       }}
