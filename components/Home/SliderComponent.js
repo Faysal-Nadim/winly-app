@@ -1,13 +1,6 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Dimensions,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+// import React, { useState } from "react";
+import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
+import Modal from "react-native-modal";
 import WinlyColors from "../../assets/WinlyColors";
 import { RegularView } from "../text/regular";
 
@@ -24,8 +17,25 @@ export const SliderComponent = ({ item, index }) => {
   let productTitle = item?.productTitle;
   let productImageUrl = item?.img?.product;
 
+  // const [isModalVisible, setModalVisible] = useState(false);
+
+  // const toggleModal = () => {
+  //   setModalVisible(!isModalVisible);
+  // };
+
   return (
     <View style={{ width: screenWidth, padding: 8 }}>
+      {/* <View style={{ flex: 1 }}>
+        <Button title="Show modal" onPress={toggleModal} />
+
+        <Modal isVisible={isModalVisible}>
+          <View style={{ flex: 1 }}>
+            <Text>Hello!</Text>
+
+            <Button title="Hide modal" onPress={toggleModal} />
+          </View>
+        </Modal>
+      </View> */}
       <Image
         source={{ uri: imageUrl }}
         style={{ height: 400, width: "100%", borderRadius: 12 }}
@@ -68,11 +78,7 @@ export const SliderComponent = ({ item, index }) => {
               // Handle button press here
             }} 
           />*/}
-          <TouchableOpacity
-            onPress={() => {
-              // Handle touch here
-            }}
-          >
+          <TouchableOpacity onPress={() => {}}>
             <View
               style={{
                 backgroundColor: WinlyColors.primaryRed,
@@ -103,11 +109,3 @@ export const SliderComponent = ({ item, index }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

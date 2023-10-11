@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View, SafeAreaView, Dimensions, Image, StatusBar } from "react-native";
 import { ScrollView } from "react-native-virtualized-view";
 import { useDispatch, useSelector } from "react-redux";
