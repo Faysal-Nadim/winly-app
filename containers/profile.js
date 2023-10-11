@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import * as Font from "expo-font";
 import { Picker } from "@react-native-picker/picker";
+import { SelectList } from "react-native-dropdown-select-list";
 
 /**
  * @author
@@ -17,7 +18,8 @@ import { Picker } from "@react-native-picker/picker";
  **/
 
 const Width = Dimensions.get("window").width;
-const countryData = require("../assets/CountryCodes.json");
+const countryData = require("../assets/Country.json");
+const data = require("../assets/dialcode.json");
 
 export const Profile = ({ route }) => {
   const user = route.params.user;
@@ -46,14 +48,24 @@ export const Profile = ({ route }) => {
     });
   }, []);
 
+  // const data = [
+  //   { key: "1", value: "Mobiles", disabled: true },
+  //   { key: "2", value: "Appliances" },
+  //   { key: "3", value: "Cameras" },
+  //   { key: "4", value: "Computers", disabled: true },
+  //   { key: "5", value: "Vegetables" },
+  //   { key: "6", value: "Diary Products" },
+  //   { key: "7", value: "Drinks" },
+  // ];
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        margin: StatusBar.currentHeight - 20,
+        margin: 10,
       }}
     >
-      <View>
+      <View style={{}}>
         <View
           style={{
             flexDirection: "row",
@@ -164,7 +176,7 @@ export const Profile = ({ route }) => {
             </Text>
             <View
               style={{
-                height: 50,
+                // height: 150,
                 width: Width / 2.3,
                 backgroundColor: "#fff",
                 justifyContent: "center",
@@ -172,7 +184,15 @@ export const Profile = ({ route }) => {
                 borderRadius: 10,
               }}
             >
-              <Picker
+              <SelectList
+                setSelected={(val) => setDialCode(val)}
+                data={data}
+                save="value"
+                label="DialCode"
+                defaultOption={data.filter((i) => i.value === dialCode)[0]}
+                fontFamily="Sora"
+              />
+              {/* <Picker
                 selectedValue={dialCode}
                 onValueChange={(itemValue, itemIndex) => setDialCode(itemValue)}
               >
@@ -183,10 +203,7 @@ export const Profile = ({ route }) => {
                     value={country.dial_code}
                   />
                 ))}
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
-                <Picker.Item label="Others" value="Others" />
-              </Picker>
+              </Picker> */}
             </View>
           </View>
           <View>
@@ -298,7 +315,7 @@ export const Profile = ({ route }) => {
             </Text>
             <View
               style={{
-                height: 50,
+                // height: 50,
                 width: Width / 2.3,
                 backgroundColor: "#fff",
                 justifyContent: "center",
@@ -306,18 +323,16 @@ export const Profile = ({ route }) => {
                 borderRadius: 10,
               }}
             >
-              <Picker
-                selectedValue={country}
-                onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}
-              >
-                {countryData?.map((country, i) => (
-                  <Picker.Item
-                    key={i}
-                    label={country.name}
-                    value={country.name}
-                  />
-                ))}
-              </Picker>
+              <SelectList
+                setSelected={(val) => setCountry(val)}
+                data={countryData}
+                save="value"
+                label="Country"
+                defaultOption={
+                  countryData.filter((i) => i.value === country)[0]
+                }
+                fontFamily="Sora"
+              />
             </View>
           </View>
           <View>
@@ -332,7 +347,7 @@ export const Profile = ({ route }) => {
             </Text>
             <View
               style={{
-                height: 50,
+                // height: 50,
                 width: Width / 2.3,
                 backgroundColor: "#fff",
                 justifyContent: "center",
@@ -340,23 +355,16 @@ export const Profile = ({ route }) => {
                 borderRadius: 10,
               }}
             >
-              <Picker
-                selectedValue={nationality}
-                onValueChange={(itemValue, itemIndex) =>
-                  setNationality(itemValue)
+              <SelectList
+                setSelected={(val) => setNationality(val)}
+                data={countryData}
+                save="value"
+                label="Nationality"
+                defaultOption={
+                  countryData.filter((i) => i.value === nationality)[0]
                 }
-              >
-                {countryData?.map((country, i) => (
-                  <Picker.Item
-                    key={i}
-                    label={country.name}
-                    value={country.name}
-                  />
-                ))}
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
-                <Picker.Item label="Others" value="Others" />
-              </Picker>
+                fontFamily="Sora"
+              />
             </View>
           </View>
         </View>

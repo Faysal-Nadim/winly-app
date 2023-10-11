@@ -69,6 +69,6 @@ export const Wallet = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: StatusBar.currentHeight - 10,
+    margin: 10,
   },
 });
