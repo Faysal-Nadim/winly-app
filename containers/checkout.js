@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "react-native-toast-message";
@@ -17,6 +18,8 @@ import { SemiBoldView } from "../components/text/semibold";
 import { RegularView } from "../components/text/regular";
 import { MediumView } from "../components/text/medium";
 import * as Font from "expo-font";
+import { Payment } from "./payment";
+import Modal from "react-native-modal";
 
 /**
  * @author
@@ -33,9 +36,15 @@ export const Checkout = ({ route }) => {
   const [coupon, setCoupon] = useState("");
   const [payment, setPayment] = useState("");
   const [discount, setDiscount] = useState(0);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [loadingState, setLoadingState] = useState(false);
+  const [exchange, setExchange] = useState(true);
+  const [address, setAddress] = useState("N/A");
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const orderState = useSelector((state) => state.order);
 
   useEffect(() => {
     Font.loadAsync({
@@ -48,6 +57,12 @@ export const Checkout = ({ route }) => {
       setLoaded(true);
     });
   }, []);
+
+  // useEffect(() => {
+  //   if (orderState.error === null && orderState.orderPlaced === true) {
+
+  //   }
+  // }, [orderState]);
 
   const cart = route.params.cart;
   const cartTotal = route.params.cartTotal;
@@ -130,248 +145,249 @@ export const Checkout = ({ route }) => {
   };
 
   return (
-    <SafeAreaView style={container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            margin: 8,
-          }}
-        >
-          <SemiBoldView>
-            <Text
-              style={{
-                fontSize: 15,
-              }}
-            >
-              Campaigns ({cart?.cartItems?.length})
-            </Text>
-          </SemiBoldView>
-        </View>
-        <View
-          style={{
-            marginLeft: 8,
-            marginRight: 8,
-          }}
-        >
-          {cart?.cartItems &&
-            cart?.cartItems.map((item) => (
-              <View
-                key={item._id}
+    <>
+      <SafeAreaView style={container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View
+            style={{
+              margin: 8,
+            }}
+          >
+            <SemiBoldView>
+              <Text
                 style={{
-                  backgroundColor: "#fff",
-                  borderRadius: 10,
-                  flexDirection: "row",
-                  //   width: Width - 16,
-                  marginTop: 5,
+                  fontSize: 15,
                 }}
               >
+                Campaigns ({cart?.cartItems?.length})
+              </Text>
+            </SemiBoldView>
+          </View>
+          <View
+            style={{
+              marginLeft: 8,
+              marginRight: 8,
+            }}
+          >
+            {cart?.cartItems &&
+              cart?.cartItems.map((item) => (
                 <View
+                  key={item._id}
                   style={{
-                    padding: 5,
+                    backgroundColor: "#fff",
+                    borderRadius: 10,
+                    flexDirection: "row",
+                    //   width: Width - 16,
+                    marginTop: 5,
                   }}
                 >
-                  <Image
-                    resizeMode="contain"
-                    source={{ uri: item?.campaign?.img?.product }}
-                    style={{
-                      height: 80,
-                      width: 80,
-                      borderRadius: 10,
-                    }}
-                  />
-                </View>
-                <View style={{ justifyContent: "center" }}>
-                  <RegularView>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                      }}
-                    >
-                      {item?.campaign?.productTitle}
-                    </Text>
-                  </RegularView>
                   <View
                     style={{
-                      marginTop: 5,
+                      padding: 5,
                     }}
                   >
+                    <Image
+                      resizeMode="contain"
+                      source={{ uri: item?.campaign?.img?.product }}
+                      style={{
+                        height: 80,
+                        width: 80,
+                        borderRadius: 10,
+                      }}
+                    />
+                  </View>
+                  <View style={{ justifyContent: "center" }}>
                     <RegularView>
                       <Text
                         style={{
-                          fontSize: 12,
+                          fontSize: 14,
                         }}
                       >
-                        Win {item?.campaign?.title}
+                        {item?.campaign?.productTitle}
                       </Text>
                     </RegularView>
-                  </View>
-                  <View
-                    style={{
-                      marginTop: 5,
-                      justifyContent: "space-between",
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <MediumView>
-                      <Text
-                        style={{
-                          fontSize: 13,
-                          color: "#FF3624",
-                        }}
-                      >
-                        AED {item?.price}
-                      </Text>
-                    </MediumView>
-                    <MediumView>
-                      <Text
-                        style={{
-                          fontSize: 13,
-                          color: "#FF3624",
-                        }}
-                      >
-                        Quantity - {item?.qty}
-                      </Text>
-                    </MediumView>
+                    <View
+                      style={{
+                        marginTop: 5,
+                      }}
+                    >
+                      <RegularView>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                          }}
+                        >
+                          Win {item?.campaign?.title}
+                        </Text>
+                      </RegularView>
+                    </View>
+                    <View
+                      style={{
+                        marginTop: 5,
+                        justifyContent: "space-between",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <MediumView>
+                        <Text
+                          style={{
+                            fontSize: 13,
+                            color: "#FF3624",
+                          }}
+                        >
+                          AED {item?.price}
+                        </Text>
+                      </MediumView>
+                      <MediumView>
+                        <Text
+                          style={{
+                            fontSize: 13,
+                            color: "#FF3624",
+                          }}
+                        >
+                          Quantity - {item?.qty}
+                        </Text>
+                      </MediumView>
 
-                    {/* <MediumView>
+                      {/* <MediumView>
                       <Text>Item Total: AED {item?.price * item?.qty}</Text>
                     </MediumView> */}
+                    </View>
                   </View>
                 </View>
-              </View>
-            ))}
-        </View>
-        <View
-          style={{
-            margin: 8,
-            backgroundColor: "#fff",
-            padding: 10,
-            borderRadius: 10,
-          }}
-        >
-          <View
-            style={{ justifyContent: "space-between", flexDirection: "row" }}
-          >
-            <MediumView>
-              <Text
-                style={{
-                  fontSize: 13,
-                }}
-              >
-                Total Ticket Price ({totalItem}{" "}
-                {totalItem > 1 ? "Tickets" : "Ticket"})
-              </Text>
-            </MediumView>
-            <MediumView>
-              <Text
-                style={{
-                  fontSize: 13,
-                }}
-              >
-                AED {cartTotal}
-              </Text>
-            </MediumView>
+              ))}
           </View>
           <View
             style={{
-              justifyContent: "space-between",
-              flexDirection: "row",
-              marginTop: 5,
+              margin: 8,
+              backgroundColor: "#fff",
+              padding: 10,
+              borderRadius: 10,
             }}
           >
-            <MediumView>
-              <Text
-                style={{
-                  fontSize: 13,
-                }}
-              >
-                VAT
-              </Text>
-            </MediumView>
-            <MediumView>
-              <Text
-                style={{
-                  fontSize: 13,
-                }}
-              >
-                AED 0
-              </Text>
-            </MediumView>
-          </View>
-          <View
-            style={{
-              justifyContent: "space-between",
-              flexDirection: "row",
-              marginTop: 5,
-            }}
-          >
-            <MediumView>
-              <Text
-                style={{
-                  fontSize: 13,
-                }}
-              >
-                Discount (0%)
-              </Text>
-            </MediumView>
-            <MediumView>
-              <Text
-                style={{
-                  fontSize: 13,
-                }}
-              >
-                AED 0
-              </Text>
-            </MediumView>
-          </View>
-          <View
-            style={{
-              marginTop: 10,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <TextInput
-              value={coupon}
-              placeholder="Enter Coupon Code (If Any)"
-              onChangeText={setCoupon}
+            <View
+              style={{ justifyContent: "space-between", flexDirection: "row" }}
+            >
+              <MediumView>
+                <Text
+                  style={{
+                    fontSize: 13,
+                  }}
+                >
+                  Total Ticket Price ({totalItem}{" "}
+                  {totalItem > 1 ? "Tickets" : "Ticket"})
+                </Text>
+              </MediumView>
+              <MediumView>
+                <Text
+                  style={{
+                    fontSize: 13,
+                  }}
+                >
+                  AED {cartTotal}
+                </Text>
+              </MediumView>
+            </View>
+            <View
               style={{
-                // height: 38,
-                fontFamily: loaded ? "Sora" : null,
-                width: Width / 1.7,
-                borderRadius: 5,
-                borderColor: "#000",
-                borderWidth: 1,
-                padding: 3,
-                // backgroundColor: "#fff",
-              }}
-            />
-            <TouchableOpacity
-              style={{
-                width: 100,
-                backgroundColor: "#000",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: 8,
-                borderRadius: 5,
+                justifyContent: "space-between",
+                flexDirection: "row",
+                marginTop: 5,
               }}
             >
               <MediumView>
                 <Text
                   style={{
-                    fontSize: 15,
-                    color: "#fff",
+                    fontSize: 13,
                   }}
                 >
-                  Apply
+                  VAT
                 </Text>
               </MediumView>
-            </TouchableOpacity>
+              <MediumView>
+                <Text
+                  style={{
+                    fontSize: 13,
+                  }}
+                >
+                  AED 0
+                </Text>
+              </MediumView>
+            </View>
+            <View
+              style={{
+                justifyContent: "space-between",
+                flexDirection: "row",
+                marginTop: 5,
+              }}
+            >
+              <MediumView>
+                <Text
+                  style={{
+                    fontSize: 13,
+                  }}
+                >
+                  Discount (0%)
+                </Text>
+              </MediumView>
+              <MediumView>
+                <Text
+                  style={{
+                    fontSize: 13,
+                  }}
+                >
+                  AED 0
+                </Text>
+              </MediumView>
+            </View>
+            <View
+              style={{
+                marginTop: 10,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextInput
+                value={coupon}
+                placeholder="Enter Coupon Code (If Any)"
+                onChangeText={setCoupon}
+                style={{
+                  // height: 38,
+                  fontFamily: loaded ? "Sora" : null,
+                  width: Width / 1.7,
+                  borderRadius: 5,
+                  borderColor: "#000",
+                  borderWidth: 1,
+                  padding: 3,
+                  // backgroundColor: "#fff",
+                }}
+              />
+              <TouchableOpacity
+                style={{
+                  width: 100,
+                  backgroundColor: "#000",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: 8,
+                  borderRadius: 5,
+                }}
+              >
+                <MediumView>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: "#fff",
+                    }}
+                  >
+                    Apply
+                  </Text>
+                </MediumView>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        {/* <View style={{ marginLeft: 8, marginRight: 8 }}>
+          {/* <View style={{ marginLeft: 8, marginRight: 8 }}>
           <MediumView>
             <Text
               style={{
@@ -518,59 +534,102 @@ export const Checkout = ({ route }) => {
             </View>
           </TouchableOpacity>
         </View> */}
-      </ScrollView>
-      <View
-        style={{
-          position: "absolute",
-          bottom: 0,
-          flexDirection: "row",
-          backgroundColor: "#fff",
-          padding: 10,
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: Width,
-        }}
-      >
+        </ScrollView>
         <View
           style={{
-            justifyContent: "center",
+            position: "absolute",
+            bottom: 0,
+            flexDirection: "row",
+            backgroundColor: "#fff",
+            padding: 10,
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: Width,
+            height: Platform.OS === "android" ? 80 : 100,
           }}
         >
-          <SemiBoldView>
-            <Text
-              style={{
-                fontSize: 15,
-              }}
-            >
-              Payable: AED {cartTotal}
-            </Text>
-          </SemiBoldView>
-          <RegularView>(VAT Included)</RegularView>
-        </View>
-        <TouchableOpacity onPress={handlePlaceOrder}>
           <View
             style={{
-              backgroundColor: "#FF3624",
               justifyContent: "center",
-              alignItems: "center",
-              padding: 8,
-              borderRadius: 5,
             }}
           >
             <SemiBoldView>
               <Text
                 style={{
                   fontSize: 15,
-                  color: "#fff",
                 }}
               >
-                Place Order
+                Payable: AED {cartTotal}
               </Text>
             </SemiBoldView>
+            <RegularView>(VAT Included)</RegularView>
           </View>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <View
+              style={{
+                backgroundColor: "#FF3624",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: 8,
+                borderRadius: 5,
+              }}
+            >
+              <SemiBoldView>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#fff",
+                  }}
+                >
+                  Place Order
+                </Text>
+              </SemiBoldView>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={"fadeIn"}
+        // animationOut={"fadeOut"}
+        animationOutTiming={500}
+        // backdropTransitionOutTiming={1000}
+        onBackButtonPress={() => setModalVisible(false)}
+        style={{
+          justifyContent: Platform.OS === "android" ? "flex-end" : "center",
+          margin: 0,
+        }}
+      >
+        <Payment
+          totalPrice={cartTotal}
+          setModalVisible={setModalVisible}
+          setLoadingState={setLoadingState}
+          exchange={exchange}
+          address={address}
+          loadingState={loadingState}
+        />
+      </Modal>
+      {loadingState && (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "#f3f3f3",
+            opacity: 0.5,
+          }}
+        >
+          <Image
+            source={require("../assets/loading.gif")}
+            style={{ height: 40, width: 40 }}
+          />
+        </View>
+      )}
+    </>
   );
 };
 

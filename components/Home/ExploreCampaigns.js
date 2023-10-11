@@ -63,7 +63,10 @@ export const ExploreCampaigns = ({ data }) => {
         </RegularView>
       </View>
 
-      <FlatList
+      {data?.map((i) => (
+        <ExploreCampaignCard key={i._id} item={i} />
+      ))}
+      {/* <FlatList
         data={data}
         ref={flatlistRef}
         renderItem={ExploreCampaignCard}
@@ -71,7 +74,7 @@ export const ExploreCampaigns = ({ data }) => {
         horizontal={false}
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
-      />
+      /> */}
     </View>
   );
 };

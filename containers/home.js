@@ -3,10 +3,10 @@ import { View, SafeAreaView, Dimensions, Image, StatusBar } from "react-native";
 import { ScrollView } from "react-native-virtualized-view";
 import { useDispatch, useSelector } from "react-redux";
 import { getCampaign, getCartItems } from "../redux/actions";
-import HeroSldierEx from "../components/Home/HeroSliderEx";
 import { Banner } from "../components/Home/Banner";
 import { UpcomingCampaigns } from "../components/Home/UpcomingCampaigns";
 import { ExploreCampaigns } from "../components/Home/ExploreCampaigns";
+import { HeroSldierEx } from "../components/Home/HeroSliderEx";
 
 /**
  * @author
@@ -30,6 +30,7 @@ export const Home = (props) => {
   }, []);
 
   const auth = useSelector((state) => state.auth);
+  const cart = useSelector((state) => state.cart);
   const campaign = useSelector((state) => state.campaign);
   const explore = useSelector((state) => state.campaign.campaigns?.explore);
 
@@ -80,6 +81,26 @@ export const Home = (props) => {
             />
             <View style={{ marginVertical: 36 }} />
           </View>
+          {cart?.loading && (
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                backgroundColor: "#f3f3f3",
+                opacity: 0.5,
+              }}
+            >
+              <Image
+                source={require("../assets/loading.gif")}
+                style={{ height: 40, width: 40 }}
+              />
+            </View>
+          )}
         </ScrollView>
       )}
     </SafeAreaView>

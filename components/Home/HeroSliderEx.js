@@ -1,8 +1,9 @@
-import { FlatList, StyleSheet, View, Dimensions } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
+import { FlatList, StyleSheet, View, Dimensions } from "react-native";
+
 import { SliderComponent } from "./SliderComponent";
 
-const HeroSldierEx = ({ data }) => {
+export const HeroSldierEx = ({ data }) => {
   const flatlistRef = useRef();
   const screenWidth = Dimensions.get("window").width;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -11,7 +12,7 @@ const HeroSldierEx = ({ data }) => {
     let interval = setInterval(() => {
       setActiveIndex((prevIndex) => {
         // Calculate the next index to scroll to, ensuring it wraps around
-        const nextIndex = (prevIndex + 1) % data.length;
+        const nextIndex = (prevIndex + 1) % data?.length;
 
         flatlistRef.current.scrollToIndex({
           index: nextIndex,
@@ -20,7 +21,7 @@ const HeroSldierEx = ({ data }) => {
 
         return nextIndex;
       });
-    }, 3500);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -55,7 +56,3 @@ const HeroSldierEx = ({ data }) => {
     </View>
   );
 };
-
-export default HeroSldierEx;
-
-const styles = StyleSheet.create({});

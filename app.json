@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "winly-app",
+    "name": "Winly",
     "slug": "winly-app",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.aleehatech.winlyapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b8e425ff-f8b1-4da5-993b-8027981cabc8"
+      }
     }
   }
 }

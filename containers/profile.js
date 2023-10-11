@@ -7,6 +7,7 @@ import {
   StatusBar,
   Dimensions,
   TextInput,
+  Button,
 } from "react-native";
 import * as Font from "expo-font";
 import { Picker } from "@react-native-picker/picker";

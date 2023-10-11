@@ -193,12 +193,10 @@ const HeroSldier = () => {
   const handleScroll = (event) => {
     // Get the scroll position
     const scrollPosition = event.nativeEvent.contentOffset.x;
-    console.log({ scrollPosition });
     // Get the index of current active item
 
     const index = scrollPosition / screenWidth;
 
-    console.log({ index });
     // Update the index
 
     setActiveIndex(index);

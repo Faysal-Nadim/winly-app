@@ -1,15 +1,19 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity, Button } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
 import { shareIcon } from "../../assets/images";
 import CustomProgressBar from "./CustomProgressBar";
 import { RegularView } from "../text/regular";
+
+import Modal from "react-native-modal";
+import { DetailsModal } from "../Modal/DetailsModal";
 
 /**
  * @author
  * @function ExploreCampaignCard
  **/
 export const ExploreCampaignCard = ({ item, index }) => {
+  const [isModalVisible, setModalVisible] = useState(false);
   // DATA EXTRACT
   let imageUrl = item?.img?.prize;
   let title = item?.title;
@@ -114,7 +118,15 @@ export const ExploreCampaignCard = ({ item, index }) => {
           }}
         >
           {/* ADD TO CART BTN */}
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            disabled={
+              item?.displayStatus[0].status === "Upcoming" ||
+              new Date().getTime() >= item?.validity
+                ? true
+                : false
+            }
+          >
             <View
               style={{
                 backgroundColor: WinlyColors.primaryRed,
@@ -128,7 +140,9 @@ export const ExploreCampaignCard = ({ item, index }) => {
             >
               <RegularView>
                 <Text style={{ color: "#fff", fontSize: 10, fontWeight: 600 }}>
-                  Add to Cart
+                  {new Date().getTime() >= item?.validity
+                    ? "Closed"
+                    : "Add to Cart"}
                 </Text>
               </RegularView>
             </View>
@@ -160,6 +174,22 @@ export const ExploreCampaignCard = ({ item, index }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={"fadeIn"}
+        // animationOut={"fadeOut"}
+        animationOutTiming={500}
+        // backdropTransitionOutTiming={1000}
+        onBackButtonPress={() => setModalVisible(false)}
+        onBackdropPress={() => setModalVisible(false)}
+        style={{ justifyContent: "center" }}
+      >
+        <View style={{ flex: 1 }}>
+          <DetailsModal setModalVisible={setModalVisible} detailsData={item} />
+
+          {/* <Button title="Hide modal" onPress={() => setModalVisible(false)} /> */}
+        </View>
+      </Modal>
     </View>
   );
 };

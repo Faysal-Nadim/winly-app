@@ -1,5 +1,6 @@
 import axiosInstance from "../helpers/axios";
 import { cartConstants } from "./constants";
+import Toast from "react-native-toast-message";
 
 export const getCartItems = () => {
   return async (dispatch) => {
@@ -40,6 +41,12 @@ export const addToCart = (item, qty) => {
         dispatch({
           type: cartConstants.ADD_TO_CART_SUCCESS,
           payload: res.data,
+        });
+        Toast.show({
+          type: "success",
+          text1: "Add To Cart Success",
+          text2: "Item Added To Your Cart Successfully!",
+          visibilityTime: 1000,
         });
         dispatch(getCartItems());
       }

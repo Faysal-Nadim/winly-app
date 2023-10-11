@@ -21,7 +21,6 @@ export const RegularView = (props) => {
   }, []);
 
   return (
-    // <Text style={{ fontFamily: loaded ? "Sora" : null }}>{props.children}</Text>
-    <>{props.children}</>
+    <Text style={{ fontFamily: loaded ? "Sora" : null }}>{props.children}</Text>
   );
 };

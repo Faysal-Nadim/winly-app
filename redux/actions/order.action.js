@@ -17,7 +17,6 @@ export const orderPlace = (order) => {
           type: orderConstant.ORDER_PLACE_SUCCESS,
           payload: res.data,
         });
-        window.location.replace("/order/success");
       }
     } catch (error) {
       const { data } = error.response;

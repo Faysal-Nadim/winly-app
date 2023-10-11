@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
+  Platform,
 } from "react-native";
 import { SemiBoldView } from "../components/text/semibold";
 import { useDispatch, useSelector } from "react-redux";
@@ -269,7 +270,7 @@ export const Cart = (props) => {
               justifyContent: "center",
               alignItems: "center",
               position: "absolute",
-              bottom: 80,
+              bottom: Platform.OS === "android" ? 80 : 100,
             }}
             onPress={() =>
               navigation.navigate("Checkout", {

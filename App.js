@@ -18,6 +18,9 @@ import { Verify } from "./containers/verify";
 import { Register } from "./containers/register";
 import { Loading } from "./components/loading";
 import { Checkout } from "./containers/checkout";
+import axiosInstance from "./redux/helpers/axios";
+import { StripeProvider } from "@stripe/stripe-react-native";
+import { Confirmation } from "./containers/confirmation";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,8 +28,20 @@ export default function App() {
   const auth = useSelector((state) => state.auth);
 
   const [loaded, setLoaded] = useState(false);
+  const [key, setKey] = useState(false);
 
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   axiosInstance
+  //     .get(`/payment/stripe/get-key`)
+  //     .then(async (res) => {
+  //       const { publishableKey } = await res.data;
+  //       setKey(publishableKey);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (!auth.authenticate) {
@@ -48,124 +63,136 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        {auth.authenticate ? (
-          <Stack.Navigator>
-            <Stack.Screen
-              name="MyTab"
-              component={MyTabs}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Profile"
-              component={Profile}
-              options={{
-                headerTitle: "Profile Information",
-                headerStyle: { backgroundColor: "#FFFFFF" },
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontFamily: loaded ? "Sora" : null,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="PaymentMethod"
-              component={PaymentMethod}
-              options={{
-                headerTitle: "Payment Methods",
-                headerStyle: { backgroundColor: "#FFFFFF" },
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontFamily: loaded ? "Sora" : null,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="Checkout"
-              component={Checkout}
-              options={{
-                headerTitle: "Checkout",
-                headerStyle: { backgroundColor: "#FFFFFF" },
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontFamily: loaded ? "Sora" : null,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="Wallet"
-              component={Wallet}
-              options={{
-                headerTitle: "Wallet",
-                headerStyle: { backgroundColor: "#FFFFFF" },
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontFamily: loaded ? "Sora" : null,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="Ticket"
-              component={Tickets}
-              options={{
-                headerTitle: "Active Tickets",
-                headerStyle: { backgroundColor: "#FFFFFF" },
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontFamily: loaded ? "Sora" : null,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="Notification"
-              component={Notification}
-              options={{
-                headerTitle: "Notification",
-                headerStyle: { backgroundColor: "#FFFFFF" },
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontFamily: loaded ? "Sora" : null,
-                },
-              }}
-            />
-          </Stack.Navigator>
-        ) : (
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Loading"
-              component={Loading}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Verify"
-              component={Verify}
-              options={{
-                headerShown: false,
-                headerStyle: { backgroundColor: "#FFFFFF" },
-              }}
-            />
-            <Stack.Screen
-              name="Register"
-              component={Register}
-              options={{
-                headerShown: false,
-                headerStyle: { backgroundColor: "#FFFFFF" },
-              }}
-            />
-          </Stack.Navigator>
-        )}
-      </NavigationContainer>
+      <StripeProvider
+        urlScheme="winly-app://Checkout"
+        publishableKey="pk_live_51NJEroJp4qwBz4X7bqRX5zFVSlAbmP4H6eOaRgrNCMtcqF6NqGAV9ZdrFINYKalj1435cDNJqTDfurL3nBjwzxm000K1l78wMD"
+      >
+        <NavigationContainer>
+          {auth.authenticate ? (
+            <Stack.Navigator>
+              <Stack.Screen
+                name="MyTab"
+                component={MyTabs}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Profile"
+                component={Profile}
+                options={{
+                  headerTitle: "Profile Information",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="PaymentMethod"
+                component={PaymentMethod}
+                options={{
+                  headerTitle: "Payment Methods",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="Checkout"
+                component={Checkout}
+                options={{
+                  headerTitle: "Checkout",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="Wallet"
+                component={Wallet}
+                options={{
+                  headerTitle: "Wallet",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="Ticket"
+                component={Tickets}
+                options={{
+                  headerTitle: "Active Tickets",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="Notification"
+                component={Notification}
+                options={{
+                  headerTitle: "Notification",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="Confirmation"
+                component={Confirmation}
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </Stack.Navigator>
+          ) : (
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Loading"
+                component={Loading}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Verify"
+                component={Verify}
+                options={{
+                  headerShown: false,
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                }}
+              />
+              <Stack.Screen
+                name="Register"
+                component={Register}
+                options={{
+                  headerShown: false,
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                }}
+              />
+            </Stack.Navigator>
+          )}
+        </NavigationContainer>
+      </StripeProvider>
       <Toast />
     </Provider>
   );

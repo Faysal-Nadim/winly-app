@@ -5,6 +5,7 @@ const initState = {
   order: {},
   loading: false,
   error: null,
+  orderPlaced: false,
 };
 
 export default (state = initState, action) => {
@@ -13,6 +14,7 @@ export default (state = initState, action) => {
       state = {
         ...state,
         loading: true,
+        orderPlaced: false,
       };
       break;
     case orderConstant.ORDER_PLACE_SUCCESS:
@@ -20,6 +22,8 @@ export default (state = initState, action) => {
         ...state,
         order: action.payload,
         loading: false,
+        orderPlaced: true,
+        error: null,
       };
       break;
     case orderConstant.ORDER_PLACE_FAILURE:
