@@ -10,6 +10,7 @@ import { RegularView } from "../text/regular";
  * @function ExploreCampaignCard
  **/
 export const ExploreCampaignCard = ({ item, index }) => {
+  // DATA EXTRACT
   let imageUrl = item?.img?.prize;
   let title = item?.title;
   let productTitle = item?.productTitle;
@@ -112,11 +113,8 @@ export const ExploreCampaignCard = ({ item, index }) => {
             gap: 8,
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              // Handle touch here
-            }}
-          >
+          {/* ADD TO CART BTN */}
+          <TouchableOpacity onPress={() => {}}>
             <View
               style={{
                 backgroundColor: WinlyColors.primaryRed,

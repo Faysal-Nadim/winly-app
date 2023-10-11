@@ -34,8 +34,8 @@ export const UpcomingCampaignCard = ({ item, index, dataLength }) => {
             padding: 12,
             marginTop: -72,
             backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
+            borderBottomLeftRadius: 12,
+            borderBottomRightRadius: 12,
             //   borderBottomStartRadius: 12,
             //   borderBottomEndRadius: 12,
           }}
