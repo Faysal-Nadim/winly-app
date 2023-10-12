@@ -33,7 +33,7 @@ export const Account = (props) => {
     <SafeAreaView
       style={{
         flex: 1,
-        marginTop: StatusBar.currentHeight,
+        marginTop: StatusBar.currentHeight - 10,
         marginBottom: StatusBar.currentHeight,
       }}
     >
@@ -42,8 +42,8 @@ export const Account = (props) => {
           <View
             style={{
               backgroundColor: "#fff",
-              marginLeft: 20,
-              marginRight: 20,
+              marginLeft: 10,
+              marginRight: 10,
               marginTop: 16,
               padding: 20,
               borderRadius: 10,
@@ -182,8 +182,8 @@ export const Account = (props) => {
           </View>
           <View
             style={{
-              marginLeft: 20,
-              marginRight: 20,
+              marginLeft: 10,
+              marginRight: 10,
               marginBottom: 20,
               marginTop: 10,
             }}

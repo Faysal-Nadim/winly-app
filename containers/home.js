@@ -19,9 +19,6 @@ const images = [
   "https://media.cnn.com/api/v1/images/stellar/prod/220328104210-allbirds-nautral-white-sneakers.jpg?c=original",
 ];
 
-const Width = Dimensions.get("window").width;
-const Height = Dimensions.get("window").height;
-
 export const Home = (props) => {
   const dispatch = useDispatch();
 
@@ -30,9 +27,7 @@ export const Home = (props) => {
   }, []);
 
   const auth = useSelector((state) => state.auth);
-  const cart = useSelector((state) => state.cart);
   const campaign = useSelector((state) => state.campaign);
-  const explore = useSelector((state) => state.campaign.campaigns?.explore);
 
   useEffect(() => {
     if (auth.authenticate) {
@@ -81,26 +76,6 @@ export const Home = (props) => {
             />
             <View style={{ marginVertical: 36 }} />
           </View>
-          {cart?.loading && (
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                backgroundColor: "#f3f3f3",
-                opacity: 0.5,
-              }}
-            >
-              <Image
-                source={require("../assets/loading.gif")}
-                style={{ height: 40, width: 40 }}
-              />
-            </View>
-          )}
         </ScrollView>
       )}
     </SafeAreaView>

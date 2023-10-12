@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SemiBoldView } from "../components/text/semibold";
-import { MediumView } from "../components/text/medium";
 
 /**
  * @author
@@ -66,19 +65,7 @@ export const Confirmation = ({ route }) => {
           ? `Your Order Has Been Placed`
           : `Payment Failed! Please Try Again.`}
       </Text>
-      {/* <MediumView>
-        <Text
-          style={{
-            margin: 25,
-            backgroundColor: "#93BBD2",
-            fontSize: 15,
-            padding: 5,
-            borderRadius: 10,
-          }}
-        >
-          Order ID #{route.params.invoice}
-        </Text>
-      </MediumView> */}
+
       <TouchableOpacity
         style={{
           backgroundColor: "#FF3624",

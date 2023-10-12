@@ -4,10 +4,8 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  Dimensions,
   TouchableOpacity,
   Image,
-  StatusBar,
   Platform,
 } from "react-native";
 import { SemiBoldView } from "../components/text/semibold";
@@ -21,7 +19,7 @@ import { RegularView } from "../components/text/regular";
  * @author
  * @function Cart
  **/
-const Width = Dimensions.get("window").width;
+
 export const Cart = (props) => {
   const { container } = styles;
 
@@ -29,7 +27,6 @@ export const Cart = (props) => {
   const navigation = useNavigation();
 
   const [loaded, setLoaded] = useState(false);
-  const [checked, setChecked] = useState(true);
   const [exchangeProductWithTickets, setExchangeProductWithTickets] =
     useState(true);
 
@@ -85,7 +82,7 @@ export const Cart = (props) => {
         <>
           <View
             style={{
-              marginTop: 40,
+              marginTop: 20,
               alignItems: "center",
               flexDirection: "row",
             }}

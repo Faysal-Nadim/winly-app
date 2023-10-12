@@ -13,7 +13,7 @@ import { Home } from "../containers/home";
 import { Cart } from "../containers/cart";
 import { Account } from "../containers/account";
 import { useSelector } from "react-redux";
-import { Winner } from "../containers/Winner";
+import { Winner } from "../containers/winners";
 
 const Tab = createBottomTabNavigator();
 

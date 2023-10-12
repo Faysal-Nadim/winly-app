@@ -1,4 +1,11 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -21,7 +28,6 @@ import { Checkout } from "./containers/checkout";
 import axiosInstance from "./redux/helpers/axios";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { Confirmation } from "./containers/confirmation";
-import { Winner } from "./containers/winner";
 import { FAQ } from "./containers/FAQ";
 
 const Stack = createNativeStackNavigator();
@@ -33,17 +39,14 @@ export default function App() {
   const [key, setKey] = useState(false);
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   axiosInstance
-  //     .get(`/payment/stripe/get-key`)
-  //     .then(async (res) => {
-  //       const { publishableKey } = await res.data;
-  //       setKey(publishableKey);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+
+  const MyStatusBar = ({ backgroundColor, ...props }) => (
+    <View style={[styles.statusBar, { backgroundColor }]}>
+      <SafeAreaView>
+        <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+      </SafeAreaView>
+    </View>
+  );
 
   useEffect(() => {
     if (!auth.authenticate) {
@@ -65,6 +68,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
+      <MyStatusBar backgroundColor="#535353" barStyle="light-content" />
       <StripeProvider
         urlScheme="winly-app://Checkout"
         publishableKey="pk_live_51NJEroJp4qwBz4X7bqRX5zFVSlAbmP4H6eOaRgrNCMtcqF6NqGAV9ZdrFINYKalj1435cDNJqTDfurL3nBjwzxm000K1l78wMD"
@@ -174,13 +178,13 @@ export default function App() {
             </Stack.Navigator>
           ) : (
             <Stack.Navigator>
-              <Stack.Screen
+              {/* <Stack.Screen
                 name="Loading"
                 component={Loading}
                 options={{
                   headerShown: false,
                 }}
-              />
+              /> */}
               <Stack.Screen
                 name="Login"
                 component={Login}
@@ -189,16 +193,16 @@ export default function App() {
                 }}
               />
               <Stack.Screen
-                name="Verify"
-                component={Verify}
+                name="Register"
+                component={Register}
                 options={{
                   headerShown: false,
                   headerStyle: { backgroundColor: "#FFFFFF" },
                 }}
               />
               <Stack.Screen
-                name="Register"
-                component={Register}
+                name="Verify"
+                component={Verify}
                 options={{
                   headerShown: false,
                   headerStyle: { backgroundColor: "#FFFFFF" },

@@ -42,9 +42,6 @@ export const Checkout = ({ route }) => {
   const [address, setAddress] = useState("N/A");
 
   const dispatch = useDispatch();
-  const navigation = useNavigation();
-
-  const orderState = useSelector((state) => state.order);
 
   useEffect(() => {
     Font.loadAsync({
@@ -58,91 +55,9 @@ export const Checkout = ({ route }) => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (orderState.error === null && orderState.orderPlaced === true) {
-
-  //   }
-  // }, [orderState]);
-
   const cart = route.params.cart;
   const cartTotal = route.params.cartTotal;
   const totalItem = route.params.totalItem;
-
-  const handlePlaceOrder = async () => {
-    const data = {
-      invoice: {
-        amount: orderTotal,
-      },
-      payment: payment,
-      orderItems: cart.cartItems.map((item) => ({
-        productID: item.product.productID,
-        title: item.product.title,
-        img: item.product.image,
-        props: {
-          name: item.props.name,
-          value: item.props.value,
-          sku: item.props.sku,
-        },
-        price: item.product.price.discounted
-          ? item.product.price.discount
-          : item.product.price.original,
-        qty: item.qty,
-        itemTotal: item.product.price.discounted
-          ? item.product.price.discount * item.qty
-          : item.product.price.original * item.qty,
-      })),
-      orderTotal: orderTotal,
-      totalProduct: totalItem,
-      address: selected._id,
-      weight: {
-        value: weight,
-      },
-      shipping: {
-        delivery_fee: delivery,
-      },
-    };
-    if (payment === "COD") {
-      const res = await axiosInstance
-        .post(`/user/order/place`, data)
-        .then((res) => {
-          if (res.status === 201) {
-            navigation.navigate("Orderplaced", {
-              payment: "complete",
-              invoice: res.data.order.orderID,
-            });
-          }
-        })
-        .catch((error) => {
-          const { data } = error.response;
-          Toast.show({
-            type: "error",
-            text1: `${data.msg}`,
-            text2: `Status ${error.response.status}`,
-          });
-        });
-    }
-    if (payment === "bKash") {
-      const res = await axiosInstance
-        .post(`/user/order/place`, data)
-        .then((res) => {
-          if (res.status === 201) {
-            navigation.navigate("Payment", {
-              payment: payment,
-              amount: res.data.order.orderTotal,
-              invoice: res.data.order.orderID,
-            });
-          }
-        })
-        .catch((error) => {
-          const { data } = error.response;
-          Toast.show({
-            type: "error",
-            text1: `${data.msg}`,
-            text2: `Status ${error.response.status}`,
-          });
-        });
-    }
-  };
 
   return (
     <>

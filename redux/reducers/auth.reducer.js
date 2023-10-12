@@ -66,12 +66,13 @@ export default (state = initState, action) => {
       state = {
         ...state,
         loading: false,
+        verified: false,
       };
       break;
     case authConstant.SIGNUP_FAILURE:
       state = {
         ...state,
-        error: action.payload.error,
+        error: action.payload,
         loading: false,
       };
       break;
