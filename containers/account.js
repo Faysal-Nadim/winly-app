@@ -44,7 +44,7 @@ export const Account = (props) => {
               backgroundColor: "#fff",
               marginLeft: 20,
               marginRight: 20,
-              marginTop: 5,
+              marginTop: 16,
               padding: 20,
               borderRadius: 10,
             }}
@@ -322,6 +322,7 @@ export const Account = (props) => {
             </TouchableOpacity>
 
             <TouchableOpacity
+              onPress={() => navigation.navigate("FAQ")}
               style={{
                 backgroundColor: "#fff",
                 marginTop: 10,

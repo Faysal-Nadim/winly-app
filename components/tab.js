@@ -13,6 +13,7 @@ import { Home } from "../containers/home";
 import { Cart } from "../containers/cart";
 import { Account } from "../containers/account";
 import { useSelector } from "react-redux";
+import { Winner } from "../containers/Winner";
 
 const Tab = createBottomTabNavigator();
 
@@ -109,8 +110,8 @@ export const MyTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Category"
-        component={Home}
+        name="Winner"
+        component={Winner}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

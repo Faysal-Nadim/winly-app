@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  Dimensions,
 } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
 import { useDispatch } from "react-redux";
@@ -105,8 +106,10 @@ export const DetailsModal = ({ detailsData, setModalVisible }) => {
         })
       : "To be announced";
 
+  const screenWidth = Dimensions.get("window").width;
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ width: screenWidth, maxWidth: 420 }}>
       {/* <ScrollView showsVerticalScrollIndicator={false}> */}
       <View
         style={{
@@ -136,7 +139,7 @@ export const DetailsModal = ({ detailsData, setModalVisible }) => {
           />
           {/* PRODUCT TITLE */}
           <Text style={{ fontSize: 16, fontWeight: 800, marginHorizontal: 6 }}>
-            {productTitle}
+            {productTitle} {title}
           </Text>
           {/* PRODUCT PRICE */}
           <Text
@@ -269,17 +272,17 @@ export const DetailsModal = ({ detailsData, setModalVisible }) => {
               <CustomButtonHandler
                 onPress={handleAddToCart}
                 disabledCondition={false}
-                btnText={"Add To Cart"}
+                btnText={"Add Cart"}
                 bgColor={WinlyColors.primaryRed}
                 textColor={WinlyColors.white}
               />
             )}
 
-            {/* <CustomButtonHandler
+            <CustomButtonHandler
               onPress={() => setModalVisible(false)}
               disabledCondition={false}
               btnText={"Close"}
-            /> */}
+            />
           </View>
         </View>
       </View>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FlatList, StyleSheet, View, Dimensions } from "react-native";
-
+import Modal from "react-native-modal";
+import { DetailsModal } from "../Modal/DetailsModal";
 import { SliderComponent } from "./SliderComponent";
 
 export const HeroSldierEx = ({ data }) => {
@@ -38,14 +39,40 @@ export const HeroSldierEx = ({ data }) => {
 
     setActiveIndex(index);
   };
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [clickedItem, setClickedItem] = useState(null);
 
   return (
     <View style={{}}>
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={"slideInUp"}
+        animationInTiming={500}
+        animationOut={"slideOutDown"}
+        animationOutTiming={800}
+        // backdropTransitionOutTiming={1000}
+        onBackButtonPress={() => setModalVisible(false)}
+        onBackdropPress={() => setModalVisible(false)}
+        style={{ justifyContent: "center", alignItems: "center" }}
+      >
+        <View>
+          <DetailsModal
+            setModalVisible={setModalVisible}
+            detailsData={clickedItem}
+          />
+        </View>
+      </Modal>
       <FlatList
         data={data}
         ref={flatlistRef}
         getItemLayout={getItemLayout}
-        renderItem={SliderComponent}
+        renderItem={({ item }) => (
+          <SliderComponent
+            item={item}
+            setClickedItem={setClickedItem}
+            setModalVisible={setModalVisible}
+          />
+        )}
         keyExtractor={(item) => item._id}
         horizontal={true}
         pagingEnabled={true}
