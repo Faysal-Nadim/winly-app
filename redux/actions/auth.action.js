@@ -271,7 +271,7 @@ export const updateNotification = (data) => {
           type: "success",
           text1: `Dear ${user.firstName}`,
           text2: "Your Notification Settings Updated.",
-          visibilityTime: 1000,
+          visibilityTime: 1500,
         });
       }
     } catch (err) {

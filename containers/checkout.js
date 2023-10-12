@@ -20,6 +20,7 @@ import { MediumView } from "../components/text/medium";
 import * as Font from "expo-font";
 import { Payment } from "./payment";
 import Modal from "react-native-modal";
+import CheckBox from "react-native-check-box";
 
 /**
  * @author
@@ -56,13 +57,21 @@ export const Checkout = ({ route }) => {
   }, []);
 
   const cart = route.params.cart;
-  const cartTotal = route.params.cartTotal;
-  const totalItem = route.params.totalItem;
+  const cartTotal =
+    (cart.cartItems
+      ? Object.keys(cart.cartItems).reduce((totalPrice, key) => {
+          const { price, qty } = cart.cartItems[key];
+          return totalPrice + price * qty;
+        }, 0)
+      : 0) + +(exchange === true ? 0 : 35);
 
   return (
     <>
       <SafeAreaView style={container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ marginBottom: 80 }}
+        >
           <View
             style={{
               margin: 8,
@@ -175,6 +184,75 @@ export const Checkout = ({ route }) => {
           </View>
           <View
             style={{
+              marginLeft: 8,
+              marginRight: 8,
+              marginBottom: 5,
+              marginTop: 5,
+              backgroundColor: "#fff",
+              padding: 10,
+              borderRadius: 10,
+            }}
+          >
+            <CheckBox
+              style={{
+                borderRadius: 5,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              isChecked={exchange}
+              onClick={() => setExchange(!exchange)}
+              rightText="Exchange your product with a Ticket"
+              rightTextStyle={{
+                fontFamily: loaded ? "Sora-Medium" : null,
+                fontSize: 15,
+              }}
+            />
+          </View>
+          {exchange ? null : (
+            <View
+              style={{
+                marginLeft: 8,
+                marginRight: 8,
+                marginBottom: 5,
+                marginTop: 5,
+                backgroundColor: "#fff",
+                padding: 10,
+                borderRadius: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                  fontSize: 16,
+                }}
+              >
+                Full Address
+              </Text>
+              <TextInput
+                placeholder="Complete Delivery Address (Including ZIP Code)"
+                value={address}
+                onChangeText={setAddress}
+                aria-label="Address"
+                style={{
+                  fontFamily: loaded ? "Sora" : null,
+                  fontSize: 15,
+                  height: 100,
+                  // width: Width - 35,
+                  borderRadius: 10,
+                  margin: 5,
+                  padding: 10,
+                  backgroundColor: "#fff",
+                  borderColor: "#000",
+                  borderWidth: 1,
+                }}
+                multiline={true}
+                // keyboardType="email-address"
+              />
+            </View>
+          )}
+          <View
+            style={{
               margin: 8,
               backgroundColor: "#fff",
               padding: 10,
@@ -190,8 +268,7 @@ export const Checkout = ({ route }) => {
                     fontSize: 13,
                   }}
                 >
-                  Total Ticket Price ({totalItem}{" "}
-                  {totalItem > 1 ? "Tickets" : "Ticket"})
+                  Sub Total
                 </Text>
               </MediumView>
               <MediumView>
@@ -200,7 +277,7 @@ export const Checkout = ({ route }) => {
                     fontSize: 13,
                   }}
                 >
-                  AED {cartTotal}
+                  + AED {cartTotal}
                 </Text>
               </MediumView>
             </View>
@@ -226,10 +303,38 @@ export const Checkout = ({ route }) => {
                     fontSize: 13,
                   }}
                 >
-                  AED 0
+                  + AED 0
                 </Text>
               </MediumView>
             </View>
+            {exchange ? null : (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  flexDirection: "row",
+                  marginTop: 5,
+                }}
+              >
+                <MediumView>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                    }}
+                  >
+                    Delivery Charge
+                  </Text>
+                </MediumView>
+                <MediumView>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                    }}
+                  >
+                    + AED 35
+                  </Text>
+                </MediumView>
+              </View>
+            )}
             <View
               style={{
                 justifyContent: "space-between",
@@ -471,13 +576,12 @@ export const Checkout = ({ route }) => {
             <SemiBoldView>
               <Text
                 style={{
-                  fontSize: 15,
+                  fontSize: 16,
                 }}
               >
-                Payable: AED {cartTotal}
+                Payable Total: AED {cartTotal}
               </Text>
             </SemiBoldView>
-            <RegularView>(VAT Included)</RegularView>
           </View>
           <TouchableOpacity onPress={() => setModalVisible(true)}>
             <View
