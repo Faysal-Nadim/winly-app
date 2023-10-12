@@ -51,7 +51,7 @@ export const Notification = (props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: Platform.OS === "android" ? 0 : 10,
+            marginBottom: 10,
           }}
         >
           <View>
@@ -75,7 +75,7 @@ export const Notification = (props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: Platform.OS === "android" ? 0 : 10,
+            marginBottom: 10,
           }}
         >
           <View>
@@ -99,7 +99,7 @@ export const Notification = (props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: Platform.OS === "android" ? 0 : 10,
+            marginBottom: 10,
           }}
         >
           <View>
@@ -123,6 +123,7 @@ export const Notification = (props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom: 10,
           }}
         >
           <View>

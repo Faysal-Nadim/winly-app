@@ -137,7 +137,10 @@ export const Account = (props) => {
                 <MediumView>Tickets</MediumView>
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("Offer")}
+              >
                 <View
                   style={{
                     height: 50,

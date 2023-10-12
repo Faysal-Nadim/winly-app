@@ -29,6 +29,8 @@ import axiosInstance from "./redux/helpers/axios";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { Confirmation } from "./containers/confirmation";
 import { FAQ } from "./containers/FAQ";
+import { Offer } from "./containers/offer";
+import { AboutUs } from "./containers/about-us";
 
 const Stack = createNativeStackNavigator();
 
@@ -169,8 +171,27 @@ export default function App() {
                 }}
               />
               <Stack.Screen
+                name="Offer"
+                component={Offer}
+                options={{
+                  headerTitle: "Offers",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+              <Stack.Screen
                 name="Confirmation"
                 component={Confirmation}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="AboutUs"
+                component={AboutUs}
                 options={{
                   headerShown: false,
                 }}

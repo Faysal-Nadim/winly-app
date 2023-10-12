@@ -34,8 +34,12 @@ export const Profile = ({ route }) => {
   const [dob, setDob] = useState(user?.dob);
   const [phone, setPhone] = useState(user?.phone);
   const [dialCode, setDialCode] = useState(user?.dialCode);
-  const [password, setPassword] = useState("");
-  const [show, setShow] = useState(false);
+
+  const handleDialCode = (val) => {
+    setDialCode(val);
+  };
+
+  const defaultDialCode = data.filter((c) => c.value === user?.dialCode)[0];
 
   useEffect(() => {
     Font.loadAsync({
@@ -48,16 +52,6 @@ export const Profile = ({ route }) => {
       setLoaded(true);
     });
   }, []);
-
-  // const data = [
-  //   { key: "1", value: "Mobiles", disabled: true },
-  //   { key: "2", value: "Appliances" },
-  //   { key: "3", value: "Cameras" },
-  //   { key: "4", value: "Computers", disabled: true },
-  //   { key: "5", value: "Vegetables" },
-  //   { key: "6", value: "Diary Products" },
-  //   { key: "7", value: "Drinks" },
-  // ];
 
   return (
     <SafeAreaView
@@ -186,25 +180,13 @@ export const Profile = ({ route }) => {
               }}
             >
               <SelectList
-                setSelected={(val) => setDialCode(val)}
+                setSelected={(val) => handleDialCode(val)}
                 data={data}
                 save="value"
                 label="DialCode"
-                defaultOption={data.filter((i) => i.value === dialCode)[0]}
+                defaultOption={defaultDialCode}
                 fontFamily="Sora"
               />
-              {/* <Picker
-                selectedValue={dialCode}
-                onValueChange={(itemValue, itemIndex) => setDialCode(itemValue)}
-              >
-                {countryData?.map((country, i) => (
-                  <Picker.Item
-                    key={i}
-                    label={country.dial_code}
-                    value={country.dial_code}
-                  />
-                ))}
-              </Picker> */}
             </View>
           </View>
           <View>
