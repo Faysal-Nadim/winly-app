@@ -5,4 +5,6 @@ export default WinlyColors = {
   white: "#FFFFFF",
   black: "#000000",
   offBlack: "#454545",
+  grey: "#D7DAE1",
+  lightGrey: "#F3F4F6",
 };

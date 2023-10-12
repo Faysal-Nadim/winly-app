@@ -7,7 +7,12 @@ import { RegularView } from "../text/regular";
  * @author
  * @function SliderComponent
  **/
-export const SliderComponent = ({ item, index }) => {
+export const SliderComponent = ({
+  item,
+  index,
+  setClickedItem,
+  setModalVisible,
+}) => {
   const screenWidth = Dimensions.get("window").width;
 
   let contentBoxWidth = screenWidth - 32;
@@ -52,7 +57,12 @@ export const SliderComponent = ({ item, index }) => {
             alignItems: "flex-end",
           }}
         >
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              setClickedItem(item);
+              setModalVisible(true);
+            }}
+          >
             <View
               style={{
                 backgroundColor: WinlyColors.primaryRed,

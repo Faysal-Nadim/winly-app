@@ -1,5 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { View, Text, Dimensions, FlatList } from "react-native";
+import Modal from "react-native-modal";
+import { DetailsModal } from "../Modal/DetailsModal";
 import { UpcomingCampaignCard } from "./UpcomingCampaignCards";
 import { RegularView } from "../text/regular";
 
@@ -11,25 +13,48 @@ import { RegularView } from "../text/regular";
 export const UpcomingCampaigns = ({ data }) => {
   const flatlistRef = useRef();
   const screenWidth = Dimensions.get("window").width;
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [clickedItem, setClickedItem] = useState(null);
   return (
     <View style={{ width: screenWidth }}>
       <View
         style={{
-          marginBottom: 24,
-          paddingHorizontal: 14,
+          marginBottom: 12,
+          paddingHorizontal: 20,
         }}
       >
         <RegularView>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 22,
               fontWeight: 600,
+              marginBottom: 8,
             }}
           >
             Running Campaigns
           </Text>
         </RegularView>
       </View>
+
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={"slideInUp"}
+        animationInTiming={500}
+        animationOut={"slideOutDown"}
+        animationOutTiming={800}
+        // backdropTransitionOutTiming={1000}
+        onBackButtonPress={() => setModalVisible(false)}
+        onBackdropPress={() => setModalVisible(false)}
+        style={{ justifyContent: "center", alignItems: "center" }}
+      >
+        <View>
+          <DetailsModal
+            setModalVisible={setModalVisible}
+            detailsData={clickedItem}
+          />
+        </View>
+      </Modal>
 
       <FlatList
         data={data}
@@ -39,6 +64,8 @@ export const UpcomingCampaigns = ({ data }) => {
           <UpcomingCampaignCard
             item={item}
             index={index}
+            setClickedItem={setClickedItem}
+            setModalVisible={setModalVisible}
             dataLength={data?.length}
           />
         )}

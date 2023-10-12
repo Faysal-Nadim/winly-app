@@ -36,6 +36,21 @@ export const ExploreCampaignCard = ({ item, index }) => {
         padding: 12,
       }}
     >
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={"slideInUp"}
+        animationInTiming={500}
+        animationOut={"slideOutDown"}
+        animationOutTiming={800}
+        // backdropTransitionOutTiming={1000}
+        onBackButtonPress={() => setModalVisible(false)}
+        onBackdropPress={() => setModalVisible(false)}
+        style={{ justifyContent: "center", alignItems: "center" }}
+      >
+        <View>
+          <DetailsModal setModalVisible={setModalVisible} detailsData={item} />
+        </View>
+      </Modal>
       {/* IMAGE OF THE PRIZE */}
       <Image
         source={{ uri: imageUrl }}
@@ -117,7 +132,6 @@ export const ExploreCampaignCard = ({ item, index }) => {
             gap: 8,
           }}
         >
-          {/* ADD TO CART BTN */}
           <TouchableOpacity
             onPress={() => setModalVisible(true)}
             disabled={
@@ -166,30 +180,14 @@ export const ExploreCampaignCard = ({ item, index }) => {
               <Image
                 source={shareIcon}
                 style={{
-                  height: 25,
-                  width: 25,
+                  height: 22,
+                  width: 22,
                 }}
               />
             </View>
           </TouchableOpacity>
         </View>
       </View>
-      <Modal
-        isVisible={isModalVisible}
-        animationIn={"fadeIn"}
-        // animationOut={"fadeOut"}
-        animationOutTiming={500}
-        // backdropTransitionOutTiming={1000}
-        onBackButtonPress={() => setModalVisible(false)}
-        onBackdropPress={() => setModalVisible(false)}
-        style={{ justifyContent: "center" }}
-      >
-        <View style={{ flex: 1 }}>
-          <DetailsModal setModalVisible={setModalVisible} detailsData={item} />
-
-          {/* <Button title="Hide modal" onPress={() => setModalVisible(false)} /> */}
-        </View>
-      </Modal>
     </View>
   );
 };

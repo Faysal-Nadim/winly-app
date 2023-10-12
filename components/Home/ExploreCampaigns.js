@@ -12,7 +12,7 @@ import { RegularView } from "../text/regular";
 let fullText =
   "Winly is a cutting-edge online store that provides customers with a one-of-a-kind shopping experience. What sets Winly apart is its remarkable offering: with each purchase, customers receive a complimentary Prize Draw ticket, granting them the chance to win extravagant prizes. This unique feature adds an exciting element to the shopping journey, making Winly a captivating destination for those seeking not only quality products but also the possibility of winning luxurious rewards. All draws are regulated by the Dubai Economy & Tourism..";
 let shortText =
-  "Winly is a cutting-edge online store that provides customers with a one-of-a-kind shopping experience..";
+  "Winly is a cutting-edge online store that provides customers with a one-of-a-kind shopping..";
 
 export const ExploreCampaigns = ({ data }) => {
   const flatlistRef = useRef();
@@ -27,13 +27,13 @@ export const ExploreCampaigns = ({ data }) => {
       <View
         style={{
           marginBottom: 24,
-          paddingHorizontal: 14,
+          paddingHorizontal: 20,
         }}
       >
         <RegularView>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 22,
               fontWeight: 600,
               marginBottom: 8,
             }}
@@ -44,9 +44,11 @@ export const ExploreCampaigns = ({ data }) => {
 
         <RegularView>
           <Text
+            onPress={handleToggleText}
             style={{
-              fontSize: 10,
+              fontSize: 14,
               fontWeight: 400,
+              color: WinlyColors.offBlack,
             }}
           >
             {toggle ? fullText : shortText}

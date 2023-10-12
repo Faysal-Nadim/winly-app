@@ -21,6 +21,8 @@ import { Checkout } from "./containers/checkout";
 import axiosInstance from "./redux/helpers/axios";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { Confirmation } from "./containers/confirmation";
+import { Winner } from "./containers/winner";
+import { FAQ } from "./containers/FAQ";
 
 const Stack = createNativeStackNavigator();
 
@@ -82,6 +84,19 @@ export default function App() {
                 component={Profile}
                 options={{
                   headerTitle: "Profile Information",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+
+              <Stack.Screen
+                name="FAQ"
+                component={FAQ}
+                options={{
+                  headerTitle: "FAQ Information",
                   headerStyle: { backgroundColor: "#FFFFFF" },
                   headerTitleAlign: "center",
                   headerTitleStyle: {
