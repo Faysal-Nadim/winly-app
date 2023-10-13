@@ -15,13 +15,23 @@ export const SemiBoldView = (props) => {
         uri: require("../../assets/fonts/Sora-Regular.ttf"),
         display: Font.FontDisplay.FALLBACK,
       },
+      "Sora-SemiBold": {
+        uri: require("../../assets/fonts/Sora-SemiBold.ttf"),
+        display: Font.FontDisplay.FALLBACK,
+      },
     }).then(() => {
       setLoaded(true);
     });
   }, []);
 
   return (
-    <Text style={{ fontFamily: loaded ? "Sora" : null, fontWeight: 600 }}>
+    <Text
+      style={{
+        ...props?.style,
+        fontFamily: loaded ? "Sora-SemiBold" : null,
+        fontWeight: 600,
+      }}
+    >
       {props.children}
     </Text>
   );

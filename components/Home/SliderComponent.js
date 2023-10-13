@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
 import { RegularView } from "../text/regular";
+import { BoldView } from "../text/bold";
+import { SemiBoldView } from "../text/semibold";
 
 /**
  * @author
@@ -15,14 +17,21 @@ export const SliderComponent = ({
 }) => {
   const screenWidth = Dimensions.get("window").width;
 
-  let contentBoxWidth = screenWidth - 32;
+  let contentBoxWidth = screenWidth - 44;
   let imageUrl = item?.img?.prize;
   let title = item?.title;
   let productTitle = item?.productTitle;
   let productImageUrl = item?.img?.product;
 
   return (
-    <View style={{ width: screenWidth, padding: 8 }}>
+    <View
+      style={{
+        width: screenWidth,
+        padding: 14,
+        // borderColor: WinlyColors.offWhite,
+        // borderWidth: 0.8,
+      }}
+    >
       <Image
         source={{ uri: imageUrl }}
         style={{ height: 400, width: "100%", borderRadius: 12 }}
@@ -40,15 +49,9 @@ export const SliderComponent = ({
           borderRadius: 12,
         }}
       >
-        <RegularView>
-          <Text style={{ fontSize: 26, fontWeight: 800 }}>Win</Text>
-        </RegularView>
-        <RegularView>
-          <Text style={{ fontSize: 20, fontWeight: 800 }}>{title}</Text>
-        </RegularView>
-        <RegularView>
-          <Text style={{ fontSize: 12, fontWeight: 600 }}>{productTitle}</Text>
-        </RegularView>
+        <BoldView style={{ fontSize: 26 }}>Win</BoldView>
+        <BoldView style={{ fontSize: 26 }}>{title}</BoldView>
+        <SemiBoldView style={{ fontSize: 12 }}>{productTitle}</SemiBoldView>
 
         <View
           style={{
@@ -57,13 +60,12 @@ export const SliderComponent = ({
             alignItems: "flex-end",
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              setClickedItem(item);
-              setModalVisible(true);
-            }}
-          >
-            <View
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                setClickedItem(item);
+                setModalVisible(true);
+              }}
               style={{
                 backgroundColor: WinlyColors.primaryRed,
                 paddingVertical: 10,
@@ -76,8 +78,9 @@ export const SliderComponent = ({
                   Prize Details
                 </Text>
               </RegularView>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
+
           <Image
             source={{ uri: productImageUrl }}
             style={{

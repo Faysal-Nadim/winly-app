@@ -65,7 +65,7 @@ export const Home = (props) => {
 
             <Banner />
 
-            <View style={{ marginVertical: 16 }} />
+            <View style={{ marginVertical: 8 }} />
 
             <UpcomingCampaigns data={campaign?.campaigns?.explore} />
 

@@ -27,7 +27,7 @@ export const UpcomingCampaigns = ({ data }) => {
         <RegularView>
           <Text
             style={{
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: 600,
               marginBottom: 8,
             }}

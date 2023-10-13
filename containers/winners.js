@@ -5,9 +5,8 @@ import { getCampaign } from "../redux/actions";
 import { ScrollView } from "react-native-virtualized-view";
 import WinlyColors from "../assets/WinlyColors";
 import { SemiBoldView } from "../components/text/semibold";
-import { MediumView } from "../components/text/medium";
-import { RegularView } from "../components/text/regular";
-import * as Font from "expo-font";
+// import * as Font from "expo-font";
+import { ManropeRegular } from "../components/text/ManropeRegular";
 
 let winnerRawData = [
   {
@@ -16,7 +15,7 @@ let winnerRawData = [
       ticketNumber: "WL-000001-Y",
       nationality: "Pakistan",
     },
-    title: "USD 250",
+    title: "USD 250 Cash",
   },
   {
     winner: {
@@ -24,7 +23,7 @@ let winnerRawData = [
       ticketNumber: "WL-000002-Y",
       nationality: "Philippines",
     },
-    title: "USD 250",
+    title: "USD 250 Cash",
   },
   {
     winner: {
@@ -32,158 +31,9 @@ let winnerRawData = [
       ticketNumber: "WL-000003-Y",
       nationality: "",
     },
-    title: "USD 100",
+    title: "USD 100 Cash",
   },
 ];
-
-export const Winner = () => {
-  const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCampaign());
-  }, []);
-
-  useEffect(() => {
-    Font.loadAsync({
-      Sora: require("../assets/fonts/Sora-Regular.ttf"),
-      Sora: {
-        uri: require("../assets/fonts/Sora-Regular.ttf"),
-        display: Font.FontDisplay.FALLBACK,
-      },
-      "Sora-SemiBold": {
-        uri: require("../assets/fonts/Sora-SemiBold.ttf"),
-        display: Font.FontDisplay.FALLBACK,
-      },
-    }).then(() => {
-      setLoaded(true);
-    });
-  }, []);
-
-  const campaign = useSelector((state) => state.campaign);
-
-  let winnersData = getNonNullWinnersData(
-    campaign?.campaigns?.allCampaigns || []
-  );
-  winnersData.push(...winnerRawData);
-  const screenWidth = Dimensions.get("window").width;
-
-  return (
-    <View
-      style={{
-        width: screenWidth,
-        marginTop: 10,
-      }}
-    >
-      <ScrollView style={{ paddingHorizontal: 16, marginTop: 20 }}>
-        <View
-          style={{ justifyContent: "center", alignItems: "center", margin: 20 }}
-        >
-          <SemiBoldView>
-            <Text style={styles.sectionTitle}>Our Winners</Text>
-          </SemiBoldView>
-        </View>
-        {winnersData?.length > 0 ? (
-          <View style={styles.table}>
-            <View style={styles.tableHeader}>
-              <Text style={styles.tableHeaderIndexText}></Text>
-              <Text
-                style={[
-                  styles.tableHeaderText,
-                  { fontFamily: loaded ? "Sora-SemiBold" : null },
-                ]}
-              >
-                Prize
-              </Text>
-              <Text
-                style={[
-                  styles.tableHeaderText,
-                  { fontFamily: loaded ? "Sora-SemiBold" : null },
-                ]}
-              >
-                Winner
-              </Text>
-
-              <Text
-                style={[
-                  styles.tableHeaderText,
-                  { fontFamily: loaded ? "Sora-SemiBold" : null },
-                ]}
-              >
-                Ticket Number
-              </Text>
-            </View>
-            {winnersData.reverse().map((x, index) => (
-              <View
-                style={
-                  index + 1 == winnersData?.length
-                    ? {
-                        flexDirection: "row",
-                        // borderBottomWidth: 1,
-                        // borderColor: WinlyColors.grey,
-                        backgroundColor: WinlyColors.lightGrey,
-                        paddingVertical: 16,
-                        paddingHorizontal: 10,
-                        gap: 8,
-                      }
-                    : {
-                        flexDirection: "row",
-                        borderBottomWidth: 1,
-                        borderColor: WinlyColors.grey,
-                        backgroundColor: WinlyColors.lightGrey,
-                        paddingVertical: 16,
-                        paddingHorizontal: 10,
-                        gap: 8,
-                      }
-                }
-                key={index}
-              >
-                <RegularView>
-                  <Text style={styles.tableDataIndex}>{index + 1}</Text>
-                </RegularView>
-                <Text
-                  style={[
-                    styles.tableData,
-                    { fontFamily: loaded ? "Sora" : null },
-                  ]}
-                >
-                  {x.title}
-                </Text>
-                <Text
-                  style={[
-                    styles.tableData,
-                    { fontFamily: loaded ? "Sora" : null },
-                  ]}
-                >
-                  {x.winner.userName}
-                </Text>
-                <Text
-                  style={[
-                    styles.tableData,
-                    { fontFamily: loaded ? "Sora" : null },
-                  ]}
-                >
-                  {x.winner.ticketNumber}
-                </Text>
-              </View>
-            ))}
-          </View>
-        ) : (
-          <View>
-            <Text
-              style={[
-                styles.noWinnersText,
-                { fontFamily: loaded ? "Sora" : null },
-              ]}
-            >
-              No Winners Announced Yet
-            </Text>
-          </View>
-        )}
-      </ScrollView>
-    </View>
-  );
-};
 
 function getNonNullWinnersData(dataArray) {
   const nonNullWinners = dataArray.filter(
@@ -204,25 +54,143 @@ function getNonNullWinnersData(dataArray) {
   return result;
 }
 
+export const Winner = () => {
+  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCampaign());
+  }, []);
+
+  // useEffect(() => {
+  //   Font.loadAsync({
+  //     Sora: require("../assets/fonts/Sora-Regular.ttf"),
+  //     Sora: {
+  //       uri: require("../assets/fonts/Sora-Regular.ttf"),
+  //       display: Font.FontDisplay.FALLBACK,
+  //     },
+  //     "Sora-SemiBold": {
+  //       uri: require("../assets/fonts/Sora-SemiBold.ttf"),
+  //       display: Font.FontDisplay.FALLBACK,
+  //     },
+  //   }).then(() => {
+  //     setLoaded(true);
+  //   });
+  // }, []);
+
+  const campaign = useSelector((state) => state.campaign);
+
+  let winnersData = getNonNullWinnersData(
+    campaign?.campaigns?.allCampaigns || []
+  );
+  winnersData.push(...winnerRawData);
+  const screenWidth = Dimensions.get("window").width;
+
+  return (
+    <View
+      style={{
+        width: screenWidth,
+        marginTop: 10,
+      }}
+    >
+      <View style={{ paddingHorizontal: 16, marginTop: 20 }}>
+        <SemiBoldView style={styles.sectionTitle}>Our Winners</SemiBoldView>
+
+        {winnersData?.length > 0 ? (
+          <View style={styles.table}>
+            <View style={styles.tableHeader}>
+              <SemiBoldView style={styles.tableHeaderText}>Prize</SemiBoldView>
+              <SemiBoldView style={styles.tableHeaderText}>Winner</SemiBoldView>
+              <SemiBoldView style={styles.tableHeaderText}>
+                Ticket Number
+              </SemiBoldView>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {winnersData.reverse().map((x, index) => (
+                <View
+                  style={
+                    index + 1 === winnersData?.length
+                      ? {
+                          flexDirection: "row",
+                          // borderBottomWidth: 1,
+                          // borderColor: WinlyColors.grey,
+                          backgroundColor: WinlyColors.white,
+                          paddingVertical: 16,
+                          paddingHorizontal: 10,
+                          gap: 8,
+                        }
+                      : {
+                          flexDirection: "row",
+                          borderBottomWidth: 1,
+                          borderColor: WinlyColors.grey,
+                          backgroundColor: WinlyColors.white,
+                          paddingVertical: 16,
+                          paddingHorizontal: 10,
+                          gap: 8,
+                        }
+                  }
+                  key={index}
+                >
+                  {/* <ManropeRegular style={styles.tableDataIndex}>
+                    {index + 1}.
+                  </ManropeRegular> */}
+
+                  <ManropeRegular style={styles.tableData}>
+                    {index + 1}. {x.title}
+                  </ManropeRegular>
+
+                  <ManropeRegular style={styles.tableData}>
+                    {x.winner.userName}
+                  </ManropeRegular>
+                  <ManropeRegular style={styles.tableData}>
+                    {x.winner.ticketNumber}
+                  </ManropeRegular>
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+        ) : (
+          <View
+            style={{
+              marginTop: 100,
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ManropeRegular>No Winners Announced Yet</ManropeRegular>
+          </View>
+        )}
+      </View>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
   },
   sectionTitle: {
-    fontSize: 28,
-    marginBottom: 26,
-    fontWeight: "bold",
+    fontSize: 24,
+    marginBottom: 36,
+    marginTop: 26,
+    textAlign: "center",
+    // color: WinlyColors.primaryRed,
   },
   table: {
     width: "100%",
     borderRadius: 12,
-    backgroundColor: WinlyColors.white,
+    backgroundColor: WinlyColors.lightGrey,
+
+    marginBottom: 451,
+    // borderWidth: 1,
+    // borderColor: "#000",
   },
   tableHeader: {
     flexDirection: "row",
     backgroundColor: WinlyColors.grey,
-    paddingHorizontal: 6,
+    paddingHorizontal: 10,
     paddingVertical: 8,
     gap: 10,
     borderTopLeftRadius: 12,
@@ -231,8 +199,9 @@ const styles = StyleSheet.create({
   tableHeaderText: {
     flex: 1,
     // fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 14,
     // fontFamily: loaded,
+    paddingHorizontal: 0,
   },
   tableHeaderIndexText: { flex: 0.25 },
   tableRow: {
@@ -248,7 +217,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 13,
   },
-  tableDataIndex: { flex: 0.25 },
+  tableDataIndex: { flex: 0.2 },
   noWinnersText: {
     fontSize: 14,
     marginTop: 2,
