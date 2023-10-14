@@ -25,7 +25,7 @@ export const BoldView = (props) => {
   }, []);
 
   return (
-    <Text style={{ fontFamily: loaded ? "Sora-Bold" : null }}>
+    <Text style={{ ...props?.style, fontFamily: loaded ? "Sora-Bold" : null }}>
       {props.children}
     </Text>
   );

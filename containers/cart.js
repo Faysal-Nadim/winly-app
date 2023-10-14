@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Platform,
+  StatusBar,
 } from "react-native";
 import { SemiBoldView } from "../components/text/semibold";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { getCartItems, removeCart, updateCart } from "../redux/actions";
 import { MediumView } from "../components/text/medium";
 import { RegularView } from "../components/text/regular";
+import { ManropeRegular } from "../components/text/ManropeRegular";
 
 /**
  * @author
@@ -21,8 +23,6 @@ import { RegularView } from "../components/text/regular";
  **/
 
 export const Cart = (props) => {
-  const { container } = styles;
-
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -77,22 +77,19 @@ export const Cart = (props) => {
   };
 
   return (
-    <SafeAreaView style={container}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        marginTop: StatusBar.currentHeight + 22,
+        marginHorizontal: 16,
+      }}
+    >
       {cart?.cartItems?.length > 0 ? (
-        <>
-          <View
-            style={{
-              marginTop: 20,
-              alignItems: "center",
-              flexDirection: "row",
-            }}
-          >
-            <SemiBoldView>
-              <Text style={{ fontSize: 20 }}>
-                Cart ({totalItem} {totalItem <= 1 ? "Item" : "Items"})
-              </Text>
-            </SemiBoldView>
-          </View>
+        <View style={{ height: "100%" }}>
+          <SemiBoldView style={{ fontSize: 20 }}>
+            Cart ({totalItem} {totalItem <= 1 ? "Item" : "Items"})
+          </SemiBoldView>
+
           <View>
             {cart?.cartItems &&
               cart?.cartItems?.map((item) => (
@@ -106,6 +103,7 @@ export const Cart = (props) => {
                     // width: Width - StatusBar.currentHeight,
                   }}
                 >
+                  {/* PRODUCT IMAGE */}
                   <View
                     style={{
                       padding: 10,
@@ -123,14 +121,12 @@ export const Cart = (props) => {
                   </View>
                   <View style={{ justifyContent: "center" }}>
                     <View>
-                      <MediumView>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                          }}
-                        >
-                          {item?.campaign?.productTitle.slice(0, 28)}
-                        </Text>
+                      <MediumView
+                        style={{
+                          fontSize: 14,
+                        }}
+                      >
+                        {item?.campaign?.productTitle.slice(0, 28)}
                       </MediumView>
                     </View>
                     <View
@@ -138,15 +134,13 @@ export const Cart = (props) => {
                         marginTop: 5,
                       }}
                     >
-                      <RegularView>
-                        <Text
-                          style={{
-                            fontSize: 12,
-                          }}
-                        >
-                          Win {item?.campaign?.title}
-                        </Text>
-                      </RegularView>
+                      <ManropeRegular
+                        style={{
+                          fontSize: 12,
+                        }}
+                      >
+                        Win {item?.campaign?.title}
+                      </ManropeRegular>
                     </View>
                     <View
                       style={{
@@ -156,15 +150,13 @@ export const Cart = (props) => {
                       }}
                     >
                       <View>
-                        <MediumView>
-                          <Text
-                            style={{
-                              fontSize: 15,
-                              color: "#FF3624",
-                            }}
-                          >
-                            AED {item?.price}
-                          </Text>
+                        <MediumView
+                          style={{
+                            fontSize: 15,
+                            color: "#FF3624",
+                          }}
+                        >
+                          AED {item?.price}
                         </MediumView>
                       </View>
                       <View
@@ -188,14 +180,12 @@ export const Cart = (props) => {
                             handleCart({ productData: item, qty: -1 })
                           }
                         >
-                          <RegularView>
-                            <Text
-                              style={{
-                                fontSize: 15,
-                              }}
-                            >
-                              -
-                            </Text>
+                          <RegularView
+                            style={{
+                              fontSize: 15,
+                            }}
+                          >
+                            -
                           </RegularView>
                         </TouchableOpacity>
                         <View
@@ -224,13 +214,13 @@ export const Cart = (props) => {
                             handleCart({ productData: item, qty: 1 })
                           }
                         >
-                          <Text
+                          <RegularView
                             style={{
-                              fontFamily: loaded ? "Montserrat-SemiBold" : null,
+                              fontSize: 15,
                             }}
                           >
                             +
-                          </Text>
+                          </RegularView>
                         </TouchableOpacity>
                       </View>
                     </View>
@@ -277,13 +267,11 @@ export const Cart = (props) => {
               })
             }
           >
-            <MediumView>
-              <Text style={{ color: "white", fontSize: 16 }}>
-                Proceed to Checkout
-              </Text>
+            <MediumView style={{ color: "white", fontSize: 16 }}>
+              Proceed to Checkout
             </MediumView>
           </TouchableOpacity>
-        </>
+        </View>
       ) : (
         <View
           style={{ justifyContent: "center", flex: 1, alignItems: "center" }}
@@ -305,14 +293,12 @@ export const Cart = (props) => {
                 borderRadius: 10,
               }}
             >
-              <RegularView>
-                <Text
-                  style={{
-                    color: "#fff",
-                  }}
-                >
-                  Start Shopping
-                </Text>
+              <RegularView
+                style={{
+                  color: "#fff",
+                }}
+              >
+                Start Shopping
               </RegularView>
             </View>
           </TouchableOpacity>
@@ -344,10 +330,6 @@ export const Cart = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 10,
-  },
   dot: {
     margin: 5,
     height: 5,

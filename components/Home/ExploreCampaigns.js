@@ -3,6 +3,7 @@ import { View, Text, Dimensions, FlatList } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
 import { ExploreCampaignCard } from "./ExploreCampaignCard";
 import { RegularView } from "../text/regular";
+import { ManropeRegular } from "../text/ManropeRegular";
 
 /**
  * @author
@@ -12,7 +13,7 @@ import { RegularView } from "../text/regular";
 let fullText =
   "Winly is a cutting-edge online store that provides customers with a one-of-a-kind shopping experience. What sets Winly apart is its remarkable offering: with each purchase, customers receive a complimentary Prize Draw ticket, granting them the chance to win extravagant prizes. This unique feature adds an exciting element to the shopping journey, making Winly a captivating destination for those seeking not only quality products but also the possibility of winning luxurious rewards. All draws are regulated by the Dubai Economy & Tourism..";
 let shortText =
-  "Winly is a cutting-edge online store that provides customers with a one-of-a-kind shopping..";
+  "Winly is a cutting-edge online store that provides customers with a one-of-a-kind shopping experience. What sets Winly ..";
 
 export const ExploreCampaigns = ({ data }) => {
   const flatlistRef = useRef();
@@ -30,24 +31,26 @@ export const ExploreCampaigns = ({ data }) => {
           paddingHorizontal: 20,
         }}
       >
-        <RegularView>
+        <RegularView
+          style={{
+            marginBottom: 6,
+          }}
+        >
           <Text
             style={{
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: 600,
-              marginBottom: 8,
             }}
           >
             Explore Campaigns
           </Text>
         </RegularView>
 
-        <RegularView>
+        <ManropeRegular>
           <Text
             onPress={handleToggleText}
             style={{
-              fontSize: 14,
-              fontWeight: 400,
+              fontSize: 13,
               color: WinlyColors.offBlack,
             }}
           >
@@ -62,7 +65,7 @@ export const ExploreCampaigns = ({ data }) => {
               {toggle ? " See less" : " See more"}
             </Text>
           </Text>
-        </RegularView>
+        </ManropeRegular>
       </View>
 
       {data?.map((i) => (
