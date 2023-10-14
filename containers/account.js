@@ -237,6 +237,7 @@ export const Account = (props) => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={() => navigation.navigate("Support")}
               style={{
                 backgroundColor: "#fff",
                 marginTop: 10,

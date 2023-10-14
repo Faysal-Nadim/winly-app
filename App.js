@@ -31,6 +31,7 @@ import { Confirmation } from "./containers/confirmation";
 import { FAQ } from "./containers/FAQ";
 import { Offer } from "./containers/offer";
 import { AboutUs } from "./containers/about-us";
+import { Support } from "./containers/support";
 
 const Stack = createNativeStackNavigator();
 
@@ -163,6 +164,18 @@ export default function App() {
                 component={Notification}
                 options={{
                   headerTitle: "Notification",
+                  headerStyle: { backgroundColor: "#FFFFFF" },
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontFamily: loaded ? "Sora" : null,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="Support"
+                component={Support}
+                options={{
+                  headerTitle: "Support Center",
                   headerStyle: { backgroundColor: "#FFFFFF" },
                   headerTitleAlign: "center",
                   headerTitleStyle: {

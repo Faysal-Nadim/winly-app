@@ -34,12 +34,6 @@ export const Payment = ({
   const cart = useSelector((state) => state.cart.cart);
   const user = useSelector((state) => state.auth.user);
 
-  const totalItem = cart.cartItems
-    ? Object.keys(cart.cartItems).reduce(function (qty, key) {
-        return qty + cart.cartItems[key].qty;
-      }, 0)
-    : 0;
-
   const handleOrder = async (cart, trxID) => {
     const order = {
       orderItems: cart.map((item) => {

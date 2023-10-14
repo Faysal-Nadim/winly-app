@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions, StatusBar } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  StatusBar,
+  Image,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getCampaign } from "../redux/actions";
 import { ScrollView } from "react-native-virtualized-view";
@@ -161,7 +168,30 @@ export const Winner = () => {
             <ManropeRegular>No Winners Announced Yet</ManropeRegular>
           </View>
         )}
+
       </View>
+      </ScrollView>
+      {campaign?.loading && (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "#f3f3f3",
+            opacity: 0.5,
+          }}
+        >
+          <Image
+            source={require("../assets/loading.gif")}
+            style={{ height: 40, width: 40 }}
+          />
+        </View>
+      )}
+
     </View>
   );
 };
