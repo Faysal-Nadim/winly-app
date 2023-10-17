@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import WinlyColors from "../../assets/WinlyColors";
+import * as Font from "expo-font";
 
 export const CustomSelectInputByList = ({
   label,
@@ -9,6 +10,18 @@ export const CustomSelectInputByList = ({
   items,
   searchEnable,
 }) => {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    Font.loadAsync({
+      Sora: require("../../assets/fonts/Sora-Regular.ttf"),
+      Sora: {
+        uri: require("../../assets/fonts/Sora-Regular.ttf"),
+        display: Font.FontDisplay.FALLBACK,
+      },
+    }).then(() => {
+      setLoaded(true);
+    });
+  }, []);
   return (
     <View style={styles.inputContainer}>
       <SelectList
@@ -22,10 +35,16 @@ export const CustomSelectInputByList = ({
           borderColor: WinlyColors.inputBorder,
           borderRadius: 5,
         }}
-        inputStyles={{ color: WinlyColors.inputlabelText, fontSize: 16 }}
+        inputStyles={{
+          color: WinlyColors.inputlabelText,
+          fontSize: 16,
+          fontFamily: loaded ? "Sora" : null,
+        }}
       />
 
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, { fontFamily: loaded ? "Sora" : null }]}>
+        {label}
+      </Text>
     </View>
   );
 };

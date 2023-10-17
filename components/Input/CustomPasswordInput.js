@@ -9,12 +9,26 @@ import {
   TouchableOpacity,
 } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
+import * as Font from "expo-font";
 
 export const CustomPasswordInput = ({ label, text, setText }) => {
   const [isFocused, setIsFocused] = useState(false);
   const labelPosition = new Animated.Value(text ? -16 : 10);
   const labelFontSize = new Animated.Value(text ? 14 : 16);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); // State to manage password visibility
+
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    Font.loadAsync({
+      Sora: require("../../assets/fonts/Sora-Regular.ttf"),
+      Sora: {
+        uri: require("../../assets/fonts/Sora-Regular.ttf"),
+        display: Font.FontDisplay.FALLBACK,
+      },
+    }).then(() => {
+      setLoaded(true);
+    });
+  }, []);
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -65,6 +79,7 @@ export const CustomPasswordInput = ({ label, text, setText }) => {
           {
             top: labelPosition,
             fontSize: labelFontSize,
+            fontFamily: loaded ? "Sora" : null,
           },
         ]}
       >
@@ -72,7 +87,7 @@ export const CustomPasswordInput = ({ label, text, setText }) => {
       </Animated.Text>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { fontFamily: loaded ? "Sora" : null }]}
           placeholder=""
           value={text}
           onChangeText={setText}

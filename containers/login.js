@@ -97,7 +97,12 @@ export const Login = (props) => {
       {/* LOGIN FORM */}
 
       <View style={{ width: 340 }}>
-        <CustomTextInput label={"Email"} text={email} setText={setEmail} />
+        <CustomTextInput
+          label={"Email"}
+          text={email}
+          setText={setEmail}
+          keyboardType="email-address"
+        />
       </View>
       <View style={{ width: 340 }}>
         <CustomPasswordInput
@@ -203,7 +208,7 @@ export const Login = (props) => {
           justifyContent: "center",
           alignItems: "center",
           position: "absolute",
-          bottom: 20,
+          bottom: 10,
         }}
       >
         <Text
