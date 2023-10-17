@@ -7,9 +7,6 @@ import { RegularView } from "../text/regular";
 
 import Modal from "react-native-modal";
 import { DetailsModal } from "../Modal/DetailsModal";
-import { BoldView } from "../text/bold";
-import { ManropeRegular } from "../text/ManropeRegular";
-import { SemiBoldView } from "../text/semibold";
 
 /**
  * @author
@@ -30,9 +27,9 @@ export const ExploreCampaignCard = ({ item, index }) => {
   return (
     <View
       style={{
-        marginBottom: 8,
-        marginHorizontal: 14,
-        height: 500,
+        marginBottom: 6,
+        marginHorizontal: 12,
+        height: 482,
         width: "auto",
         backgroundColor: "#ffffff",
         borderRadius: 12,
@@ -57,13 +54,7 @@ export const ExploreCampaignCard = ({ item, index }) => {
       {/* IMAGE OF THE PRIZE */}
       <Image
         source={{ uri: imageUrl }}
-        style={{
-          height: 286,
-          width: "100%",
-          borderRadius: 12,
-          borderColor: WinlyColors.offWhite,
-          borderWidth: 0.3,
-        }}
+        style={{ height: 260, width: "100%", borderRadius: 12 }}
       />
 
       {/* TITLE, PRICE, PRODUCT TITLE, PRODUCT IMAGE */}
@@ -77,25 +68,32 @@ export const ExploreCampaignCard = ({ item, index }) => {
         }}
       >
         <View>
-          <BoldView
-            style={{
-              fontSize: 18,
-              color: WinlyColors.primaryRed,
-            }}
-          >
-            Win
-          </BoldView>
-          <BoldView style={{ fontSize: 18 }}>{title}</BoldView>
-          <ManropeRegular style={{ fontSize: 14 }}>
-            {productTitle}
-          </ManropeRegular>
+          <RegularView>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 800,
+                color: WinlyColors.primaryRed,
+              }}
+            >
+              Win
+            </Text>
+          </RegularView>
+          <RegularView>
+            <Text style={{ fontSize: 16, fontWeight: 800 }}>{title}</Text>
+          </RegularView>
+          <RegularView>
+            <Text style={{ fontSize: 14, fontWeight: 400 }}>
+              {productTitle}
+            </Text>
+          </RegularView>
         </View>
 
         <Image
           source={{ uri: productImageUrl }}
           style={{
-            height: 68,
-            width: 68,
+            height: 64,
+            width: 64,
             borderRadius: 8,
             borderColor: WinlyColors.offWhite,
             borderWidth: 0.5,
@@ -154,11 +152,13 @@ export const ExploreCampaignCard = ({ item, index }) => {
                 justifyContent: "center",
               }}
             >
-              <SemiBoldView style={{ color: "#fff", fontSize: 10 }}>
-                {new Date().getTime() >= item?.validity
-                  ? "Closed"
-                  : "Add to Cart"}
-              </SemiBoldView>
+              <RegularView>
+                <Text style={{ color: "#fff", fontSize: 10, fontWeight: 600 }}>
+                  {new Date().getTime() >= item?.validity
+                    ? "Closed"
+                    : "Add to Cart"}
+                </Text>
+              </RegularView>
             </View>
           </TouchableOpacity>
           <TouchableOpacity

@@ -1,8 +1,6 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { RegularView } from "../text/regular";
-import WinlyColors from "../../assets/WinlyColors";
-import { ManropeRegular } from "../text/ManropeRegular";
 
 /**
  * @author
@@ -24,7 +22,7 @@ export const UpcomingCampaignCard = ({
         marginBottom: 6,
         marginLeft: 12,
         marginRight: index == dataLength - 1 ? 12 : 0, //last item
-        height: 228,
+        height: 240,
         width: 200,
         backgroundColor: "#ffffff",
         borderRadius: 8,
@@ -35,45 +33,34 @@ export const UpcomingCampaignCard = ({
           setClickedItem(item);
           setModalVisible(true);
         }}
-        style={{
-          height: 228,
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
       >
         <Image
           source={{ uri: imageUrl }}
-          style={{
-            height: 168,
-            width: "100%",
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-          }}
+          style={{ height: 240, width: "100%", borderRadius: 8 }}
         />
         <View
           style={{
+            //   height: 54,
             width: "100%",
             padding: 12,
             marginTop: -72,
             backgroundColor: "rgba(255, 255, 255, 0.8)",
             borderBottomLeftRadius: 12,
             borderBottomRightRadius: 12,
+            //   borderBottomStartRadius: 12,
+            //   borderBottomEndRadius: 12,
           }}
         >
-          <RegularView style={{ marginBottom: 2 }}>
-            <Text style={{ fontSize: 14, fontWeight: 800, marginBottom: 0 }}>
+          <RegularView>
+            <Text style={{ fontSize: 16, fontWeight: 800, marginBottom: 2 }}>
               {title}
             </Text>
           </RegularView>
-          <ManropeRegular
-            style={{
-              fontSize: 12,
-              marginBottom: 2,
-              color: WinlyColors.inputlabelText,
-            }}
-          >
-            {productTitle}
-          </ManropeRegular>
+          <RegularView>
+            <Text style={{ fontSize: 14, fontWeight: 400, marginBottom: 2 }}>
+              {productTitle}
+            </Text>
+          </RegularView>
         </View>
       </TouchableOpacity>
     </View>

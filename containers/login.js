@@ -6,6 +6,8 @@ import {
   Text,
   StyleSheet,
   Image,
+  TextInput,
+  Button,
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
@@ -14,9 +16,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/actions";
 import { useNavigation } from "@react-navigation/native";
-import { CustomTextInput } from "../components/Input/CustomTextInput";
-import { CustomPasswordInput } from "../components/Input/CustomPasswordInput";
-import WinlyColors from "../assets/WinlyColors";
 
 /**
  * @author
@@ -58,24 +57,10 @@ export const Login = (props) => {
     dispatch(login(user));
   };
 
+  const { container, container_center } = styles;
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: StatusBar.currentHeight,
-        backgroundColor: "#fff",
-      }}
-    >
-      {/* INTRO */}
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: 32,
-        }}
-      >
+    <SafeAreaView style={container}>
+      <View>
         <Image
           resizeMode="contain"
           source={require("../assets/winly-big.png")}
@@ -84,6 +69,9 @@ export const Login = (props) => {
             width: 160,
           }}
         />
+      </View>
+
+      <View>
         <Text
           style={{
             fontSize: 20,
@@ -93,27 +81,46 @@ export const Login = (props) => {
           Welcome To Winly LLC.
         </Text>
       </View>
-
-      {/* LOGIN FORM */}
-
-      <View style={{ width: 340 }}>
-        <CustomTextInput label={"Email"} text={email} setText={setEmail} />
-      </View>
-      <View style={{ width: 340 }}>
-        <CustomPasswordInput
-          label={"Enter Password"}
-          text={password}
-          setText={setPassword}
+      <View style={{ marginVertical: 16 }} />
+      <View>
+        <TextInput
+          value={email}
+          placeholder="Enter Email"
+          onChangeText={setEmail}
+          style={{
+            fontFamily: loaded ? "Sora" : null,
+            height: 40,
+            width: 300,
+            borderRadius: 5,
+            margin: 12,
+            padding: 10,
+            backgroundColor: "#fff",
+          }}
+          keyboardType="email-address"
         />
       </View>
-
-      {/* LOGIN BUTTON */}
+      <View>
+        <TextInput
+          value={password}
+          placeholder="Enter Password"
+          onChangeText={setPassword}
+          style={{
+            fontFamily: loaded ? "Sora" : null,
+            height: 40,
+            width: 300,
+            borderRadius: 5,
+            padding: 10,
+            backgroundColor: "#fff",
+          }}
+          secureTextEntry={true}
+        />
+      </View>
 
       <TouchableOpacity style={{ margin: 20 }} onPress={userlogin}>
         <View
           style={{
             width: 100,
-            backgroundColor: WinlyColors.primaryRed,
+            backgroundColor: "#FF3624",
             justifyContent: "center",
             alignItems: "center",
             padding: 8,
@@ -131,7 +138,6 @@ export const Login = (props) => {
         </View>
       </TouchableOpacity>
 
-      {/* OR DIVIDER */}
       <View
         style={{
           flexDirection: "row",
@@ -165,8 +171,6 @@ export const Login = (props) => {
           }}
         />
       </View>
-
-      {/* REGISTER BUTTON */}
       <View style={{ flexDirection: "row", marginTop: 15 }}>
         <Text style={{ fontFamily: loaded ? "Sora" : null, fontSize: 17 }}>
           New User?
@@ -179,7 +183,7 @@ export const Login = (props) => {
         <View
           style={{
             width: 150,
-            backgroundColor: WinlyColors.primaryRed,
+            backgroundColor: "#FF3624",
             justifyContent: "center",
             alignItems: "center",
             padding: 8,
@@ -196,8 +200,6 @@ export const Login = (props) => {
           </Text>
         </View>
       </TouchableOpacity>
-
-      {/*  VERSION */}
       <View
         style={{
           justifyContent: "center",

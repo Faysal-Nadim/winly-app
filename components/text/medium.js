@@ -25,9 +25,7 @@ export const MediumView = (props) => {
   }, []);
 
   return (
-    <Text
-      style={{ ...props?.style, fontFamily: loaded ? "Sora-Medium" : null }}
-    >
+    <Text style={{ fontFamily: loaded ? "Sora-Medium" : null }}>
       {props.children}
     </Text>
   );

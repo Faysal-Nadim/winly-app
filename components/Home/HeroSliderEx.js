@@ -43,14 +43,7 @@ export const HeroSldierEx = ({ data }) => {
   const [clickedItem, setClickedItem] = useState(null);
 
   return (
-    <View
-      style={
-        {
-          // borderColor: "#00ff00",
-          // borderWidth: 0.8,
-        }
-      }
-    >
+    <View style={{}}>
       <Modal
         isVisible={isModalVisible}
         animationIn={"slideInUp"}

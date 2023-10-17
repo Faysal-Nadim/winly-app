@@ -6,19 +6,17 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  TextInput,
   Image,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
 import * as Font from "expo-font";
+import { Picker } from "@react-native-picker/picker";
+import { SelectList } from "react-native-dropdown-select-list";
 import { useNavigation } from "@react-navigation/native";
 import axiosInstance from "../redux/helpers/axios";
 import Toast from "react-native-toast-message";
-import { CustomTextInput } from "../components/Input/CustomTextInput";
-import { CustomPasswordInput } from "../components/Input/CustomPasswordInput";
-// import { CustomSelectInput } from "../components/Input/CustomSelectInput";
-import { CustomSelectInputByList } from "../components/Input/CustomSelectInputByList";
-import WinlyColors from "../assets/WinlyColors";
 
 /**
  * @author
@@ -27,11 +25,7 @@ import WinlyColors from "../assets/WinlyColors";
 
 const Width = Dimensions.get("window").width;
 const countryData = require("../assets/Country.json");
-const dialCodeData = require("../assets/dialcode.json");
-const genderData = [
-  { value: "Male", label: "Male" },
-  { value: "Female", label: "Female" },
-];
+const data = require("../assets/dialcode.json");
 
 export const Register = (props) => {
   const [loaded, setLoaded] = useState(false);
@@ -47,54 +41,41 @@ export const Register = (props) => {
   const [phone, setPhone] = useState("");
   const [dialCode, setDialCode] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigation = useNavigation();
 
   const handleRegistration = async () => {
     setLoading(true);
-
-    const data = {
-      firstName,
-      lastName,
-      email,
-      gender,
-      country,
-      dob,
-      phone,
-      password,
-      dialCode,
-      nationality,
-    };
-
-    if (data?.password === confirmPassword) {
-      try {
-        const res = await axiosInstance.post(`/user/auth/signup`, data);
-        if (res.status === 201) {
-          setLoading(false);
-          Toast.show({
-            type: "success",
-            text1: "Congratulations!",
-            text2: `${res.data.msg}`,
-            visibilityTime: 1000,
-          });
-          navigation.navigate("Verify", { email: email });
-        }
-      } catch (err) {
+    try {
+      const data = {
+        firstName,
+        lastName,
+        email,
+        gender,
+        country,
+        dob,
+        phone,
+        password,
+        dialCode,
+        nationality,
+      };
+      const res = await axiosInstance.post(`/user/auth/signup`, data);
+      if (res.status === 201) {
         setLoading(false);
         Toast.show({
-          type: "error",
-          text1: `${err.response.data.msg}`,
-          visibilityTime: 1500,
+          type: "success",
+          text1: "Congratulations!",
+          text2: `${res.data.msg}`,
+          visibilityTime: 1000,
         });
+        navigation.navigate("Verify", { email: email });
       }
-    } else {
+    } catch (err) {
       setLoading(false);
       Toast.show({
         type: "error",
-        text1: "Error!",
-        text2: `Password Dosen't Matched`,
-        visibilityTime: 1000,
+        text1: `${err.response.data.msg}`,
+        visibilityTime: 1500,
       });
     }
   };
@@ -142,15 +123,11 @@ export const Register = (props) => {
       style={{
         flex: 1,
         marginTop: StatusBar.currentHeight,
+        marginLeft: 10,
+        marginRight: 10,
       }}
     >
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          backgroundColor: "#fff",
-          paddingHorizontal: 20,
-        }}
-      >
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Image
             resizeMode="contain"
@@ -177,111 +154,337 @@ export const Register = (props) => {
             Fill Up The Following Form
           </Text>
         </View>
-
-        <View>
-          <View style={{ flexDirection: "row", marginBottom: 4 }}>
-            <View style={{ flex: 1 }}>
-              <CustomTextInput
-                label={"First Name"}
-                text={firstName}
-                setText={setFirstName}
+        <View style={{}}>
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                }}
+              >
+                First Name
+              </Text>
+              <TextInput
+                value={firstName}
+                onChangeText={setFirstName}
+                placeholder="First Name"
+                style={{
+                  fontFamily: loaded ? "Sora" : null,
+                  fontSize: 15,
+                  height: 50,
+                  width: Width / 2.3,
+                  borderRadius: 10,
+                  margin: 5,
+                  padding: 10,
+                  backgroundColor: "#fff",
+                }}
               />
             </View>
-            <View style={{ flex: 1 }}>
-              <CustomTextInput
-                label={"Last Name"}
-                text={lastName}
-                setText={setLastName}
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                }}
+              >
+                Last Name
+              </Text>
+              <TextInput
+                placeholder="Last Name"
+                value={lastName}
+                onChangeText={setLastName}
+                style={{
+                  fontFamily: loaded ? "Sora" : null,
+                  fontSize: 15,
+                  height: 50,
+                  width: Width / 2.3,
+                  borderRadius: 10,
+                  margin: 5,
+                  padding: 10,
+                  backgroundColor: "#fff",
+                }}
               />
             </View>
           </View>
-
-          <View style={{ flex: 1, marginBottom: 4 }}>
-            <CustomTextInput label={"Email"} text={email} setText={setEmail} />
-          </View>
-          <View style={{ flex: 1, marginBottom: 4 }}>
-            <CustomTextInput
-              label={"Date of Birth (dd/mm/yyyy)"}
-              text={dob}
-              setText={setDob}
-              keyboardType="phone-pad"
-            />
-          </View>
-
-          <View style={{ flexDirection: "row", marginBottom: 4 }}>
-            <View style={{ flex: 0.4 }}>
-              <CustomSelectInputByList
-                label={"Dial Code"}
-                onValueChange={(val) => setDialCode(val)}
-                items={dialCodeData}
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginTop: 5,
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                }}
+              >
+                Email
+              </Text>
+              <TextInput
+                placeholder="Valid Email"
+                value={email}
+                onChangeText={setEmail}
+                aria-label="Email"
+                style={{
+                  fontFamily: loaded ? "Sora" : null,
+                  fontSize: 15,
+                  height: 50,
+                  width: Width - 35,
+                  borderRadius: 10,
+                  margin: 5,
+                  padding: 10,
+                  backgroundColor: "#fff",
+                }}
+                keyboardType="email-address"
               />
             </View>
-
-            <View style={{ flex: 0.6 }}>
-              <CustomTextInput
-                label={"Phone"}
-                text={phone}
-                setText={setPhone}
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: 5,
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                  fontWeight: 500,
+                }}
+              >
+                Dial Code
+              </Text>
+              <View
+                style={{
+                  // height: 150,
+                  width: Width / 2.3,
+                  backgroundColor: "#fff",
+                  justifyContent: "center",
+                  margin: 5,
+                  borderRadius: 10,
+                }}
+              >
+                <SelectList
+                  setSelected={(val) => setDialCode(val)}
+                  data={data}
+                  save="value"
+                  label="DialCode"
+                  fontFamily="Sora"
+                />
+              </View>
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                  fontWeight: 500,
+                }}
+              >
+                Phone Number
+              </Text>
+              <TextInput
+                placeholder="Phone Number"
+                value={phone}
+                onChangeText={setPhone}
+                style={{
+                  fontFamily: loaded ? "Sora" : null,
+                  fontSize: 15,
+                  height: 50,
+                  width: Width / 2.3,
+                  borderRadius: 10,
+                  margin: 5,
+                  padding: 10,
+                  backgroundColor: "#fff",
+                }}
                 keyboardType="phone-pad"
               />
             </View>
           </View>
-
-          {/* <View style={{ flex: 1 }}>
-            <CustomSelectInput
-              label={"Gender"}
-              onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-              selectedValue={gender}
-              items={genderData}
-            />
-          </View> */}
-
-          {/* GENDER COUNTRY NATIONALITY */}
-
-          <View style={{ flex: 1, marginBottom: 4 }}>
-            <CustomSelectInputByList
-              label={"Gender"}
-              onValueChange={(val) => setGender(val)}
-              items={genderData}
-              searchEnable={false}
-            />
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginTop: 5,
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                }}
+              >
+                Date of Birth
+              </Text>
+              <TextInput
+                placeholder="DD/MM/YYYY"
+                value={dob}
+                onChangeText={setDob}
+                style={{
+                  fontFamily: loaded ? "Sora" : null,
+                  fontSize: 15,
+                  height: 50,
+                  width: Width / 2.3,
+                  borderRadius: 10,
+                  margin: 5,
+                  padding: 10,
+                  backgroundColor: "#fff",
+                }}
+                keyboardType="phone-pad"
+              />
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                }}
+              >
+                Gender
+              </Text>
+              <View
+                style={{
+                  height: 50,
+                  width: Width / 2.3,
+                  backgroundColor: "#fff",
+                  justifyContent: "center",
+                  margin: 5,
+                  borderRadius: 10,
+                  padding: 10,
+                }}
+              >
+                <Picker
+                  selectedValue={gender}
+                  onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+                >
+                  <Picker.Item label="Male" value="Male" />
+                  <Picker.Item label="Female" value="Female" />
+                  <Picker.Item label="Others" value="Others" />
+                </Picker>
+              </View>
+            </View>
           </View>
-          <View style={{ flex: 1, marginBottom: 4 }}>
-            <CustomSelectInputByList
-              label={"Country"}
-              onValueChange={(val) => setCountry(val)}
-              items={countryData}
-            />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: 5,
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                  fontWeight: 500,
+                }}
+              >
+                Country
+              </Text>
+              <View
+                style={{
+                  // height: 50,
+                  width: Width / 2.3,
+                  backgroundColor: "#fff",
+                  justifyContent: "center",
+                  margin: 5,
+                  borderRadius: 10,
+                }}
+              >
+                <SelectList
+                  setSelected={(val) => setCountry(val)}
+                  data={countryData}
+                  save="value"
+                  label="Country"
+                  fontFamily="Sora"
+                />
+              </View>
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                  fontWeight: 500,
+                }}
+              >
+                Nationality
+              </Text>
+              <View
+                style={{
+                  // height: 50,
+                  width: Width / 2.3,
+                  backgroundColor: "#fff",
+                  justifyContent: "center",
+                  margin: 5,
+                  borderRadius: 10,
+                }}
+              >
+                <SelectList
+                  setSelected={(val) => setNationality(val)}
+                  data={countryData}
+                  save="value"
+                  label="Nationality"
+                  fontFamily="Sora"
+                />
+              </View>
+            </View>
           </View>
-          <View style={{ flex: 1, marginBottom: 4 }}>
-            <CustomSelectInputByList
-              label={"Nationality"}
-              onValueChange={(val) => setNationality(val)}
-              items={countryData}
-            />
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginTop: 5,
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  fontFamily: loaded ? "Sora-Medium" : null,
+                  marginLeft: 5,
+                }}
+              >
+                Password
+              </Text>
+              <TextInput
+                placeholder="Enter Strong Password"
+                value={password}
+                onChangeText={setPassword}
+                aria-label="Password"
+                style={{
+                  fontFamily: loaded ? "Sora" : null,
+                  fontSize: 15,
+                  height: 50,
+                  width: Width - 35,
+                  borderRadius: 10,
+                  margin: 5,
+                  padding: 10,
+                  backgroundColor: "#fff",
+                }}
+                secureTextEntry={true}
+              />
+            </View>
           </View>
-
-          {/* PASSWORD */}
-          <View style={{ flex: 1, marginBottom: 4 }}>
-            <CustomPasswordInput
-              label={"Password"}
-              text={password}
-              setText={setPassword}
-            />
-          </View>
-          <View style={{ flex: 1, marginBottom: 4 }}>
-            <CustomPasswordInput
-              label={"Confirm Password"}
-              text={confirmPassword}
-              setText={setConfirmPassword}
-            />
-          </View>
-
           <TouchableOpacity
             style={{
-              marginHorizontal: 10,
-              marginTop: 10,
-              marginBottom: 50,
+              margin: 20,
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -290,8 +493,7 @@ export const Register = (props) => {
             <View
               style={{
                 width: "100%",
-                height: 48,
-                backgroundColor: WinlyColors.primaryRed,
+                backgroundColor: "#FF3624",
                 justifyContent: "center",
                 alignItems: "center",
                 padding: 8,
