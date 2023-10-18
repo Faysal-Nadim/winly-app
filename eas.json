@@ -11,6 +11,12 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "winly995@gmail.com",
+        "ascAppId": "6469633086",
+        "appleTeamId": "3AT8ZWDKFK"
+      }
+    }
   }
 }
