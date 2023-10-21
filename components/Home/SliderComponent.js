@@ -34,12 +34,12 @@ export const SliderComponent = ({
     >
       <Image
         source={{ uri: imageUrl }}
-        style={{ height: 400, width: "100%", borderRadius: 12 }}
+        style={{ minHeight: 400, width: "100%", borderRadius: 12 }}
       />
 
       <View
         style={{
-          height: 215,
+          minHeight: 215,
           width: contentBoxWidth,
           padding: 16,
           marginHorizontal: 8,

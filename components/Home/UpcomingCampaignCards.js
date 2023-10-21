@@ -61,7 +61,7 @@ export const UpcomingCampaignCard = ({
           }}
         >
           <RegularView style={{ marginBottom: 2 }}>
-            <Text style={{ fontSize: 14, fontWeight: 800, marginBottom: 0 }}>
+            <Text style={{ fontSize: 12, fontWeight: 800, marginBottom: 0 }}>
               {title}
             </Text>
           </RegularView>

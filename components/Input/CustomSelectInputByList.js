@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import WinlyColors from "../../assets/WinlyColors";
 import * as Font from "expo-font";
@@ -10,6 +10,7 @@ export const CustomSelectInputByList = ({
   items,
   searchEnable,
   defaultOption,
+  placeholder,
 }) => {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
@@ -24,14 +25,21 @@ export const CustomSelectInputByList = ({
     });
   }, []);
 
-  // console.log(defaultOption);
+  // console.log(searchEnable == undefined ? "undi" : "veri");
+  // console.log(defaultOption != undefined);
   return (
-    <View style={styles.inputContainer}>
+    <View
+      style={{
+        marginVertical: 10,
+        marginHorizontal: 5,
+      }}
+    >
       <SelectList
-        search={searchEnable ? searchEnable : true}
+        search={searchEnable !== undefined ? searchEnable : true}
         setSelected={onValueChange}
         data={items}
-        defaultOption={defaultOption ? defaultOption : null}
+        defaultOption={defaultOption !== undefined ? defaultOption : null}
+        placeholder={placeholder !== undefined ? placeholder : "Select option"}
         save="value"
         boxStyles={{
           height: 50,
@@ -46,26 +54,23 @@ export const CustomSelectInputByList = ({
         }}
       />
 
-      <Text style={[styles.label, { fontFamily: loaded ? "Sora" : null }]}>
+      <Text
+        style={[
+          {
+            backgroundColor: WinlyColors.inputlabelBackground,
+            color: WinlyColors.inputlabelText,
+            paddingHorizontal: 5,
+
+            position: "absolute",
+            left: 10,
+            fontSize: 12,
+            top: -12,
+          },
+          { fontFamily: loaded ? "Sora" : null },
+        ]}
+      >
         {label}
       </Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  inputContainer: {
-    marginVertical: 10,
-    marginHorizontal: 5,
-  },
-  label: {
-    backgroundColor: WinlyColors.inputlabelBackground,
-    color: WinlyColors.inputlabelText,
-    paddingHorizontal: 5,
-
-    position: "absolute",
-    left: 10,
-    fontSize: 12,
-    top: -12,
-  },
-});

@@ -32,7 +32,7 @@ export const ExploreCampaignCard = ({ item, index }) => {
       style={{
         marginBottom: 8,
         marginHorizontal: 14,
-        height: 500,
+        minHeight: 500,
         width: "auto",
         backgroundColor: "#ffffff",
         borderRadius: 12,
@@ -62,7 +62,7 @@ export const ExploreCampaignCard = ({ item, index }) => {
           width: "100%",
           borderRadius: 12,
           borderColor: WinlyColors.offWhite,
-          borderWidth: 0.3,
+          borderWidth: 0.0,
         }}
       />
 
@@ -114,11 +114,18 @@ export const ExploreCampaignCard = ({ item, index }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          marginTop: 18,
+          marginTop: 24,
           marginBottom: 12,
+
+          // borderColor: WinlyColors.primaryRed,
+          // borderWidth: 3.0,
         }}
       >
-        <View>
+        <View
+          style={{
+            marginTop: -14,
+          }}
+        >
           <CustomProgressBar
             sold={sold}
             stock={stock}
@@ -132,6 +139,9 @@ export const ExploreCampaignCard = ({ item, index }) => {
             justifyContent: "flex-end",
             alignItems: "center",
             gap: 8,
+
+            // borderColor: WinlyColors.offWhite,
+            // borderWidth: 4.0,
           }}
         >
           <TouchableOpacity

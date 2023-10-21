@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Easing,
-  Animated,
-} from "react-native";
+import { View, TextInput, Easing, Animated } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
 import * as Font from "expo-font";
 
@@ -15,6 +8,9 @@ export const CustomTextInput = ({
   text,
   setText,
   keyboardType = "default",
+  placeholder,
+  inputFieldHeight,
+  multiline,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const labelPosition = new Animated.Value(text ? -16 : 10);
@@ -71,10 +67,33 @@ export const CustomTextInput = ({
   }, [text, isFocused]);
 
   return (
-    <View style={styles.inputContainer}>
+    <View
+      style={{
+        borderWidth: 1,
+        borderColor:
+          // isFocused
+          // ? WinlyColors.primaryRed
+          // :
+          WinlyColors.inputBorder,
+        marginVertical: 10,
+        marginHorizontal: 5,
+
+        borderRadius: 5,
+      }}
+    >
       <Animated.Text
         style={[
-          styles.label,
+          {
+            position: "absolute",
+            left: 10,
+            backgroundColor: WinlyColors.inputlabelBackground,
+            paddingHorizontal: 5,
+            color:
+              // isFocused
+              // ? WinlyColors.primaryRed
+              //   :
+              WinlyColors.inputlabelText,
+          },
           {
             top: labelPosition,
             fontSize: labelFontSize,
@@ -85,37 +104,23 @@ export const CustomTextInput = ({
         {label}
       </Animated.Text>
       <TextInput
-        style={[styles.input, { fontFamily: loaded ? "Sora" : null }]}
-        placeholder=""
+        style={[
+          {
+            height: inputFieldHeight !== undefined ? inputFieldHeight : 48,
+            paddingLeft: 10,
+            color: WinlyColors.inputlabelText,
+          },
+          { fontFamily: loaded ? "Sora" : null },
+        ]}
+        placeholder={placeholder !== undefined ? placeholder : ""}
+        multiline={multiline !== undefined ? multiline : false}
         value={text}
         onChangeText={setText}
         onFocus={handleFocus}
         onBlur={handleBlur}
         keyboardType={keyboardType} // Set the keyboardType prop
+        cursorColor={WinlyColors.primaryRed}
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  inputContainer: {
-    borderWidth: 1,
-    borderColor: WinlyColors.inputBorder,
-    marginVertical: 10,
-    marginHorizontal: 5,
-
-    borderRadius: 5,
-  },
-  label: {
-    position: "absolute",
-    left: 10,
-    backgroundColor: WinlyColors.inputlabelBackground,
-    paddingHorizontal: 5,
-    color: WinlyColors.inputlabelText,
-  },
-  input: {
-    height: 48,
-    paddingLeft: 10,
-    color: WinlyColors.inputlabelText,
-  },
-});

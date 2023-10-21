@@ -86,7 +86,7 @@ const CustomProgressBar = ({ sold, stock, status }) => {
           <RegularView>
             <Text
               style={{
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: 800,
               }}
             >
@@ -125,7 +125,7 @@ const CustomProgressBar = ({ sold, stock, status }) => {
           <RegularView>
             <Text
               style={{
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: 800,
               }}
             >
