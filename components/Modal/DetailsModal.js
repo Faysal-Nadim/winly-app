@@ -9,8 +9,9 @@ import {
   Dimensions,
 } from "react-native";
 import WinlyColors from "../../assets/WinlyColors";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/actions";
+import { useNavigation } from "@react-navigation/native";
 
 /**
  * @author
@@ -52,7 +53,7 @@ const CustomButtonHandler = ({
         justifyContent: "center",
       }}
       onPress={onPress}
-      disabled={disabledCondition}
+      disabled={disabledCondition ? disabledCondition : false}
     >
       <Text
         style={{
@@ -72,6 +73,8 @@ export const DetailsModal = ({ detailsData, setModalVisible }) => {
   // QUANTITY HANDELERS
 
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state?.auth);
+  const navigation = useNavigation();
 
   const [productQty, setProductQty] = useState(1);
   const handleIncreaseProductQty = () => {
@@ -269,13 +272,19 @@ export const DetailsModal = ({ detailsData, setModalVisible }) => {
           {/* ADD TO CART, MODAL CLOSE BTN */}
           <View style={{ flexDirection: "row", gap: 4 }}>
             {status?.status ? null : (
-              <CustomButtonHandler
-                onPress={handleAddToCart}
-                disabledCondition={false}
-                btnText={"Add Cart"}
-                bgColor={WinlyColors.primaryRed}
-                textColor={WinlyColors.white}
-              />
+              <>
+                <CustomButtonHandler
+                  onPress={
+                    auth?.authenticate
+                      ? handleAddToCart
+                      : () => navigation.navigate("Login")
+                  }
+                  disabledCondition={false}
+                  btnText={auth?.authenticate ? "Add Cart" : "Login to Buy"}
+                  bgColor={WinlyColors.primaryRed}
+                  textColor={WinlyColors.white}
+                />
+              </>
             )}
 
             <CustomButtonHandler
