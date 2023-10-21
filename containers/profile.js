@@ -10,8 +10,10 @@ import {
   Button,
 } from "react-native";
 import * as Font from "expo-font";
-import { Picker } from "@react-native-picker/picker";
-import { SelectList } from "react-native-dropdown-select-list";
+import { ScrollView } from "react-native-virtualized-view";
+import { CustomTextInput } from "../components/Input/CustomTextInput";
+import { CustomSelectInputByList } from "../components/Input/CustomSelectInputByList";
+import { TouchableOpacity } from "react-native";
 
 /**
  * @author
@@ -19,8 +21,24 @@ import { SelectList } from "react-native-dropdown-select-list";
  **/
 
 const Width = Dimensions.get("window").width;
-const countryData = require("../assets/Country.json");
+
 const data = require("../assets/dialcode.json");
+
+const countryData = require("../assets/Country.json");
+const dialCodeData = require("../assets/dialcode.json");
+const genderData = [
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
+];
+
+const getDefaultDialCode = (userDialCode) => {
+  let defaultDialCode = null;
+  if (userDialCode?.includes("+")) {
+    userDialCode = userDialCode?.split("+")[1];
+  }
+  defaultDialCode = dialCodeData.find((c) => c?.value == userDialCode);
+  return defaultDialCode;
+};
 
 export const Profile = ({ route }) => {
   const user = route.params.user;
@@ -35,11 +53,15 @@ export const Profile = ({ route }) => {
   const [phone, setPhone] = useState(user?.phone);
   const [dialCode, setDialCode] = useState(user?.dialCode);
 
-  const handleDialCode = (val) => {
-    setDialCode(val);
-  };
+  const defaultDialCode = getDefaultDialCode(user?.dialCode);
 
-  const defaultDialCode = data.filter((c) => c.value === user?.dialCode)[0];
+  const defaultGender = genderData.find((c) => c?.value == user?.gender);
+  const defaultCountry = countryData.find((c) => c?.value == user?.country);
+  const defaultNationality = countryData.find(
+    (c) => c?.value === user?.nationality
+  );
+
+  // console.log(user?.dialCode?.includes("+"));
 
   useEffect(() => {
     Font.loadAsync({
@@ -57,301 +79,121 @@ export const Profile = ({ route }) => {
     <SafeAreaView
       style={{
         flex: 1,
-        margin: 10,
+        margin: 0,
       }}
     >
-      <View style={{}}>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-          }}
-        >
-          <View>
-            <Text
-              style={{
-                fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-              }}
-            >
-              First Name
-            </Text>
-            <TextInput
-              value={firstName.toUpperCase()}
-              onChangeText={setFirstName}
-              style={{
-                fontFamily: loaded ? "Sora" : null,
-                fontSize: 15,
-                height: 50,
-                width: Width / 2.3,
-                borderRadius: 10,
-                margin: 5,
-                padding: 10,
-                backgroundColor: "#fff",
-              }}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          backgroundColor: "#fff",
+          paddingHorizontal: 20,
+          paddingVertical: 24,
+        }}
+      >
+        <View style={{ flex: 1, marginBottom: 4 }}>
+          <CustomTextInput
+            label={"First Name"}
+            text={firstName}
+            setText={setFirstName}
+          />
+        </View>
+        <View style={{ flex: 1, marginBottom: 4 }}>
+          <CustomTextInput
+            label={"Last Name"}
+            text={lastName}
+            setText={setLastName}
+          />
+        </View>
+
+        <View style={{ flex: 1, marginBottom: 4 }}>
+          <CustomTextInput label={"Email"} text={email} setText={setEmail} />
+        </View>
+        <View style={{ flexDirection: "row", marginBottom: 4 }}>
+          <View style={{ flex: 0.4 }}>
+            <CustomSelectInputByList
+              label={"Dial Code"}
+              onValueChange={(val) => setDialCode(val)}
+              items={dialCodeData}
+              defaultOption={defaultDialCode}
             />
           </View>
-          <View>
-            <Text
-              style={{
-                fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-              }}
-            >
-              Last Name
-            </Text>
-            <TextInput
-              value={lastName.toUpperCase()}
-              onChangeText={setLastName}
-              style={{
-                fontFamily: loaded ? "Sora" : null,
-                fontSize: 15,
-                height: 50,
-                width: Width / 2.3,
-                borderRadius: 10,
-                margin: 5,
-                padding: 10,
-                backgroundColor: "#fff",
-              }}
+
+          <View style={{ flex: 0.6 }}>
+            <CustomTextInput
+              label={"Phone"}
+              text={phone}
+              setText={setPhone}
+              keyboardType="phone-pad"
             />
           </View>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            marginTop: 5,
-          }}
-        >
-          <View>
-            <Text
-              style={{
-                fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-              }}
-            >
-              Email
-            </Text>
-            <TextInput
-              value={email}
-              onChangeText={setEmail}
-              aria-label="Email"
-              style={{
-                fontFamily: loaded ? "Sora" : null,
-                fontSize: 15,
-                height: 50,
-                width: Width - 35,
-                borderRadius: 10,
-                margin: 5,
-                padding: 10,
-                backgroundColor: "#fff",
-              }}
-            />
-          </View>
+        <View style={{ flex: 1, marginBottom: 4 }}>
+          <CustomTextInput
+            label={"Date of Birth (dd/mm/yyyy) (Optional)"}
+            text={dob}
+            setText={setDob}
+            keyboardType="phone-pad"
+          />
         </View>
-        <View
+
+        <View style={{ flex: 1, marginBottom: 4 }}>
+          <CustomSelectInputByList
+            label={"Gender (Optional)"}
+            onValueChange={(val) => setGender(val)}
+            items={genderData}
+            searchEnable={false}
+            defaultOption={defaultGender}
+          />
+        </View>
+        <View style={{ flex: 1, marginBottom: 4 }}>
+          <CustomSelectInputByList
+            label={"Country"}
+            onValueChange={(val) => setCountry(val)}
+            items={countryData}
+            defaultOption={defaultCountry}
+          />
+        </View>
+        <View style={{ flex: 1, marginBottom: 4 }}>
+          <CustomSelectInputByList
+            label={"Nationality"}
+            onValueChange={(val) => setNationality(val)}
+            items={countryData}
+            defaultOption={defaultNationality}
+          />
+        </View>
+
+        <TouchableOpacity
           style={{
-            flexDirection: "row",
+            marginHorizontal: 10,
+            marginTop: 10,
+            marginBottom: 50,
+            justifyContent: "center",
             alignItems: "center",
-            marginTop: 5,
-            justifyContent: "space-between",
           }}
+          // onPress={handleRegistration}
         >
-          <View>
+          <View
+            style={{
+              width: "100%",
+              height: 48,
+              backgroundColor: WinlyColors.primaryRed,
+              justifyContent: "center",
+              alignItems: "center",
+              padding: 8,
+              borderRadius: 5,
+            }}
+          >
             <Text
               style={{
+                color: "#fff",
                 fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-                fontWeight: 500,
               }}
             >
-              Dial Code
+              Delete Account
             </Text>
-            <View
-              style={{
-                // height: 150,
-                width: Width / 2.3,
-                backgroundColor: "#fff",
-                justifyContent: "center",
-                margin: 5,
-                borderRadius: 10,
-              }}
-            >
-              <SelectList
-                setSelected={(val) => handleDialCode(val)}
-                data={data}
-                save="value"
-                label="DialCode"
-                defaultOption={defaultDialCode}
-                fontFamily="Sora"
-              />
-            </View>
           </View>
-          <View>
-            <Text
-              style={{
-                fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-                fontWeight: 500,
-              }}
-            >
-              Phone Number
-            </Text>
-            <TextInput
-              value={phone}
-              onChangeText={setPhone}
-              style={{
-                fontFamily: loaded ? "Sora" : null,
-                fontSize: 15,
-                height: 50,
-                width: Width / 2.3,
-                borderRadius: 10,
-                margin: 5,
-                padding: 10,
-                backgroundColor: "#fff",
-              }}
-            />
-          </View>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            marginTop: 5,
-          }}
-        >
-          <View>
-            <Text
-              style={{
-                fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-              }}
-            >
-              Date of Birth
-            </Text>
-            <TextInput
-              value={dob}
-              onChangeText={setDob}
-              style={{
-                fontFamily: loaded ? "Sora" : null,
-                fontSize: 15,
-                height: 50,
-                width: Width / 2.3,
-                borderRadius: 10,
-                margin: 5,
-                padding: 10,
-                backgroundColor: "#fff",
-              }}
-            />
-          </View>
-          <View>
-            <Text
-              style={{
-                fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-              }}
-            >
-              Gender
-            </Text>
-            <View
-              style={{
-                height: 50,
-                width: Width / 2.3,
-                backgroundColor: "#fff",
-                justifyContent: "center",
-                margin: 5,
-                borderRadius: 10,
-                padding: 10,
-              }}
-            >
-              <Picker
-                selectedValue={gender}
-                onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-              >
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
-                <Picker.Item label="Others" value="Others" />
-              </Picker>
-            </View>
-          </View>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: 5,
-            justifyContent: "space-between",
-          }}
-        >
-          <View>
-            <Text
-              style={{
-                fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-                fontWeight: 500,
-              }}
-            >
-              Country
-            </Text>
-            <View
-              style={{
-                // height: 50,
-                width: Width / 2.3,
-                backgroundColor: "#fff",
-                justifyContent: "center",
-                margin: 5,
-                borderRadius: 10,
-              }}
-            >
-              <SelectList
-                setSelected={(val) => setCountry(val)}
-                data={countryData}
-                save="value"
-                label="Country"
-                defaultOption={
-                  countryData.filter((i) => i.value === country)[0]
-                }
-                fontFamily="Sora"
-              />
-            </View>
-          </View>
-          <View>
-            <Text
-              style={{
-                fontFamily: loaded ? "Sora-Medium" : null,
-                marginLeft: 5,
-                fontWeight: 500,
-              }}
-            >
-              Nationality
-            </Text>
-            <View
-              style={{
-                // height: 50,
-                width: Width / 2.3,
-                backgroundColor: "#fff",
-                justifyContent: "center",
-                margin: 5,
-                borderRadius: 10,
-              }}
-            >
-              <SelectList
-                setSelected={(val) => setNationality(val)}
-                data={countryData}
-                save="value"
-                label="Nationality"
-                defaultOption={
-                  countryData.filter((i) => i.value === nationality)[0]
-                }
-                fontFamily="Sora"
-              />
-            </View>
-          </View>
-        </View>
-      </View>
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };

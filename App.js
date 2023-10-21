@@ -219,6 +219,15 @@ export default function App() {
                   headerShown: false,
                 }}
               /> */}
+
+              <Stack.Screen
+                name="MyTab"
+                component={MyTabs}
+                options={{
+                  headerShown: false,
+                }}
+              />
+
               <Stack.Screen
                 name="Login"
                 component={Login}

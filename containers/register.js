@@ -179,35 +179,26 @@ export const Register = (props) => {
         </View>
 
         <View>
-          <View style={{ flexDirection: "row", marginBottom: 4 }}>
-            <View style={{ flex: 1 }}>
-              <CustomTextInput
-                label={"First Name"}
-                text={firstName}
-                setText={setFirstName}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <CustomTextInput
-                label={"Last Name"}
-                text={lastName}
-                setText={setLastName}
-              />
-            </View>
+          {/* <View style={{ flexDirection: "row", marginBottom: 4 }}></View> */}
+
+          <View style={{ flex: 1, marginBottom: 4 }}>
+            <CustomTextInput
+              label={"First Name"}
+              text={firstName}
+              setText={setFirstName}
+            />
+          </View>
+          <View style={{ flex: 1, marginBottom: 4 }}>
+            <CustomTextInput
+              label={"Last Name"}
+              text={lastName}
+              setText={setLastName}
+            />
           </View>
 
           <View style={{ flex: 1, marginBottom: 4 }}>
             <CustomTextInput label={"Email"} text={email} setText={setEmail} />
           </View>
-          <View style={{ flex: 1, marginBottom: 4 }}>
-            <CustomTextInput
-              label={"Date of Birth (dd/mm/yyyy)"}
-              text={dob}
-              setText={setDob}
-              keyboardType="phone-pad"
-            />
-          </View>
-
           <View style={{ flexDirection: "row", marginBottom: 4 }}>
             <View style={{ flex: 0.4 }}>
               <CustomSelectInputByList
@@ -227,20 +218,20 @@ export const Register = (props) => {
             </View>
           </View>
 
-          {/* <View style={{ flex: 1 }}>
-            <CustomSelectInput
-              label={"Gender"}
-              onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-              selectedValue={gender}
-              items={genderData}
+          <View style={{ flex: 1, marginBottom: 4 }}>
+            <CustomTextInput
+              label={"Date of Birth (Optional)"}
+              text={dob}
+              setText={setDob}
+              keyboardType="phone-pad"
             />
-          </View> */}
+          </View>
 
           {/* GENDER COUNTRY NATIONALITY */}
 
           <View style={{ flex: 1, marginBottom: 4 }}>
             <CustomSelectInputByList
-              label={"Gender"}
+              label={"Gender (Optional)"}
               onValueChange={(val) => setGender(val)}
               items={genderData}
               searchEnable={false}

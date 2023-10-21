@@ -9,6 +9,7 @@ export const CustomSelectInputByList = ({
   onValueChange,
   items,
   searchEnable,
+  defaultOption,
 }) => {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
@@ -22,12 +23,15 @@ export const CustomSelectInputByList = ({
       setLoaded(true);
     });
   }, []);
+
+  // console.log(defaultOption);
   return (
     <View style={styles.inputContainer}>
       <SelectList
         search={searchEnable ? searchEnable : true}
         setSelected={onValueChange}
         data={items}
+        defaultOption={defaultOption ? defaultOption : null}
         save="value"
         boxStyles={{
           height: 50,

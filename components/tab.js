@@ -15,6 +15,7 @@ import { Account } from "../containers/account";
 import { useSelector } from "react-redux";
 import { Winner } from "../containers/winners";
 import { AboutUs } from "../containers/about-us";
+import { Login } from "../containers/login";
 
 const Tab = createBottomTabNavigator();
 
@@ -44,10 +45,12 @@ const CompanyTab = ({ children, onPress }) => (
 export const MyTabs = () => {
   const [loaded, setLoaded] = useState(false);
 
-  const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state?.cart?.cart);
+  const auth = useSelector((state) => state?.auth);
+  // console.log(auth.authenticate);
 
   const totalItem =
-    cart?.cartItems?.length > 0
+    auth?.authenticate && cart?.cartItems?.length > 0
       ? Object.keys(cart.cartItems).reduce(function (qty, key) {
           return qty + cart.cartItems[key].qty;
         }, 0)
@@ -164,7 +167,7 @@ export const MyTabs = () => {
       />
       <Tab.Screen
         name="Cart"
-        component={Cart}
+        component={auth?.authenticate ? Cart : Login}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -182,31 +185,33 @@ export const MyTabs = () => {
                   tintColor: focused ? "#FF3624" : "#748c94",
                 }}
               />
-              <View
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  top: -10,
-                  left: 14,
-                  backgroundColor: "#FF3624",
-                  height: 25,
-                  width: 25,
-                  borderRadius: 20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderColor: "#fff",
-                  borderWidth: 2,
-                }}
-              >
-                <Text
+              {totalItem > 0 && (
+                <View
                   style={{
-                    fontFamily: loaded ? "Sora" : null,
-                    color: "#fff",
+                    position: "absolute",
+                    right: 0,
+                    top: -10,
+                    left: 14,
+                    backgroundColor: "#FF3624",
+                    height: 25,
+                    width: 25,
+                    borderRadius: 20,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderColor: "#fff",
+                    borderWidth: 2,
                   }}
                 >
-                  {totalItem}
-                </Text>
-              </View>
+                  <Text
+                    style={{
+                      fontFamily: loaded ? "Sora" : null,
+                      color: "#fff",
+                    }}
+                  >
+                    {totalItem}
+                  </Text>
+                </View>
+              )}
               <Text
                 style={{
                   color: focused ? "#FF3624" : "#748c94",
@@ -223,7 +228,7 @@ export const MyTabs = () => {
 
       <Tab.Screen
         name="Account"
-        component={Account}
+        component={auth?.authenticate ? Account : Login}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
