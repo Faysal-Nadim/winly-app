@@ -12,6 +12,7 @@ import WinlyColors from "../../assets/WinlyColors";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/actions";
 import { useNavigation } from "@react-navigation/native";
+import { RegularView } from "../text/regular";
 
 /**
  * @author
@@ -228,6 +229,16 @@ export const DetailsModal = ({ detailsData, setModalVisible }) => {
                 }
               />
             </View>
+          </View>
+          <View>
+            <RegularView style={{ fontSize: 10 }}>
+              {"\n"}
+              Important Notes: {"\n"}-You must be of legal age and in compliance
+              with local regulations to participate in our prize draws. {"\n"}
+              -Each draw is limited by time and quantity. {"\n"}-All entries and
+              payments are final. We do not offer refunds for entries once
+              they've been processed.
+            </RegularView>
           </View>
         </View>
 
