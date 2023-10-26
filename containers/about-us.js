@@ -97,10 +97,10 @@ export const AboutUs = (props) => {
             <MediumView>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 15,
                 }}
               >
-                Winly Monthly Draw - Win Great Prizes
+                Winly Monthly Draw - Rules & Regulations
               </Text>
             </MediumView>
           </View>
@@ -109,7 +109,7 @@ export const AboutUs = (props) => {
           <View key={i}>
             <View style={{ marginBottom: 15 }}>
               <BoldView>
-                <Text style={{ fontSize: 25, flex: 1, textAlign: "justify" }}>
+                <Text style={{ fontSize: 23, flex: 1, textAlign: "justify" }}>
                   {section.section_title}
                 </Text>
               </BoldView>

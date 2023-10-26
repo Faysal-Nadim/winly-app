@@ -10,6 +10,7 @@ import {
   Button,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import * as Font from "expo-font";
 import { CustomTextInput } from "../components/Input/CustomTextInput";
@@ -20,6 +21,7 @@ import axiosInstance from "../redux/helpers/axios";
 import Toast from "react-native-toast-message";
 import { useDispatch } from "react-redux";
 import { signout } from "../redux/actions";
+import { CustomPasswordInput } from "../components/Input/CustomPasswordInput";
 
 /**
  * @author
@@ -250,7 +252,7 @@ export const Profile = ({ route }) => {
           }}
         >
           <View style={{ width: Width - 50 }}>
-            <CustomTextInput
+            <CustomPasswordInput
               label={"Password"}
               text={password}
               setText={setPassword}
@@ -274,6 +276,26 @@ export const Profile = ({ route }) => {
           </TouchableOpacity>
         </View>
       </Modal>
+      {loading && (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "#f3f3f3",
+            opacity: 0.5,
+          }}
+        >
+          <Image
+            source={require("../assets/loading.gif")}
+            style={{ height: 40, width: 40 }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
