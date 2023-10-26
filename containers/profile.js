@@ -8,12 +8,18 @@ import {
   Dimensions,
   TextInput,
   Button,
+  TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import * as Font from "expo-font";
-import { ScrollView } from "react-native-virtualized-view";
 import { CustomTextInput } from "../components/Input/CustomTextInput";
 import { CustomSelectInputByList } from "../components/Input/CustomSelectInputByList";
-import { TouchableOpacity } from "react-native";
+import Modal from "react-native-modal";
+import { MediumView } from "../components/text/medium";
+import axiosInstance from "../redux/helpers/axios";
+import Toast from "react-native-toast-message";
+import { useDispatch } from "react-redux";
+import { signout } from "../redux/actions";
 
 /**
  * @author
@@ -61,7 +67,10 @@ export const Profile = ({ route }) => {
     (c) => c?.value === user?.nationality
   );
 
-  // console.log(user?.dialCode?.includes("+"));
+  const [password, setPassword] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     Font.loadAsync({
@@ -74,6 +83,31 @@ export const Profile = ({ route }) => {
       setLoaded(true);
     });
   }, []);
+
+  const handleDeleteAccount = async () => {
+    setModalVisible(false);
+    setLoading(true);
+    try {
+      const data = { password: password, email: email };
+      const res = await axiosInstance.post("/user/auth/profile/delete", data);
+      if (res.status === 201) {
+        Toast.show({
+          type: "success",
+          text1: "Account Deleted Successfully!",
+          visibilityTime: 1500,
+        });
+        dispatch(signout());
+        setLoading(false);
+      }
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: `${error.response.data.msg}`,
+        visibilityTime: 1500,
+      });
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView
@@ -170,7 +204,7 @@ export const Profile = ({ route }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          // onPress={handleRegistration}
+          onPress={() => setModalVisible(true)}
         >
           <View
             style={{
@@ -194,6 +228,52 @@ export const Profile = ({ route }) => {
           </View>
         </TouchableOpacity>
       </ScrollView>
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={"slideInUp"}
+        animationInTiming={500}
+        animationOut={"slideOutDown"}
+        animationOutTiming={800}
+        // backdropTransitionOutTiming={1000}
+        onBackButtonPress={() => setModalVisible(false)}
+        onBackdropPress={() => setModalVisible(false)}
+      >
+        <View
+          style={{
+            backgroundColor: "white",
+            padding: 5,
+            height: 200,
+            width: Width - 40,
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10,
+          }}
+        >
+          <View style={{ width: Width - 50 }}>
+            <CustomTextInput
+              label={"Password"}
+              text={password}
+              setText={setPassword}
+            />
+          </View>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "black",
+              height: 40,
+              width: "100%",
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 10,
+            }}
+            onPress={handleDeleteAccount}
+          >
+            <MediumView style={{ color: "white", fontSize: 16 }}>
+              Confirm Deletion
+            </MediumView>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

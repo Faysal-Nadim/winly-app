@@ -2,7 +2,7 @@
   "expo": {
     "name": "Winly",
     "slug": "winly-app",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,8 @@
         "NSCameraUsageDescription": "This app uses the camera to scan barcodes."
       },
       "supportsTablet": true,
-      "bundleIdentifier": "com.aleehatech.winlyapp"
+      "bundleIdentifier": "com.aleehatech.winlyapp",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {

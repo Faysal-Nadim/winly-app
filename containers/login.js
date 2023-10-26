@@ -216,7 +216,7 @@ export const Login = (props) => {
             fontFamily: loaded ? "Sora" : null,
           }}
         >
-          Version 1.0.1 (Beta)
+          Version 1.0.4 (Beta)
         </Text>
       </View>
       {auth?.loading && (

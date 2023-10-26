@@ -19,35 +19,54 @@ import { MediumView } from "../components/text/medium";
 
 const aboutUs = [
   {
-    section_title: "About Us",
+    section_title: "Eligibility",
     paragraph: [
-      "Welcome to Winly – Where Dreams Turn into Reality!",
-      "At Winly, we believe in making dreams come true. We're not just a platform; we're a gateway to endless possibilities and exciting opportunities. Our journey began with a simple yet powerful vision: to transform dreams into tangible moments of triumph. As we set out on this path, we are driven by the desire to offer a transformative experience that goes beyond the ordiinary",
-      "Established with the resolute mission of providing everyone with a chance to win remarkable prizes, we've created a space where aspirations flourish and luck finds its way to your doorstep. We understand that each dream is unique, and each aspiration deserves the opportunity to bloom. It's not just about the prizes; it's about nurturing the anticipation, the thrill, and the sheer joy that comes with the possibility of turning your desires into reality.",
-      "But Winly is more than a mere platform; it's a community that thrives on shared excitement and shared successes. Every draw is an event that brings us closer together, uniting dreamers from different corners of the world in the pursuit of happiness. And when those dreams are fulfilled, when the winners' smiles light up our screens, that's when we truly celebrate.",
-      "Whether you're chasing that dream vacation, the latest tech gadget, or a simple moment of unexpected delight, Winly stands as your partner in the journey. With every draw, every ticket, and every smile of a winner, we embrace the concept of winning and celebrate the endless potential that resides within each dreamer.",
-      "Welcome to Winly – where your dreams are our mission, and your victories are our celebration. Together, let's keep dreaming and achieving, because with Winly, the possibilities are boundless.",
+      "The Winly LLC Campaigns (the Campaign) is open to all who are 18 years of age or older at the time of entry.",
     ],
   },
   {
-    section_title: "Our Mission",
+    section_title: "Campaign Period",
     paragraph: [
-      "Our mission is clear: to bring joy, excitement, and the thrill of winning to people from all walks of life. We're dedicated to creating a platform that's fair, transparent, and accessible to everyone. Through our meticulously designed draws, we're here to change lives, spread happiness, and give you a reason to look forward to every draw.",
+      "The Campaign beginning and ending time is mentioned in the Campaign Details Page (the Campaign Period).",
     ],
   },
   {
-    section_title: "Why Choose Winly?",
+    section_title: "How to Enter",
     paragraph: [
-      "Affordable Excitement: At Winly, we believe that winning shouldn't be reserved for the lucky few. Our draws are affordable, ensuring that everyone has a shot at taking home incredible prizes.",
-      "Transparency: We're committed to transparency in all our processes. You'll know exactly how our draws work, how winners are chosen, and how prizes are distributed. Your trust is our priority.",
-      "Diverse Prizes: From cash rewards to electronic gadgets, luxury getaways to valuable vouchers, our prizes span a wide range of categories. There's something for everyone to dream about.",
-      "User-Friendly Experience: Our platform is designed with you in mind. Navigating through draws, purchasing tickets, and tracking results is intuitive and hassle-free.",
+      "To enter the Campaign, users must use our offical website or the Winly LLC mobile app. No other method of entry will be accepted.",
+      "There is no limitation per person",
     ],
   },
   {
-    section_title: "Join Us Today",
+    section_title: "Prizes",
     paragraph: [
-      "Whether you're chasing a thrilling win or simply exploring the excitement, Winly is your ticket to a world where your dreams meet opportunity. Join us on this journey of fun, excitement, and the chance to win big. Let's celebrate the joy of winning together at Winly!",
+      "The prize(s) and their respective values will be specified within the Campaign description or on the Winly LLC mobile app.",
+    ],
+  },
+  {
+    section_title: "Winner Selection",
+    paragraph: [
+      "The winner(s) will be selected at random from all eligible entries received during the Campaign Period. The odds of winning depend on the number of eligible entries received.",
+    ],
+  },
+  {
+    section_title: "Winner Notification",
+    paragraph: [
+      "The winner(s) will be notified through the Winly LLC app, via email, or other contact information provided at the time of entry. If a potential winner does not respond to the notification within [number] days, an alternate winner may be selected.",
+    ],
+  },
+  {
+    section_title: "General Conditions",
+    paragraph: [
+      "1. By participating in this Campaign, entrants agree to abide by these Official Rules and the decisions of Winly LLC, which are final and binding.",
+      "2. This Campaign is in no way sponsored, endorsed, or administered by, or associated with Apple Inc. Any questions, comments, or complaints regarding the Campaign should be directed to Winly LLC and not to Apple Inc.",
+      "3. Winly LLC reserves the right to modify or cancel the Campaign at any time and for any reason.",
+    ],
+  },
+  {
+    section_title: "Publicity",
+    paragraph: [
+      "By participating in the Campaign, you grant Winly LLC the right to use your name, likeness, and submission for promotional and advertising purposes without additional compensation.",
     ],
   },
 ];
