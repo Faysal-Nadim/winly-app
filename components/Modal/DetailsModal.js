@@ -233,8 +233,15 @@ export const DetailsModal = ({ detailsData, setModalVisible }) => {
           <View>
             <RegularView style={{ fontSize: 10 }}>
               {"\n"}
-              Important Notes: {"\n"}-You must be of legal age and in compliance
-              with local regulations to participate in our prize draws. {"\n"}
+              <Text style={{ color: "red", fontSize: 15 }}>
+                Important Notes:
+              </Text>{" "}
+              {"\n"}- This Campaign is in no way sponsored, endorsed, or
+              administered by, or associated with Apple Inc. Any questions,
+              comments, or complaints regarding the Campaign should be directed
+              to Winly LLC and not to Apple Inc.{"\n"} -You must be of legal age
+              and in compliance with local regulations to participate in our
+              prize draws. {"\n"}
               -Each draw is limited by time and quantity. {"\n"}-All entries and
               payments are final. We do not offer refunds for entries once
               they've been processed.
