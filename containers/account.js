@@ -418,7 +418,7 @@ export const Account = (props) => {
             alignItems: "center",
           }}
         >
-          <RegularView>Version 1.0.4 (Beta)</RegularView>
+          <RegularView>Version 1.0.4</RegularView>
         </View>
       </ScrollView>
       {auth?.loading && (

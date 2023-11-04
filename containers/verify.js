@@ -150,7 +150,7 @@ export const Verify = ({ route }) => {
           marginTop: 20,
         }}
       >
-        <RegularView>Version 1.0.4 (Beta)</RegularView>
+        <RegularView>Version 1.0.4</RegularView>
       </View>
       {auth?.loading && (
         <View
