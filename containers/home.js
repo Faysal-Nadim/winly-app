@@ -22,12 +22,12 @@ const images = [
 export const Home = (props) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCampaign());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getCampaign());
+  // }, []);
 
   const auth = useSelector((state) => state.auth);
-  const campaign = useSelector((state) => state.campaign);
+  const campaign = require("../assets/data.json");
 
   useEffect(() => {
     if (auth.authenticate) {
@@ -71,9 +71,7 @@ export const Home = (props) => {
 
             <View style={{ marginVertical: 16 }} />
 
-            <ExploreCampaigns
-              data={campaign?.campaigns?.allCampaigns?.reverse().slice()}
-            />
+            <ExploreCampaigns data={campaign?.campaigns?.allCampaigns} />
             <View style={{ marginVertical: 36 }} />
           </View>
         </ScrollView>
